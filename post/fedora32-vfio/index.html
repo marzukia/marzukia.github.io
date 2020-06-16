@@ -179,7 +179,7 @@
     - 512GB SSD
     - 256GB SSD
     - 2TB HD</code></pre></div>
-<p>For my Windows VM, I used a dedicated SSH as its storage volume, and mounted it raw rather than using a virtual disk. This is to improve the performance of the VM.</p>
+<p>For my Windows VM, I used a dedicated SSD as its storage volume, and mounted it raw rather than using a virtual disk. This is to improve the performance of the VM.</p>
 <h1 id="but-how">But&hellip; How?</h1>
 <p>My key reference while doing this setup was the following <a href="https://forum.level1techs.com/t/vfio-in-2019-fedora-workstation-general-guide-though-branch-draft/145106">BansheeHero&rsquo;s excellent guide</a>. Whilst the post itself is not complete, and good chunks of it are cut paste from a different thread, it outlines the general steps required to accomplish the setup.</p>
 <p>However&hellip; there were some important steps in this guide that weren&rsquo;t made clear which resulted  in me wasting a material amount of time. In this post I will try make these key steps clearer.</p>
@@ -296,7 +296,7 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <p>Once the above are set, we&rsquo;re ready to start. Hit apply and let Windows 10 install.</p>
 <p><strong>Note</strong>: We&rsquo;ll need to tweak CPU settings and topology but we&rsquo;ll get to that in the optimisation section.</p>
 <h3 id="hiding-the-hypervisor">Hiding the Hypervisor</h3>
-<p>There&rsquo;s a fair few tweaks we need to do in order to get the VM to work with our NVIDIA card. For whatever reason, NVIDIA does not allow their drivers to be used inside emulations. Lucky for us, we can the fact that our VM is a emulation by modifying it&rsquo;s hypervisor.</p>
+<p>There&rsquo;s a fair few tweaks we need to do in order to get the VM to work with our NVIDIA card. For whatever reason, NVIDIA does not allow their drivers to be used inside emulations. Luckily for us, we can hide the fact that our VM is a emulation by modifying our virtual machine&rsquo;s settings.</p>
 <p>Open up your VM with the following command, make sure you change the VM to the appropriate name:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10</code></pre></div>
 <p>You need to edit your VM configuration to include the following elements:</p>
