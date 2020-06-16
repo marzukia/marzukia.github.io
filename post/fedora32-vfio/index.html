@@ -347,7 +347,7 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <p>Virt-manager&rsquo;s default allocation of vCPUs is subpar and is not great. In order to get acceptable performance from the virtual machine we need to ensure we allocate## Tuning your Virtual Machine sane CPUs in the configuration.</p>
 <p>In my case, doing this configuration doubled the benchmarks of my virtual machines CPU.</p>
 <h3 id="understanding-your-cores">Understanding your Cores</h3>
-<p>I use <code>lstopo</code>in this section. If you have something else you prefer to use, you can use that too.</p>
+<p>I use <code>lstopo</code> in this section. If you have something else you prefer to use, you can use that too.</p>
 <p>In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI 41:00.0</code>. Now that I know which cores to use, I can explicitly allocate them in my virtual machine&rsquo;s configuration.</p>
 <h3 id="modifying-your-settings">Modifying your Settings</h3>
 <p>Using the following command again:</p>
