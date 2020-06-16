@@ -326,9 +326,7 @@
             );
 
             <span style="color:#000;font-weight:bold">if</span> (user == <span style="color:#000;font-weight:bold">null</span>)
-            {
                 <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">null</span>;
-            }
 
             <span style="color:#458;font-weight:bold">var</span> hashedPassword = hasher.HashPassword(password, user.Salt);
 
@@ -365,9 +363,7 @@
             );
 
             <span style="color:#000;font-weight:bold">if</span> (validUser != <span style="color:#000;font-weight:bold">null</span>)
-            {
                 <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">null</span>;
-            }
 
             <span style="color:#458;font-weight:bold">var</span> hasher = <span style="color:#000;font-weight:bold">new</span> PasswordHasher();
             <span style="color:#458;font-weight:bold">var</span> salt = hasher.GenerateSalt();
