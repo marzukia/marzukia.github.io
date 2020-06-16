@@ -330,7 +330,7 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <h3 id="installing-nvidia-drivers">Installing NVIDIA Drivers</h3>
 <p>You can now install NVIDIA drivers, if all went well above you will not see a &lsquo;Error 43&rsquo; when you open Device Manager.</p>
 <h3 id="installing-barrier">Installing Barrier</h3>
-<p>Once you disable Spice you won&rsquo;t be able to use your keyboard without passing through a USB po&quot;1&rdquo; cores=&quot;4&rdquo; threads=&quot;2&rdquo;/&gt;rt or doing a RDP.</p>
+<p>Once you disable Spice you won&rsquo;t be able to use your keyboard without passing through a USB port or doing a RDP.</p>
 <p>At this point you should install Barrier or something similar. You can find the GitHub repo <a href="https://github.com/debauchee/barrier">here</a>. Barrier is a fork of Synergy - it&rsquo;s awesome. Syngery has terrible support for Fedora.</p>
 <p><strong>Note</strong>: This a future note for future you, when you try to play games later you may find that your mouse gets locked at the center of the screens and madly spins/rotates - to fix this you&rsquo;ll need to change your Barrier server settings to the following:</p>
 <ol>
@@ -341,15 +341,14 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <p>Once you&rsquo;re happy with your Barrier set up, it&rsquo;s time to remove Spice.</p>
 <p>Shutdown your VM and remove all the Spice components.</p>
 <h3 id="cable-timehahahugoshortcode-s17-hbhb">Cable Time<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10</code></pre></div></h3>
-<p>Plug your monitor into your VM&rsquo;s allocat&quot;1&rdquo; cores=&quot;4&rdquo; threads=&quot;2&rdquo;/&gt;ed GPU and start up your VM. You should now see everything work bueno.</p>
+<p>Plug your monitor into your VM&rsquo;s allocated GPU and start up your VM. You should now see everything work bueno.</p>
 <p>At this point, you will now have a functioning VM with GPU pass-through. However&hellip; there&rsquo;s one more things you need to do before your VM will be ready to play games&hellip;</p>
 <h2 id="cpu-pinning--topology">CPU Pinning &amp; Topology</h2>
 <p>Virt-manager&rsquo;s default allocation of vCPUs is subpar and is not great. In order to get acceptable performance from the virtual machine we need to ensure we allocate## Tuning your Virtual Machine sane CPUs in the configuration.</p>
 <p>In my case, doing this configuration doubled the benchmarks of my virtual machines CPU.</p>
 <h3 id="understanding-your-cores">Understanding your Cores</h3>
-<p>I use <code>lstopo</code>in this section. If you have something else you prefer to use, you can use that too.
-&ldquo;1&rdquo; cores=&quot;4&rdquo; threads=&quot;2&rdquo;/&gt;
-In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI 41:00.0</code>. Now that I know which cores to use, I can explicitly allocate them in my virtual machine&rsquo;s configuration.</p>
+<p>I use <code>lstopo</code>in this section. If you have something else you prefer to use, you can use that too.</p>
+<p>In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI 41:00.0</code>. Now that I know which cores to use, I can explicitly allocate them in my virtual machine&rsquo;s configuration.</p>
 <h3 id="modifying-your-settings">Modifying your Settings</h3>
 <p>Using the following command again:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10</code></pre></div>
@@ -365,7 +364,7 @@ In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI
     <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;5&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;20&#39;</span><span style="color:#000080">/&gt;</span>
     <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;6&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;9&#39;</span><span style="color:#000080">/&gt;</span>
     <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;7&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;21&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;emulatorpin</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;0-1&#39;</span><span style="color:#000080">/&gt;</span>&#34;1&#34; cores=&#34;4&#34; threads=&#34;2&#34;/&gt;
+    <span style="color:#000080">&lt;emulatorpin</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;0-1&#39;</span><span style="color:#000080">/&gt;</span>
     <span style="color:#000080">&lt;iothreadpin</span> <span style="color:#008080">iothread=</span><span style="color:#d14">&#39;1&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;0-1&#39;</span><span style="color:#000080">/&gt;</span>
     <span style="color:#000080">&lt;iothreadpin</span> <span style="color:#008080">iothread=</span><span style="color:#d14">&#39;2&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;2-3&#39;</span><span style="color:#000080">/&gt;</span>
   <span style="color:#000080">&lt;/cputune&gt;</span></code></pre></div>
