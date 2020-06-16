@@ -187,7 +187,7 @@
 <li><code>GET /api/user/info/</code> to retrieve a user&rsquo;s detail from their <code>Bearer</code> token.</li>
 </ol>
 <h1 id="component-explanation">Component Explanation</h1>
-<h2 id="passwordhasher-helper"><code>PasswordHasher</code> Helper</h2>
+<h2 id="passwordhasher">PasswordHasher</h2>
 <p>The password which we&rsquo;ll be storing will be encrypted using a salt we will generate. It should go without saying, but do not store passwords in plaintext.</p>
 <p>In order for us to achieve this, we&rsquo;ll need to create a helper function which will:</p>
 <ol>
@@ -232,7 +232,7 @@
     }
 }
 </code></pre></div><p>In the example above we take advantage of ASP.NET Core&rsquo;s cryptographic library and use their <code>Pbkdf2</code> key derivation function and the <code>HMACSHA1</code> algorithm to hash our password using the salt we generate with our <code>GenerateSalt()</code> function.</p>
-<h2 id="user-model"><code>User</code> Model</h2>
+<h2 id="user">User</h2>
 <p>I consider this definition my &lsquo;base&rsquo; <code>User</code> model. I will normally extend this model as needed by creating another model such as <code>ApplicationUser</code> which inherits from <code>User</code>.</p>
 <p>The data we want to capture is as follows:</p>
 <ol>
@@ -273,7 +273,7 @@
 }
 </code></pre></div><p>In the above example we&rsquo;ve explicitly declared <code>Password</code> to be ignored during serialization. This is good practice to ensure that this data is never unintentionally accessible.</p>
 <p>We&rsquo;ll create a Data Transfer Object (DTO) as our temporary model when doing things such as authenticating or registering the user. You&rsquo;ll see how this works in the <code>UsersController</code> section.</p>
-<h2 id="userservice-service"><code>UserService</code> Service</h2>
+<h2 id="userservice">UserService</h2>
 <p>Our <code>UserService</code> will handle all the operations related to our <code>User</code> actions.</p>
 <p>The <code>Authenticate(username, password)</code> functions is summarized as follows:</p>
 <ol>
@@ -388,7 +388,7 @@
         }
     }
 }
-</code></pre></div><h2 id="userscontroller-controller"><code>UsersController</code> Controller</h2>
+</code></pre></div><h2 id="userscontroller">UsersController</h2>
 <p>The majority of this code example in this section should hopefully be self explanatory.</p>
 <p>My <code>[HttpGet(&quot;info&quot;)]</code> route demonstrates how to get the <code>User</code> in the controller by using the <code>JWT</code> claim.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#000;font-weight:bold">using</span> <span style="color:#555">Microsoft.AspNetCore.Mvc</span>;
@@ -463,13 +463,13 @@
     }
 }
 </code></pre></div><h1 id="implementing-our-components">Implementing our Components</h1>
-<h2 id="adding-user-to-your-dbcontext">Adding <code>User</code> to your <code>DbContext</code></h2>
+<h2 id="adjusting-your-dbcontext">Adjusting your DbContext</h2>
 <p>In your <code>DbContext</code> you&rsquo;ll need to add the following:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">virtual</span> DbSet&lt;ApplicationUser&gt; Users { <span style="color:#000;font-weight:bold">get</span>; <span style="color:#000;font-weight:bold">set</span>; }
 </code></pre></div><p>Once you&rsquo;ve done this, make sure you migrate and affect your changes by doing the following:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet ef migrations add  AddUserModel -v
 dotnet ef database update -v
-</code></pre></div><h2 id="adding-jwtbearer">Adding <code>JwtBearer</code></h2>
+</code></pre></div><h2 id="adding-jwtbearer">Adding JwtBearer</h2>
 <p>You&rsquo;ll need to install the <code>JwtBearer</code> package by running the following command:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 </code></pre></div><p>We need to tell our application to use <code>JwtBearer</code> as it&rsquo;s authentication mechanism.</p>
@@ -492,7 +492,7 @@ services.AddAuthentication(x =&gt;
 		ValidateAudience = <span style="color:#000;font-weight:bold">false</span>
 	};
 });
-</code></pre></div><h2 id="adding-userservice">Adding <code>UserService</code></h2>
+</code></pre></div><h2 id="adding-userservice">Adding UserService</h2>
 <p>We need to inject our <code>UserService</code> and it&rsquo;s interface <code>IUserService</code> into <code>Startup</code>.</p>
 <p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">services.AddScoped&lt;IUserService, UserService&gt;();
