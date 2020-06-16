@@ -18,7 +18,7 @@
       <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://marzukia.github.io/post/aspnet-jwt-webapi/</guid>
-      <description>ASP.NET Core Web APIs and JWT I&amp;rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C# for things like Unity, and later realizing how much enjoyable it was to use ASP.NET Core over Django.
+      <description>Can I See Some Identification? I&amp;rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C# for things like Unity, and later realizing how much enjoyable it was to use ASP.NET Core over Django.
 As I mostly use ReactJS for my application frontends, I did not need the &amp;lsquo;Razor&amp;rsquo; pages integrated in ASP.</description>
     </item>
     
