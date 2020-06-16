@@ -182,14 +182,14 @@
 <p>For my Windows VM, I used a dedicated SSH as its storage volume, and mounted it raw rather than using a virtual disk. This is to improve the performance of the VM.</p>
 <h1 id="but-how">But&hellip; How?</h1>
 <p>My key reference while doing this setup was the following <a href="https://forum.level1techs.com/t/vfio-in-2019-fedora-workstation-general-guide-though-branch-draft/145106">BansheeHero&rsquo;s excellent guide</a>. Whilst the post itself is not complete, and good chunks of it are cut paste from a different thread, it outlines the general steps required to accomplish the setup.</p>
-<p>With this being said, there were some important steps in this guide that weren&rsquo;t made clear which resulted  in me wasting a fair bit of time. In this post I will try make these key steps a bit clearer.</p>
-<h2 id="iommu-and-you">IOMMU and You</h2>
+<p>However&hellip; there were some important steps in this guide that weren&rsquo;t made clear which resulted  in me wasting a material amount of time. In this post I will try make these key steps clearer.</p>
+<h2 id="iommu-and-you">IOMMU &hellip;and You</h2>
 <p>IOMMU stands for &lsquo;Input-output memory management unit&rsquo;, it&rsquo;s a feature which allows your VMs to take advantage of your computer&rsquo;s hardware. To accomplish the GPU pass-through this will need to be enabled.</p>
 <h3 id="setting-iommu-in-your-bios">Setting IOMMU in your BIOS</h3>
 <p>Before proceeding to the next steps, you need to ensure that IOMMU has been &lsquo;Enabled&rsquo; in your BIOS. It&rsquo;s best to explicitly override this value if it has been set to &lsquo;Automatic&rsquo; to ensure your computer does what is asked of it.</p>
 <p>In my case, my setting was set to &lsquo;Automatic&rsquo;.</p>
 <h3 id="checking-your-iommu-groups">Checking your IOMMU Groups</h3>
-<p>The next step is to run the follow bash script to ensure that your IOMMU groups have been setup correctly.</p>
+<p>The next step is to run the following bash script to ensure that your IOMMU groups have been setup correctly.</p>
 <p>Your GPU and its audio controller need to be isolated in its own IOMMU group. This also applies to any other PCIe devices you&rsquo;d like to pass-through to the VM including USB ports and soundcards.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
 </span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span> d in /sys/kernel/iommu_groups/*/devices/*; <span style="color:#000;font-weight:bold">do</span>
@@ -200,7 +200,7 @@
 <p>On running this command, you&rsquo;ll want to look for your GPU and ensure it&rsquo;s there. In my case I see the following:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">IOMMU Group 29 41:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP104 [GeForce GTX 1080] [10de:1b80] (rev a1)
 IOMMU Group 29 41:00.1 Audio device [0403]: NVIDIA Corporation GP104 High Definition Audio Controller [10de:10f0] (rev a1)</code></pre></div>
-<p>In this case, my PCIe devices have the ids <code>41:00.0</code> and <code>41:00.1</code>.</p>
+<p>In this case, my PCIe devices have the ids <code>41:00.0</code> and <code>41:00.1</code>. They are grouped together and isolated in Group 29.</p>
 <h2 id="installing-the-virtualisation-package">Installing the Virtualisation Package</h2>
 <p>You&rsquo;ll need the packages from the following command:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install @virtualization</code></pre></div>
