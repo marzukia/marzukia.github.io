@@ -13,9 +13,27 @@
     
     
     <item>
+      <title>aspnet</title>
+      <link>https://marzukia.github.io/tags/aspnet/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/aspnet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jwt</title>
+      <link>https://marzukia.github.io/tags/jwt/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/jwt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>fedora</title>
       <link>https://marzukia.github.io/tags/fedora/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://marzukia.github.io/tags/fedora/</guid>
       <description></description>
@@ -24,7 +42,7 @@
     <item>
       <title>vfio</title>
       <link>https://marzukia.github.io/tags/vfio/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://marzukia.github.io/tags/vfio/</guid>
       <description></description>
