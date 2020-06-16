@@ -159,7 +159,7 @@
 <article class="post">
   
     <div class="post-content"><h1 id="can-i-see-some-identification">Can I See Some Identification?</h1>
-<p>I&rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C# for things like Unity, and later realizing how much better it was to use ASP.NET Core over Django.</p>
+<p>I&rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C# for things like Unity, and later realizing how much better ASP.NET Core is than Django.</p>
 <p>As I mostly use ReactJS for my application frontends, I did not need the &lsquo;Razor&rsquo; pages integrated in ASP.NET. As a result, my preference was to bootstrap my projects as <code>webapi</code> rather than <code>webapp</code> or even <code>mvc</code>.</p>
 <p>ASP.NET Core 3.1 is packaged the <code>Identity</code> service. Micrsoft&rsquo;s documentation on how to use this library with single page applications can be found <a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-api-authorization?view=aspnetcore-3.1">here</a>. My general issue with this is the fact that you need to implement usage of <a href="https://identityserver.io/">IdentityServer</a>, and by bootstrapping your project in this manner you are using their <code>mvc</code> or <code>webapp</code> templates which contain a fair bit of bloat.</p>
 <p>This post will outline my implementation of a lightweight JWT authentication which is intended to be easily added onto a bare-bones <code>webapi</code> project.</p>
