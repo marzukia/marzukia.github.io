@@ -312,11 +312,9 @@
     <span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">UserService</span>: IUserService
     {
         <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">readonly</span> JwtAuthExampleContext _context;
-        <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">readonly</span> AppSettings _appSettings;
 
-        <span style="color:#000;font-weight:bold">public</span> UserService(IOptions&lt;AppSettings&gt; appSettings, JwtAuthExampleContext context)
+        <span style="color:#000;font-weight:bold">public</span> UserService(JwtAuthExampleContext context)
         {
-            _appSettings = appSettings.Value;
             _context = context;
         }
 
@@ -337,7 +335,7 @@
             <span style="color:#000;font-weight:bold">if</span> (user.Password == hashedPassword)
             {
                 <span style="color:#458;font-weight:bold">var</span> tokenHandler = <span style="color:#000;font-weight:bold">new</span> JwtSecurityTokenHandler();
-                <span style="color:#458;font-weight:bold">var</span> key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                <span style="color:#458;font-weight:bold">var</span> key = Encoding.ASCII.GetBytes(<span style="color:#d14">&#34;SECRETCODESTRING&#34;</span>);
                 <span style="color:#458;font-weight:bold">var</span> tokenDescriptor = <span style="color:#000;font-weight:bold">new</span> SecurityTokenDescriptor
                 {
                     Subject = <span style="color:#000;font-weight:bold">new</span> ClaimsIdentity(<span style="color:#000;font-weight:bold">new</span> Claim[]
@@ -410,8 +408,8 @@
 <span style="color:#000;font-weight:bold">namespace</span> <span style="color:#555">JwtAuthExample.Controllers</span>
 {
 <span style="color:#008080">    [Authorize]</span>
-<span style="color:#008080">    [Route(&#34;api/[controller]</span><span style="color:#d14">&#34;)]
-</span><span style="color:#d14"></span><span style="color:#008080">    [ApiController]</span>
+<span style="color:#008080">    [Route(&#34;api/users&#34;)]</span>
+<span style="color:#008080">    [ApiController]</span>
     <span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">UsersController</span> : ControllerBase
     {
         <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">readonly</span> JwtAuthExampleContext _context;
@@ -476,7 +474,7 @@ dotnet ef database update -v
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 </code></pre></div><p>We need to tell our application to use <code>JwtBearer</code> as it&rsquo;s authentication mechanism.</p>
 <p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#458;font-weight:bold">var</span> key = Encoding.ASCII.GetBytes(<span style="color:#a61717;background-color:#e3d2d2">&#39;</span>SECRETCODESTRING<span style="color:#a61717;background-color:#e3d2d2">&#39;</span>);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#458;font-weight:bold">var</span> key = Encoding.ASCII.GetBytes(<span style="color:#d14">&#34;SECRETCODESTRING&#34;</span>);
 services.AddAuthentication(x =&gt;
 {
 	x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
