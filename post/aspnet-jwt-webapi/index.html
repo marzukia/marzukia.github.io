@@ -172,10 +172,10 @@
 <li><code>UserService</code> to handle authentication, registration, and any other user action we might want to implement.</li>
 <li><code>UsersController</code> to map our endpoints to our service.</li>
 </ol>
-<p>In addition to the above, we need to adjust our:</p>
+<p>In addition to the above, we need to:</p>
 <ol>
-<li><code>DbContext</code> to include the <code>User</code> model.</li>
-<li>Configure our <code>Startup</code>to use <code>JwtBearer</code> as an authentication mechanism.</li>
+<li>Adjust our <code>DbContext</code> to include the <code>User</code> model.</li>
+<li>Configure our <code>Startup</code> to use <code>JwtBearer</code> as an authentication mechanism.</li>
 <li>Configure our <code>Startup</code> to use <code>UseAuthentication()</code> and <code>UseAuthentication()</code>.</li>
 <li>Inject our scoped <code>UserService</code> into <code>Startup.</code></li>
 <li>Adjust any other controllers which require authorization to include <code>[Authorize]</code> in its definition.</li>
