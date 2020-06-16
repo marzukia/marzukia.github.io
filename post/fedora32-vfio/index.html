@@ -340,32 +340,20 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <h3 id="disabling-spice">Disabling Spice</h3>
 <p>Once you&rsquo;re happy with your Barrier set up, it&rsquo;s time to remove Spice.</p>
 <p>Shutdown your VM and remove all the Spice components.</p>
-<h3 id="cable-timebash">Cable Time```bash</h3>
-<p>EDITOR=vim virsh edit win10</p>
-<pre><code>
-Plug your monitor into your VM's allocated GPU and start up your VM. You should now see everything work bueno.
-
-At this point, you will now have a functioning VM with GPU pass-through. However... there's one more things you need to do before your VM will be ready to play games...
-
-## CPU Pinning &amp; Topology
-
-Virt-manager's default allocation of vCPUs is subpar and is not great. In order to get acceptable performance from the virtual machine we need to ensure we allocate## Tuning your Virtual Machine sane CPUs in the configuration.
-
-In my case, doing this configuration doubled the benchmarks of my virtual machines CPU.
-
-### Understanding your Cores
-
-I use `lstopo` in this section. If you have something else you prefer to use, you can use that too.
-
-In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU `PCI 41:00.0`. Now that I know which cores to use, I can explicitly allocate them in my virtual machine's configuration.
-
-### Modifying your Settings
-
-Using the following command again:
-
-```bash
-EDITOR=vim virsh edit win10
-</code></pre><p>Edit your settings to explicitly declare which CPU sets should be used, in my case this is my configuration:</p>
+<h3 id="cable-time">Cable Time</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10
+</code></pre></div><p>Plug your monitor into your VM&rsquo;s allocated GPU and start up your VM. You should now see everything work bueno.</p>
+<p>At this point, you will now have a functioning VM with GPU pass-through. However&hellip; there&rsquo;s one more things you need to do before your VM will be ready to play games&hellip;</p>
+<h2 id="cpu-pinning--topology">CPU Pinning &amp; Topology</h2>
+<p>Virt-manager&rsquo;s default allocation of vCPUs is subpar and is not great. In order to get acceptable performance from the virtual machine we need to ensure we allocate## Tuning your Virtual Machine sane CPUs in the configuration.</p>
+<p>In my case, doing this configuration doubled the benchmarks of my virtual machines CPU.</p>
+<h3 id="understanding-your-cores">Understanding your Cores</h3>
+<p>I use <code>lstopo</code> in this section. If you have something else you prefer to use, you can use that too.</p>
+<p>In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI 41:00.0</code>. Now that I know which cores to use, I can explicitly allocate them in my virtual machine&rsquo;s configuration.</p>
+<h3 id="modifying-your-settings">Modifying your Settings</h3>
+<p>Using the following command again:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10
+</code></pre></div><p>Edit your settings to explicitly declare which CPU sets should be used, in my case this is my configuration:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#000080">&lt;vcpu</span> <span style="color:#008080">placement=</span><span style="color:#d14">&#39;static&#39;</span><span style="color:#000080">&gt;</span>8<span style="color:#000080">&lt;/vcpu&gt;</span>
   <span style="color:#000080">&lt;iothreads&gt;</span>2<span style="color:#000080">&lt;/iothreads&gt;</span>
   <span style="color:#000080">&lt;cputune&gt;</span>
