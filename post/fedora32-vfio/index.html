@@ -191,12 +191,12 @@
 <h3 id="checking-your-iommu-groups">Checking your IOMMU Groups</h3>
 <p>The next step is to run the following bash script to ensure that your IOMMU groups have been setup correctly.</p>
 <p>Your GPU and its audio controller need to be isolated in its own IOMMU group. This also applies to any other PCIe devices you&rsquo;d like to pass-through to the VM including USB ports and soundcards.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
-</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span> d in /sys/kernel/iommu_groups/*/devices/*; <span style="color:#000;font-weight:bold">do</span>
-  <span style="color:#008080">n</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">${</span><span style="color:#008080">d</span>#*/iommu_groups/*<span style="color:#d14">}</span>; <span style="color:#008080">n</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">${</span><span style="color:#008080">n</span>%%/*<span style="color:#d14">}</span>
-  <span style="color:#0086b3">printf</span> <span style="color:#d14">&#39;IOMMU Group %s &#39;</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$n</span><span style="color:#d14">&#34;</span>
-  lspci -nns <span style="color:#d14">&#34;</span><span style="color:#d14">${</span><span style="color:#008080">d</span>##*/<span style="color:#d14">}</span><span style="color:#d14">&#34;</span>
-<span style="color:#000;font-weight:bold">done</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#00f">#!/bin/bash
+</span><span style="color:#00f"></span><span style="color:#00f">for</span> d in /sys/kernel/iommu_groups/*/devices/*; <span style="color:#00f">do</span>
+  n=<span style="color:#a31515">${</span>d#*/iommu_groups/*<span style="color:#a31515">}</span>; n=<span style="color:#a31515">${</span>n%%/*<span style="color:#a31515">}</span>
+  printf <span style="color:#a31515">&#39;IOMMU Group %s &#39;</span> <span style="color:#a31515">&#34;</span>$n<span style="color:#a31515">&#34;</span>
+  lspci -nns <span style="color:#a31515">&#34;</span><span style="color:#a31515">${</span>d##*/<span style="color:#a31515">}</span><span style="color:#a31515">&#34;</span>
+<span style="color:#00f">done</span>
 </code></pre></div><p>On running this command, you&rsquo;ll want to look for your GPU and ensure it&rsquo;s there. In my case I see the following:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">IOMMU Group 29 41:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP104 [GeForce GTX 1080] [10de:1b80] (rev a1)
 IOMMU Group 29 41:00.1 Audio device [0403]: NVIDIA Corporation GP104 High Definition Audio Controller [10de:10f0] (rev a1)
@@ -221,10 +221,10 @@ IOMMU Group 29 41:00.1 Audio device [0403]: NVIDIA Corporation GP104 High Defini
 </code></pre></div><p>For each device I am interested in it&rsquo;s device ID (<code>10de:10f0</code>, <code>10de:1b80</code>). We need this information as this is how we&rsquo;ll inform our bootloader which devices need to be reserved.</p>
 <h3 id="modifying-modprobe">Modifying Modprobe</h3>
 <p>We need to tell Modprobe which devices we want to reserve for VFIO. In order to do this, we run the following command:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;options vfio-pci ids=10de:1b80,10de:10f0&#34;</span> &gt; /etc/modprobe.d/vfio.conf
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#a31515">&#34;options vfio-pci ids=10de:1b80,10de:10f0&#34;</span> &gt; /etc/modprobe.d/vfio.conf
 </code></pre></div><h3 id="rebuilding-initramfs-1">Rebuilding initramfs</h3>
 <p>Execute the following commands to instruct dracut to load the vfio drivers:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dracut --add-drivers <span style="color:#d14">&#34;vfio vfio-pci vfio_iommu_type1&#34;</span> --force
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dracut --add-drivers <span style="color:#a31515">&#34;vfio vfio-pci vfio_iommu_type1&#34;</span> --force
 </code></pre></div><p>Once this has been completed, we can force a rebuild of initramfs image by executing the following command:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dracut -fv
 </code></pre></div><h3 id="pre-reboot-check-in">Pre-reboot Check-in</h3>
@@ -298,28 +298,28 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <h3 id="hiding-the-hypervisor">Hiding the Hypervisor</h3>
 <p>There&rsquo;s a fair few tweaks we need to do in order to get the VM to work with our NVIDIA card. For whatever reason, NVIDIA does not allow their drivers to be used inside emulations. Luckily for us, we can hide the fact that our VM is a emulation by modifying our virtual machine&rsquo;s settings.</p>
 <p>Open up your VM with the following command, make sure you change the VM to the appropriate name:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">EDITOR=vim virsh edit win10
 </code></pre></div><p>You need to edit your VM configuration to include the following elements:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#000080">&lt;domain</span> <span style="color:#008080">type=</span><span style="color:#d14">&#39;kvm&#39;</span> <span style="color:#008080">xmlns:qemu=</span><span style="color:#d14">&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;</span><span style="color:#000080">&gt;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">&lt;domain type=<span style="color:#a31515">&#39;kvm&#39;</span> xmlns:qemu=<span style="color:#a31515">&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;</span>&gt;
     ...
-        <span style="color:#000080">&lt;features&gt;</span>
+        &lt;features&gt;
             ...
-            <span style="color:#000080">&lt;kvm&gt;</span>
-                <span style="color:#000080">&lt;hidden</span> <span style="color:#008080">state=</span><span style="color:#d14">&#39;on&#39;</span><span style="color:#000080">/&gt;</span>
-            <span style="color:#000080">&lt;/kvm&gt;</span>
+            &lt;kvm&gt;
+                &lt;hidden state=<span style="color:#a31515">&#39;on&#39;</span>/&gt;
+            &lt;/kvm&gt;
             ...
-            <span style="color:#000080">&lt;hyperv&gt;</span>
+            &lt;hyperv&gt;
                 ...
-                <span style="color:#000080">&lt;vendor_id</span> <span style="color:#008080">state=</span><span style="color:#d14">&#39;on&#39;</span> <span style="color:#008080">value=</span><span style="color:#d14">&#39;whatever&#39;</span><span style="color:#000080">/&gt;</span>
-            <span style="color:#000080">&lt;/hyperv&gt;</span>
+                &lt;vendor_id state=<span style="color:#a31515">&#39;on&#39;</span> value=<span style="color:#a31515">&#39;whatever&#39;</span>/&gt;
+            &lt;/hyperv&gt;
             ...
-        <span style="color:#000080">&lt;/features&gt;</span>
+        &lt;/features&gt;
     ...
-        <span style="color:#000080">&lt;qemu:commandline&gt;</span>
-            <span style="color:#000080">&lt;qemu:arg</span> <span style="color:#008080">value=</span><span style="color:#d14">&#39;-cpu&#39;</span><span style="color:#000080">/&gt;</span>
-            <span style="color:#000080">&lt;qemu:arg</span> <span style="color:#008080">value=</span><span style="color:#d14">&#39;host,hv_time,kvm=off,hv_vendor_id=null&#39;</span><span style="color:#000080">/&gt;</span>
-        <span style="color:#000080">&lt;/qemu:commandline&gt;</span>
-<span style="color:#000080">&lt;/domain&gt;</span>
+        &lt;qemu:commandline&gt;
+            &lt;qemu:arg value=<span style="color:#a31515">&#39;-cpu&#39;</span>/&gt;
+            &lt;qemu:arg value=<span style="color:#a31515">&#39;host,hv_time,kvm=off,hv_vendor_id=null&#39;</span>/&gt;
+        &lt;/qemu:commandline&gt;
+&lt;/domain&gt;
 </code></pre></div><p>By changing the above we&rsquo;ve accomplished the following things:</p>
 <ol>
 <li>We&rsquo;ve spoofed a <code>vendor_id</code></li>
@@ -341,7 +341,7 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <p>Once you&rsquo;re happy with your Barrier set up, it&rsquo;s time to remove Spice.</p>
 <p>Shutdown your VM and remove all the Spice components.</p>
 <h3 id="cable-time">Cable Time</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">EDITOR=vim virsh edit win10
 </code></pre></div><p>Plug your monitor into your VM&rsquo;s allocated GPU and start up your VM. You should now see everything work bueno.</p>
 <p>At this point, you will now have a functioning VM with GPU pass-through. However&hellip; there&rsquo;s one more things you need to do before your VM will be ready to play games&hellip;</p>
 <h2 id="cpu-pinning--topology">CPU Pinning &amp; Topology</h2>
@@ -352,30 +352,30 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <p>In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI 41:00.0</code>. Now that I know which cores to use, I can explicitly allocate them in my virtual machine&rsquo;s configuration.</p>
 <h3 id="modifying-your-settings">Modifying your Settings</h3>
 <p>Using the following command again:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">EDITOR</span><span style="color:#000;font-weight:bold">=</span>vim virsh edit win10
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">EDITOR=vim virsh edit win10
 </code></pre></div><p>Edit your settings to explicitly declare which CPU sets should be used, in my case this is my configuration:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#000080">&lt;vcpu</span> <span style="color:#008080">placement=</span><span style="color:#d14">&#39;static&#39;</span><span style="color:#000080">&gt;</span>8<span style="color:#000080">&lt;/vcpu&gt;</span>
-  <span style="color:#000080">&lt;iothreads&gt;</span>2<span style="color:#000080">&lt;/iothreads&gt;</span>
-  <span style="color:#000080">&lt;cputune&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;0&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;6&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;1&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;18&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;2&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;7&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;3&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;19&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;4&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;8&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;5&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;20&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;6&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;9&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;vcpupin</span> <span style="color:#008080">vcpu=</span><span style="color:#d14">&#39;7&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;21&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;emulatorpin</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;0-1&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;iothreadpin</span> <span style="color:#008080">iothread=</span><span style="color:#d14">&#39;1&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;0-1&#39;</span><span style="color:#000080">/&gt;</span>
-    <span style="color:#000080">&lt;iothreadpin</span> <span style="color:#008080">iothread=</span><span style="color:#d14">&#39;2&#39;</span> <span style="color:#008080">cpuset=</span><span style="color:#d14">&#39;2-3&#39;</span><span style="color:#000080">/&gt;</span>
-  <span style="color:#000080">&lt;/cputune&gt;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  &lt;vcpu placement=<span style="color:#a31515">&#39;static&#39;</span>&gt;8&lt;/vcpu&gt;
+  &lt;iothreads&gt;2&lt;/iothreads&gt;
+  &lt;cputune&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;0&#39;</span> cpuset=<span style="color:#a31515">&#39;6&#39;</span>/&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;1&#39;</span> cpuset=<span style="color:#a31515">&#39;18&#39;</span>/&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;2&#39;</span> cpuset=<span style="color:#a31515">&#39;7&#39;</span>/&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;3&#39;</span> cpuset=<span style="color:#a31515">&#39;19&#39;</span>/&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;4&#39;</span> cpuset=<span style="color:#a31515">&#39;8&#39;</span>/&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;5&#39;</span> cpuset=<span style="color:#a31515">&#39;20&#39;</span>/&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;6&#39;</span> cpuset=<span style="color:#a31515">&#39;9&#39;</span>/&gt;
+    &lt;vcpupin vcpu=<span style="color:#a31515">&#39;7&#39;</span> cpuset=<span style="color:#a31515">&#39;21&#39;</span>/&gt;
+    &lt;emulatorpin cpuset=<span style="color:#a31515">&#39;0-1&#39;</span>/&gt;
+    &lt;iothreadpin iothread=<span style="color:#a31515">&#39;1&#39;</span> cpuset=<span style="color:#a31515">&#39;0-1&#39;</span>/&gt;
+    &lt;iothreadpin iothread=<span style="color:#a31515">&#39;2&#39;</span> cpuset=<span style="color:#a31515">&#39;2-3&#39;</span>/&gt;
+  &lt;/cputune&gt;
 </code></pre></div><h3 id="modifying-your-topology">Modifying your Topology</h3>
 <p>You can either use the GUI or edit the virtual machine&rsquo;s configuration via virsh for this part.</p>
 <p>You want to ensure that the topology of your vCPUs are sensible, in my scenario I specified a topology of 1 socket, 4 cores, 2 threads for a total of 8 vCPUs.</p>
 <p>If you&rsquo;re using virsh, you want to amend your settings as follows:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#000080">&lt;cpu</span> <span style="color:#008080">mode=</span><span style="color:#d14">&#34;host-model&#34;</span> <span style="color:#008080">check=</span><span style="color:#d14">&#34;partial&#34;</span><span style="color:#000080">&gt;</span>
-	<span style="color:#000080">&lt;topology</span> <span style="color:#008080">sockets=</span><span style="color:#d14">&#34;1&#34;</span> <span style="color:#008080">dies=</span><span style="color:#d14">&#34;1&#34;</span> <span style="color:#008080">cores=</span><span style="color:#d14">&#34;4&#34;</span> <span style="color:#008080">threads=</span><span style="color:#d14">&#34;2&#34;</span><span style="color:#000080">/&gt;</span>
-<span style="color:#000080">&lt;/cpu&gt;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">&lt;cpu mode=<span style="color:#a31515">&#34;host-model&#34;</span> check=<span style="color:#a31515">&#34;partial&#34;</span>&gt;
+	&lt;topology sockets=<span style="color:#a31515">&#34;1&#34;</span> dies=<span style="color:#a31515">&#34;1&#34;</span> cores=<span style="color:#a31515">&#34;4&#34;</span> threads=<span style="color:#a31515">&#34;2&#34;</span>/&gt;
+&lt;/cpu&gt;
 </code></pre></div><h1 id="closing-thoughts">Closing Thoughts</h1>
 <p>It&rsquo;s a bit of a chore to set up VFIO, but I am very happy with my VM. I&rsquo;ve been able to remove a lot of &lsquo;hacky&rsquo; applications which were installed on my Fedora install such as Citrix Receiver and install it on the VM.</p>
 <p>Games have run smoothly without a noticeable drop in performance.</p>
