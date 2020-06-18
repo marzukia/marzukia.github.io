@@ -170,7 +170,7 @@
 <li><code>PasswordHasher</code> helper to create a salt, and then a hashed password for safe storage.</li>
 <li><code>User</code> model to define what data we&rsquo;d like to store in regards to our user object.</li>
 <li><code>UserService</code> to handle authentication, registration, and any other user action we might want to implement.</li>
-<li><code>UsersController</code> to map our endpoints to our service, we&rsquo;ll also instruct our <code>/api/user/login/</code> endpoint to set a <code>HttpOnly</code> cookie containing our JWT.</li>
+<li><code>UsersController</code> to map our endpoints to our service, we&rsquo;ll also instruct our <code>/api/user/login/</code> endpoint to set a HttpOnly cookie containing our JWT.</li>
 </ol>
 <p>In addition to the above, we need to:</p>
 <ol>
@@ -388,7 +388,7 @@
 </code></pre></div><h2 id="userscontroller">UsersController</h2>
 <p>The majority of this code example in this section should hopefully be self explanatory.</p>
 <p>The <code>[HttpGet(&quot;info&quot;)]</code> route demonstrates how to get the <code>User</code> in the controller by using the <code>JWT</code> claim.</p>
-<p>The <code>[HttpPost(&quot;authenticate&quot;)]</code> has a working example on how to set the JWT cookie as a <code>HttpOnly</code> cookie.</p>
+<p>The <code>[HttpPost(&quot;authenticate&quot;)]</code> has a working example on how to set the JWT cookie as a HttpOnly cookie.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00f">using</span> Microsoft.AspNetCore.Mvc;
 <span style="color:#00f">using</span> Microsoft.AspNetCore.Authorization;
 <span style="color:#00f">using</span> Microsoft.EntityFrameworkCore;
@@ -509,7 +509,7 @@ services.AddAuthentication(x =&gt;
 <p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">services.AddScoped&lt;IUserService, UserService&gt;();
 </code></pre></div><h2 id="adding-our-middleware-to-use-jwt-httponly-cookie">Adding our Middleware to use JWT HttpOnly Cookie</h2>
-<p>It&rsquo;s really bad form to store our JWT in local storage. Where possible, we want to make use of <code>HttpOnly</code> cookies which are more secure. To make our controllers use the <code>HttpOnly</code> cookie we need to place a middleware in our <code>Startup</code>:</p>
+<p>It&rsquo;s really bad form to store our JWT in local storage. Where possible, we want to make use of HttpOnly cookies which are more secure. To make our controllers use the HttpOnly cookie we need to place a middleware in our <code>Startup</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">app.Use(<span style="color:#00f">async</span> (context, next) =&gt;
 {
     <span style="color:#2b91af">var</span> token = context.Request.Cookies[<span style="color:#a31515">&#34;JWT&#34;</span>];
