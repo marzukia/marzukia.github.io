@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JWT on Andryo Marzuki</title>
-    <link>https://marzukia.github.io/tags/jwt/</link>
-    <description>Recent content in JWT on Andryo Marzuki</description>
+    <title>Authentication on Andryo Marzuki</title>
+    <link>https://marzukia.github.io/tags/authentication/</link>
+    <description>Recent content in Authentication on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2020, Andryo Marzuki</copyright>
     <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://marzukia.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://marzukia.github.io/tags/authentication/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

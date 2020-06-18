@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2020, Andryo Marzuki</copyright>
-    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using Fetch over Axios in ReactJS Applications</title>
+      <link>https://marzukia.github.io/post/frontend-resuable-api/</link>
+      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/frontend-resuable-api/</guid>
+      <description>Go Fetch! For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&amp;rsquo; Fetch. My rationale for making this switch was:
+ Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.  My approach in using Fetch or Axios is to create a class which contains all my API logic.</description>
+    </item>
     
     <item>
       <title>ASP.NET Core Web API JWT Implementation</title>

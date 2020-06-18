@@ -7,22 +7,58 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2020, Andryo Marzuki</copyright>
-    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>aspnet</title>
-      <link>https://marzukia.github.io/tags/aspnet/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <title>ReactJS</title>
+      <link>https://marzukia.github.io/tags/reactjs/</link>
+      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/aspnet/</guid>
+      <guid>https://marzukia.github.io/tags/reactjs/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>jwt</title>
+      <title>Typescript</title>
+      <link>https://marzukia.github.io/tags/typescript/</link>
+      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ASP.NET Core</title>
+      <link>https://marzukia.github.io/tags/asp.net-core/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/asp.net-core/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Authentication</title>
+      <link>https://marzukia.github.io/tags/authentication/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/authentication/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C#</title>
+      <link>https://marzukia.github.io/tags/c#/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/c#/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JWT</title>
       <link>https://marzukia.github.io/tags/jwt/</link>
       <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
@@ -31,7 +67,7 @@
     </item>
     
     <item>
-      <title>fedora</title>
+      <title>Fedora</title>
       <link>https://marzukia.github.io/tags/fedora/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
@@ -40,7 +76,16 @@
     </item>
     
     <item>
-      <title>vfio</title>
+      <title>Linux Gaming</title>
+      <link>https://marzukia.github.io/tags/linux-gaming/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/linux-gaming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VFIO</title>
       <link>https://marzukia.github.io/tags/vfio/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
