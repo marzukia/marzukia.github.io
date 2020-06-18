@@ -165,24 +165,14 @@
 <li>Fetch is a perfectly capable library for the purposes of building my resuable API class with.</li>
 </ol>
 <p>My approach in using Fetch or Axios is to create a class which contains all my API logic. The idea is to clearly define my <code>GET</code>, <code>POST</code>, <code>DELETE</code>, <code>PUT</code> methods and then build understandable and elegant functions on top of these.</p>
-<h1 id="crsf-considerations">CRSF Considerations</h1>
-<p>One little issue you&rsquo;ll need to address is handling CSRF. In Axios, CSRF is handled for you, you would simply do something like:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">axiosDefaults.xsrfCookieName = <span style="color:#a31515">&#34;csrftoken&#34;</span>
-axiosDefaults.xsrfHeaderName = <span style="color:#a31515">&#34;X-CSRFToken&#34;</span>
-</code></pre></div><p>In Fetch, we&rsquo;ll need to configure this ourselves. The simpest way I&rsquo;ve achieved this is by manually setting the <code>x-csrftoken</code> header in our Fetch parameters.</p>
-<p>To do this, I&rsquo;ve used <code>js-cookie</code> to grab the token value and pass it through in the headers. The following snippet is my approach:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#00f">import</span> Cookies from <span style="color:#a31515">&#39;js-cookie&#39;</span>;
-
-<span style="color:#00f">interface</span> Params { [key: <span style="color:#2b91af">string</span>]: any };
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#00f">interface</span> Params { [key: <span style="color:#2b91af">string</span>]: any };
 
 <span style="color:#00f">class</span> API {
     baseUrl: <span style="color:#2b91af">string</span>;
-    csrfToken: <span style="color:#2b91af">string</span> | <span style="color:#00f">undefined</span> = Cookies.get(<span style="color:#a31515">&#39;csrftoken&#39;</span>);
     params: <span style="color:#2b91af">Params</span> = {
         headers: {
             <span style="color:#a31515">&#39;Content-Type&#39;</span>: <span style="color:#a31515">&#39;application/json&#39;</span>,
             <span style="color:#a31515">&#39;Accept&#39;</span>: <span style="color:#a31515">&#39;application/json&#39;</span>,
-            <span style="color:#a31515">&#39;x-csrftoken&#39;</span>: <span style="color:#00f">this</span>.csrfToken ? <span style="color:#00f">this</span>.csrfToken : <span style="color:#a31515">&#39;&#39;</span>,
         },
         credentials: <span style="color:#a31515">&#39;include&#39;</span>,
         mode: <span style="color:#a31515">&#39;cors&#39;</span>
@@ -241,18 +231,14 @@ async <span style="color:#00f">delete</span>(endpoint: <span style="color:#2b91a
 };
 </code></pre></div><h1 id="full-working-example">Full Working Example</h1>
 <p>Here is the full working example of my boilerplate Fetch API class.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#00f">import</span> Cookies from <span style="color:#a31515">&#39;js-cookie&#39;</span>;
-
-<span style="color:#00f">interface</span> Params { [key: <span style="color:#2b91af">string</span>]: any };
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#00f">interface</span> Params { [key: <span style="color:#2b91af">string</span>]: any };
 
 <span style="color:#00f">class</span> API {
     baseUrl: <span style="color:#2b91af">string</span>;
-    csrfToken: <span style="color:#2b91af">string</span> | <span style="color:#00f">undefined</span> = Cookies.get(<span style="color:#a31515">&#39;csrftoken&#39;</span>);
     params: <span style="color:#2b91af">Params</span> = {
         headers: {
             <span style="color:#a31515">&#39;Content-Type&#39;</span>: <span style="color:#a31515">&#39;application/json&#39;</span>,
             <span style="color:#a31515">&#39;Accept&#39;</span>: <span style="color:#a31515">&#39;application/json&#39;</span>,
-            <span style="color:#a31515">&#39;x-csrftoken&#39;</span>: <span style="color:#00f">this</span>.csrfToken ? <span style="color:#00f">this</span>.csrfToken : <span style="color:#a31515">&#39;&#39;</span>,
         },
         credentials: <span style="color:#a31515">&#39;include&#39;</span>,
         mode: <span style="color:#a31515">&#39;cors&#39;</span>
