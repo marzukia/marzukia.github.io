@@ -279,7 +279,7 @@
 <p>The <code>Authenticate(username, password)</code> functions is summarized as follows:</p>
 <ol>
 <li><code>DbContext</code> searches the <code>Users</code> context for a match in function input <code>username</code> . If none is found at this point, <code>null</code> user is returned.</li>
-<li>The function input <code>password</code> is hashed using the <code>Salt</code> saved in the database, if the saved hashed <code>Password</code> matches this output, a  new claim is created and a<code>JWT</code> token is created; this token is subsequently saved onto the User model. If this validation fails, <code>null</code> user is returned.</li>
+<li>The function input <code>password</code> is hashed using the <code>Salt</code> saved in the database, if the saved hashed <code>Password</code> matches this output, a  new claim is created and a JWT token is created; this token is subsequently saved onto the User model. If this validation fails, <code>null</code> user is returned.</li>
 <li>The successfully authenticated <code>User</code> is returned.</li>
 </ol>
 <p>The <code>Register(username, password)</code> function is summarized as follows:</p>
@@ -387,7 +387,7 @@
 }
 </code></pre></div><h2 id="userscontroller">UsersController</h2>
 <p>The majority of this code example in this section should hopefully be self explanatory.</p>
-<p>The <code>[HttpGet(&quot;info&quot;)]</code> route demonstrates how to get the <code>User</code> in the controller by using the <code>JWT</code> claim.</p>
+<p>The <code>[HttpGet(&quot;info&quot;)]</code> route demonstrates how to get the <code>User</code> in the controller by using the JWT claim.</p>
 <p>The <code>[HttpPost(&quot;authenticate&quot;)]</code> has a working example on how to set the JWT cookie as a HttpOnly cookie.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00f">using</span> Microsoft.AspNetCore.Mvc;
 <span style="color:#00f">using</span> Microsoft.AspNetCore.Authorization;
@@ -524,16 +524,16 @@ services.AddAuthentication(x =&gt;
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">app.UseAuthentication();
 app.UseAuthorization();
 </code></pre></div><h2 id="requiring-authorization-for-your-controllers">Requiring Authorization for your Controllers</h2>
-<p>You can now specify <code>[Authorize]</code> at the top of your controller definitions to require a <code>JWT</code> token. If you want to allow anonymous access to a route, you can specify the <code>[AllowAnonymous]</code> decorator for the specific route.</p>
+<p>You can now specify <code>[Authorize]</code> at the top of your controller definitions to require a JWT token. If you want to allow anonymous access to a route, you can specify the <code>[AllowAnonymous]</code> decorator for the specific route.</p>
 <h1 id="closing-thoughts">Closing Thoughts</h1>
 <p>Implementing your own alternative to <code>Identity</code> is not overly cumbersome - it can be done quite quickly and effectively as above.</p>
 <p>While I was predominately using Django, I found myself using third party libraries to achieve what I wanted. The result of this was that I did not truly understand the flow of my program&rsquo;s authentication.</p>
 <p>By doing the above implementation, I was able to:</p>
 <ol>
 <li>Understand the process very clearly</li>
-<li>Ensure that the <code>JWT</code> implementation did not contain additional bloat.</li>
+<li>Ensure that the JWT implementation did not contain additional bloat.</li>
 </ol>
-<p>Lastly, I hope this post was helpful, if you have any comments or critiques to my approach for implementing <code>JWT</code> above I&rsquo;d love to hear it.</p>
+<p>Lastly, I hope this post was helpful, if you have any comments or critiques to my approach for implementing JWT above I&rsquo;d love to hear it.</p>
 </div>
   
 </article>
