@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Andryo Marzuki</title>
-    <link>https://marzukia.github.io/post/</link>
-    <description>Recent content in Posts on Andryo Marzuki</description>
+    <title>jwt on Andryo Marzuki</title>
+    <link>https://marzukia.github.io/tags/jwt/</link>
+    <description>Recent content in jwt on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2020, Andryo Marzuki</copyright>
     <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://marzukia.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://marzukia.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <guid>https://marzukia.github.io/post/aspnet-jwt-webapi/</guid>
       <description>Can I See Some Identification? I&amp;rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C# for things like Unity, and later realizing how much better ASP.NET Core is than Django.
 As I mostly use ReactJS for my application frontends, I did not need the &amp;lsquo;Razor&amp;rsquo; pages integrated in ASP.NET. As a result, my preference was to bootstrap my projects as webapi rather than webapp or even mvc.</description>
-    </item>
-    
-    <item>
-      <title>Fedora 32 and GPU Passthrough (VFIO)</title>
-      <link>https://marzukia.github.io/post/fedora32-vfio/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://marzukia.github.io/post/fedora32-vfio/</guid>
-      <description>&amp;hellip;What? I&amp;rsquo;ve used Fedora 32 as my main OS for about two years. Overall, it has been a very pleasant experience and has made things such as developing much easier than it would&amp;rsquo;ve been on Windows.
-However&amp;hellip; gaming on Linux is frankly a pain in the ass. No matter the state of Vulkan, Proton, Wine, etc, you&amp;rsquo;ll always find Windows games which will flat out not work. More recently, I found that Escape From Tarkov did not work at all on Linux due to Easy Anticheat.</description>
     </item>
     
   </channel>

@@ -3,12 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://marzukia.github.io/tags/fedora/</loc>
+    <loc>https://marzukia.github.io/post/aspnet-jwt-webapi/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/fedora32-vfio/</loc>
+    <loc>https://marzukia.github.io/tags/aspnet/</loc>
+    <lastmod>2020-06-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/jwt/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -23,8 +28,18 @@
   </url>
   
   <url>
+    <loc>https://marzukia.github.io/tags/fedora/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/post/fedora32-vfio/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://marzukia.github.io/tags/vfio/</loc>
-    <lastmod>2020-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
