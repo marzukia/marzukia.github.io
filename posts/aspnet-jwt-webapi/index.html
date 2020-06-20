@@ -1,0 +1,610 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <title>Andryo Marzuki</title>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Personal blog of Andryo Marzuki" />
+<meta name="author" content="Andryo Marzuki" /><meta property="og:title" content="ASP.NET Core Web API JWT Implementation" />
+<meta property="og:description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://marzukia.github.io/posts/aspnet-jwt-webapi/" />
+<meta property="article:published_time" content="2020-06-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-16T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ASP.NET Core Web API JWT Implementation"/>
+<meta name="twitter:description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service."/>
+
+<meta name="generator" content="Hugo 0.69.0" />
+    
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://marzukia.github.io/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda" />
+  <link rel="stylesheet" type="text/css" href="https://marzukia.github.io/css/styles.css" /><link rel='stylesheet' href='https://marzukia.github.io'></head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>
+                <a href="https://marzukia.github.io/">Andryo Marzuki</a>
+            </h1>
+
+      <ul id="social-media">
+             <li>
+               <a href="https://github.com/marzukia" title="GitHub">
+               <i class="fab fa-github fa-lg"></i>
+               </a>
+             </li>
+             <li>
+               <a href="https://linkedin.com/in/andryomarzuki" title="LinkedIn">
+               <i class="fab fa-linkedin fa-lg"></i>
+               </a>
+             </li>
+      </ul>
+      
+    </header>
+
+    
+<nav>
+    <ul>
+        
+        <li>
+            <a class="" href="https://marzukia.github.io/tags">
+                <i class="fa-li fa  fa-lg"></i><span>Tags</span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="" href="https://marzukia.github.io/about/">
+                <i class="fa-li fa  fa-lg"></i><span>About</span>
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+
+
+    <main>
+
+
+
+
+<article>
+
+    <h1>ASP.NET Core Web API JWT Implementation</h1>
+
+    
+      <aside>
+    <ul>
+        <li>
+            <time class="post-date" datetime="2020-06-16T00:00:00Z">Jun 16, 2020</time>
+        </li>
+        
+
+        
+        <li>
+            <em>
+                
+                    
+                    <a href="https://marzukia.github.io/tags/asp.net-core">#ASP.NET Core</a>
+                
+                    , 
+                    <a href="https://marzukia.github.io/tags/jwt">#JWT</a>
+                
+                    , 
+                    <a href="https://marzukia.github.io/tags/c">#C#</a>
+                
+                    , 
+                    <a href="https://marzukia.github.io/tags/authentication">#Authentication</a>
+                
+            </em>
+        </li>
+        
+
+        <li>9 minutes read</li>
+    </ul>
+</aside>
+
+    
+
+    
+
+
+    <p>I&rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C# for things like Unity, and later realizing how much better ASP.NET Core is than Django.</p>
+<p>As I mostly use ReactJS for my application frontends, I did not need the &lsquo;Razor&rsquo; pages integrated in ASP.NET. As a result, my preference was to bootstrap my projects as <code>webapi</code> rather than <code>webapp</code> or even <code>mvc</code>.</p>
+<p>ASP.NET Core 3.1 is packaged the <code>Identity</code> service. Micrsoft&rsquo;s documentation on how to use this library with single page applications can be found <a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-api-authorization?view=aspnetcore-3.1">here</a>. My general issue with this is the fact that you need to implement usage of <a href="https://identityserver.io/">IdentityServer</a>, and by bootstrapping your project in this manner you are using their <code>mvc</code> or <code>webapp</code> templates which contain a fair bit of bloat.</p>
+<p>This post will outline my implementation of a lightweight JWT authentication which is intended to be easily added onto a bare-bones <code>webapi</code> project.</p>
+<p><strong>Note</strong>: At time of writing, I am using ASP.NET Core version 3.1.5. If you are using an older version of ASP.NET core, some things <em>may</em> not work.</p>
+<h1 id="implementation-summary">Implementation Summary</h1>
+<p>My implementation of JWT consists of the following components:</p>
+<ol>
+<li><code>PasswordHasher</code> helper to create a salt, and then a hashed password for safe storage.</li>
+<li><code>User</code> model to define what data we&rsquo;d like to store in regards to our user object.</li>
+<li><code>UserService</code> to handle authentication, registration, and any other user action we might want to implement.</li>
+<li><code>UsersController</code> to map our endpoints to our service, we&rsquo;ll also instruct our <code>/api/user/login/</code> endpoint to set a HttpOnly cookie containing our JWT.</li>
+</ol>
+<p>In addition to the above, we need to:</p>
+<ol>
+<li>Adjust our <code>DbContext</code> to include the <code>User</code> model.</li>
+<li>Configure our <code>Startup</code> to use <code>JwtBearer</code> as an authentication mechanism.</li>
+<li>Configure out <code>Startup</code> to set an <code>Authorization</code> header using our HttpOnly cookie set by our <code>/api/user/login/</code> endpoint.</li>
+<li>Configure our <code>Startup</code> to use <code>UseAuthentication()</code> and <code>UseAuthentication()</code>.</li>
+<li>Inject our scoped <code>UserService</code> into <code>Startup.</code></li>
+<li>Adjust any other controllers which require authorization to include <code>[Authorize]</code> in its definition.</li>
+</ol>
+<p>This tutorial will cover implementing the above which will provide you the following endpoints:</p>
+<ol>
+<li><code>POST /api/user/register/</code> for creation of new user objects.</li>
+<li><code>POST /api/user/login/</code> to allow users to login and authenticate themselves.</li>
+<li><code>GET /api/user/info/</code> to retrieve a user&rsquo;s detail from their <code>Bearer</code> token.</li>
+</ol>
+<h1 id="component-explanation">Component Explanation</h1>
+<h2 id="passwordhasher">PasswordHasher</h2>
+<p>The password which we&rsquo;ll be storing will be encrypted using a salt we will generate. It should go without saying, but do not store passwords in plaintext.</p>
+<p>In order for us to achieve this, we&rsquo;ll need to create a helper function which will:</p>
+<ol>
+<li>Generate a <code>byte[]</code> salt</li>
+<li>And then hash the password using this salt, providing us a hashed password.</li>
+</ol>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#5f8700">using</span> System;
+<span style="color:#5f8700">using</span> System.Security.Cryptography;
+<span style="color:#5f8700">using</span> Microsoft.AspNetCore.Cryptography.KeyDerivation;
+
+<span style="color:#5f8700">namespace</span> JwtAuthExample.Helpers
+{
+    <span style="color:#5f8700">public</span> <span style="color:#5f8700">interface</span> IPasswordHasher
+    {
+        <span style="color:#af0000">byte</span>[] GenerateSalt();
+        <span style="color:#af0000">string</span> HashPassword(<span style="color:#af0000">string</span> password, <span style="color:#af0000">byte</span>[] salt);
+    }
+
+    <span style="color:#5f8700">public</span> <span style="color:#5f8700">class</span> <span style="color:#0087ff">PasswordHasher</span> : IPasswordHasher
+    {
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">byte</span>[] GenerateSalt()
+        {
+            <span style="color:#af0000">var</span> salt = <span style="color:#5f8700">new</span> <span style="color:#af0000">byte</span>[<span style="color:#00afaf">128</span> / <span style="color:#00afaf">8</span>];
+            <span style="color:#5f8700">using</span> (<span style="color:#af0000">var</span> rng = RNGCryptoServiceProvider.Create())
+            {
+                rng.GetBytes(salt);
+            }
+            <span style="color:#5f8700">return</span> salt;
+        }
+
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">string</span> HashPassword(<span style="color:#af0000">string</span> password, <span style="color:#af0000">byte</span>[] salt)
+        {
+            <span style="color:#af0000">var</span> hashedPassword = KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: <span style="color:#00afaf">10000</span>,
+                numBytesRequested: <span style="color:#00afaf">258</span> / <span style="color:#00afaf">8</span>
+            );
+            <span style="color:#5f8700">return</span> Convert.ToBase64String(hashedPassword);
+        }
+    }
+}
+</code></pre></div><p>In the example above we take advantage of ASP.NET Core&rsquo;s cryptographic library and use their <code>Pbkdf2</code> key derivation function and the <code>HMACSHA1</code> algorithm to hash our password using the salt we generate with our <code>GenerateSalt()</code> function.</p>
+<h2 id="user">User</h2>
+<p>I consider this definition my &lsquo;base&rsquo; <code>User</code> model. I will normally extend this model as needed by creating another model such as <code>ApplicationUser</code> which inherits from <code>User</code>.</p>
+<p>The data we want to capture is as follows:</p>
+<ol>
+<li><code>string</code> Username</li>
+<li><code>string</code> Password</li>
+<li><code>byte[]</code> Salt</li>
+<li><code>string</code> Token</li>
+</ol>
+<p>Our model definition is as follows:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#5f8700">using</span> System.ComponentModel.DataAnnotations;
+<span style="color:#5f8700">using</span> System.ComponentModel.DataAnnotations.Schema;
+<span style="color:#5f8700">using</span> System.Text.Json.Serialization;
+
+<span style="color:#5f8700">namespace</span> JwtAuthExample.Models
+{
+    <span style="color:#5f8700">public</span> <span style="color:#5f8700">class</span> <span style="color:#0087ff">User</span>
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">long</span> Id { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">string</span> Username { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+
+        [JsonIgnore]
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">string</span> Password { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+
+        [JsonIgnore]
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">byte</span>[] Salt { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">string</span> Token { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+    }
+
+    <span style="color:#5f8700">public</span> <span style="color:#5f8700">class</span> <span style="color:#0087ff">UserDTO</span>
+    {
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">string</span> Username { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+        <span style="color:#5f8700">public</span> <span style="color:#af0000">string</span> Password { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+    }
+}
+</code></pre></div><p>In the above example we&rsquo;ve explicitly declared <code>Password</code> to be ignored during serialization. This is good practice to ensure that this data is never unintentionally accessible.</p>
+<p>We&rsquo;ll create a Data Transfer Object (DTO) as our temporary model when doing things such as authenticating or registering the user. You&rsquo;ll see how this works in the <code>UsersController</code> section.</p>
+<h2 id="userservice">UserService</h2>
+<p>Our <code>UserService</code> will handle all the operations related to our <code>User</code> actions.</p>
+<p>The <code>Authenticate(username, password)</code> functions is summarized as follows:</p>
+<ol>
+<li><code>DbContext</code> searches the <code>Users</code> context for a match in function input <code>username</code> . If none is found at this point, <code>null</code> user is returned.</li>
+<li>The function input <code>password</code> is hashed using the <code>Salt</code> saved in the database, if the saved hashed <code>Password</code> matches this output, a  new claim is created and a JWT token is created; this token is subsequently saved onto the User model. If this validation fails, <code>null</code> user is returned.</li>
+<li>The successfully authenticated <code>User</code> is returned.</li>
+</ol>
+<p>The <code>Register(username, password)</code> function is summarized as follows:</p>
+<ol>
+<li><code>DbContext</code> searches the <code>Users</code> context for a match in function input <code>username</code>, if one is found <code>null</code> is returned.</li>
+<li>If no existing <code>User</code> is found, a <code>Salt</code> is generated using <code>PasswordHasher().GenerateSalt()</code> and then the password is hashed using <code>PasswordHasher().HashPassword(password, salt)</code>.</li>
+<li>Upon successful generation of the above, a new <code>User</code> is created.</li>
+</ol>
+<p>This is defined as follows:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#5f8700">using</span> System;
+<span style="color:#5f8700">using</span> System.IdentityModel.Tokens.Jwt;
+<span style="color:#5f8700">using</span> System.Security.Claims;
+<span style="color:#5f8700">using</span> System.Text;
+<span style="color:#5f8700">using</span> System.Threading.Tasks;
+
+<span style="color:#5f8700">using</span> Microsoft.Extensions.Options;
+<span style="color:#5f8700">using</span> Microsoft.IdentityModel.Tokens;
+<span style="color:#5f8700">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:#5f8700">using</span> JwtAuthExample.Models;
+<span style="color:#5f8700">using</span> JwtAuthExample.Helpers;
+
+<span style="color:#5f8700">namespace</span> JwtAuthExample.Services
+{
+    <span style="color:#5f8700">public</span> <span style="color:#5f8700">interface</span> IUserService
+    {
+        Task&lt;User&gt; Authenticate(<span style="color:#af0000">string</span> username, <span style="color:#af0000">string</span> password);
+        Task&lt;User&gt; Register(<span style="color:#af0000">string</span> username, <span style="color:#af0000">string</span> password);
+    }
+
+    <span style="color:#5f8700">public</span> <span style="color:#5f8700">class</span> <span style="color:#0087ff">UserService</span>: IUserService
+    {
+        <span style="color:#5f8700">private</span> <span style="color:#5f8700">readonly</span> JwtAuthExampleContext _context;
+
+        <span style="color:#5f8700">public</span> UserService(JwtAuthExampleContext context)
+        {
+            _context = context;
+        }
+
+        <span style="color:#5f8700">public</span> <span style="color:#5f8700">async</span> Task&lt;User&gt; Authenticate(<span style="color:#af0000">string</span> username, <span style="color:#af0000">string</span> password)
+        {
+            <span style="color:#af0000">var</span> hasher = <span style="color:#5f8700">new</span> PasswordHasher();
+            <span style="color:#af0000">var</span> user = <span style="color:#5f8700">await</span> _context.Users.FirstOrDefaultAsync(x =&gt;
+                x.Username == username
+            );
+
+            <span style="color:#5f8700">if</span> (user == <span style="color:#5f8700">null</span>)
+                <span style="color:#5f8700">return</span> <span style="color:#5f8700">null</span>;
+
+            <span style="color:#af0000">var</span> hashedPassword = hasher.HashPassword(password, user.Salt);
+
+            <span style="color:#5f8700">if</span> (user.Password == hashedPassword)
+            {
+                <span style="color:#af0000">var</span> tokenHandler = <span style="color:#5f8700">new</span> JwtSecurityTokenHandler();
+                <span style="color:#af0000">var</span> key = Encoding.ASCII.GetBytes(<span style="color:#00afaf">&#34;SECRETCODESTRING&#34;</span>);
+                <span style="color:#af0000">var</span> tokenDescriptor = <span style="color:#5f8700">new</span> SecurityTokenDescriptor
+                {
+                    Subject = <span style="color:#5f8700">new</span> ClaimsIdentity(<span style="color:#5f8700">new</span> Claim[]
+                    {
+                        <span style="color:#5f8700">new</span> Claim(ClaimTypes.Name, user.Id.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(<span style="color:#00afaf">7</span>),
+                    SigningCredentials = <span style="color:#5f8700">new</span> SigningCredentials(
+                        <span style="color:#5f8700">new</span> SymmetricSecurityKey(key),
+                        SecurityAlgorithms.HmacSha256Signature
+                    )
+                };
+                <span style="color:#af0000">var</span> token = tokenHandler.CreateToken(tokenDescriptor);
+                user.Token = tokenHandler.WriteToken(token);
+                <span style="color:#5f8700">await</span> _context.SaveChangesAsync();
+            } <span style="color:#5f8700">else</span> {
+                user = <span style="color:#5f8700">null</span>;
+            }
+
+            <span style="color:#5f8700">return</span> user;
+        }
+
+        <span style="color:#5f8700">public</span> <span style="color:#5f8700">async</span> Task&lt;User&gt; Register(<span style="color:#af0000">string</span> username, <span style="color:#af0000">string</span> password)
+        {
+            <span style="color:#af0000">var</span> validUser = <span style="color:#5f8700">await</span> _context.Users.FirstOrDefaultAsync(x =&gt;
+                x.Username == username
+            );
+
+            <span style="color:#5f8700">if</span> (validUser != <span style="color:#5f8700">null</span>)
+                <span style="color:#5f8700">return</span> <span style="color:#5f8700">null</span>;
+
+            <span style="color:#af0000">var</span> hasher = <span style="color:#5f8700">new</span> PasswordHasher();
+            <span style="color:#af0000">var</span> salt = hasher.GenerateSalt();
+            <span style="color:#af0000">var</span> hashedPassword = hasher.HashPassword(password, salt);
+
+            <span style="color:#af0000">var</span> user = <span style="color:#5f8700">new</span> ApplicationUser
+            {
+                Username = username,
+                Password = hashedPassword,
+                Salt = salt
+            };
+
+            _context.Users.Add(user);
+
+            <span style="color:#5f8700">await</span> _context.SaveChangesAsync();
+
+            <span style="color:#5f8700">return</span> user;
+        }
+    }
+}
+</code></pre></div><h2 id="userscontroller">UsersController</h2>
+<p>The majority of this code example in this section should hopefully be self explanatory.</p>
+<p>The <code>[HttpGet(&quot;info&quot;)]</code> route demonstrates how to get the <code>User</code> in the controller by using the JWT claim.</p>
+<p>The <code>[HttpPost(&quot;authenticate&quot;)]</code> has a working example on how to set the JWT cookie as a HttpOnly cookie.</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#5f8700">using</span> Microsoft.AspNetCore.Mvc;
+<span style="color:#5f8700">using</span> Microsoft.AspNetCore.Authorization;
+<span style="color:#5f8700">using</span> Microsoft.EntityFrameworkCore;
+<span style="color:#5f8700">using</span> Microsoft.Net.Http.Headers;
+
+<span style="color:#5f8700">using</span> System;
+<span style="color:#5f8700">using</span> System.Net.Http;
+<span style="color:#5f8700">using</span> System.Collections.Generic;
+<span style="color:#5f8700">using</span> System.Threading.Tasks;
+
+<span style="color:#5f8700">using</span> JwtAuthExample.Services;
+<span style="color:#5f8700">using</span> JwtAuthExample.Models;
+<span style="color:#5f8700">using</span> JwtAuthExample.Helpers;
+
+<span style="color:#5f8700">namespace</span> JwtAuthExample.Controllers
+{
+    [Authorize]
+    [Route(&#34;api/users&#34;)]
+    [ApiController]
+    <span style="color:#5f8700">public</span> <span style="color:#5f8700">class</span> <span style="color:#0087ff">UsersController</span> : ControllerBase
+    {
+        <span style="color:#5f8700">private</span> <span style="color:#5f8700">readonly</span> JwtAuthExampleContext _context;
+
+        <span style="color:#5f8700">private</span> <span style="color:#5f8700">readonly</span> IUserService _userService;
+        <span style="color:#5f8700">private</span> <span style="color:#5f8700">readonly</span> IUserTools _userTools;
+
+        <span style="color:#5f8700">public</span> UsersController(IUserService userService, JwtAuthExampleContext context)
+        {
+            _userService = userService;
+            _context = context;
+            _userTools = <span style="color:#5f8700">new</span> UserTools();
+        }
+
+        [HttpGet(&#34;info&#34;)]
+        <span style="color:#5f8700">public</span> <span style="color:#5f8700">async</span> Task&lt;ActionResult&lt;User&gt;&gt; GetUser()
+        {
+            <span style="color:#af0000">var</span> claimsIdentity = <span style="color:#5f8700">this</span>.User.Identity <span style="color:#5f8700">as</span> ClaimsIdentity;
+            <span style="color:#af0000">var</span> userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+            <span style="color:#af0000">var</span> user = <span style="color:#5f8700">await</span> _context.Users.FindAsync(<span style="color:#af0000">long</span>.Parse(userId));
+
+            <span style="color:#5f8700">if</span> (user == <span style="color:#5f8700">null</span>)
+                <span style="color:#5f8700">return</span> BadRequest();
+
+            <span style="color:#5f8700">return</span> user;
+        }
+
+        [AllowAnonymous]
+        [HttpPost(&#34;authenticate&#34;)]
+        <span style="color:#5f8700">public</span> <span style="color:#5f8700">async</span> Task&lt;ActionResult&lt;User&gt;&gt; Authenticate([FromBody]UserDTO model)
+        {
+            <span style="color:#af0000">var</span> user = <span style="color:#5f8700">await</span> _userService.Authenticate(model.Username, model.Password);
+
+            <span style="color:#5f8700">if</span> (user == <span style="color:#5f8700">null</span>)
+            {
+                <span style="color:#af0000">var</span> errorMessage = <span style="color:#5f8700">new</span> {message = <span style="color:#00afaf">&#34;Username or password is incorrect&#34;</span>};
+                <span style="color:#5f8700">return</span> BadRequest(errorMessage);
+            }
+
+            <span style="color:#af0000">var</span> cookieOptions = <span style="color:#5f8700">new</span> CookieOptions
+            {
+                Path = <span style="color:#00afaf">&#34;/&#34;</span>,
+                Expires = DateTimeOffset.UtcNow.AddDays(<span style="color:#00afaf">7</span>),
+                IsEssential = <span style="color:#5f8700">true</span>,
+                HttpOnly = <span style="color:#5f8700">true</span>,
+                Secure = <span style="color:#5f8700">true</span>
+            };
+
+            Response.Cookies.Append(<span style="color:#00afaf">&#34;JWT&#34;</span>, user.Token, cookieOptions);
+
+            <span style="color:#5f8700">return</span> Ok(user);
+        }
+
+        [AllowAnonymous]
+        [HttpPost(&#34;register&#34;)]
+        <span style="color:#5f8700">public</span> <span style="color:#5f8700">async</span> Task&lt;ActionResult&lt;User&gt;&gt; RegisterUser(UserDTO model)
+        {
+            <span style="color:#af0000">var</span> user = <span style="color:#5f8700">await</span> _userService.Register(model.Username, model.Password);
+
+            <span style="color:#5f8700">if</span> (user == <span style="color:#5f8700">null</span>)
+                <span style="color:#5f8700">return</span> BadRequest(<span style="color:#5f8700">new</span> {message = <span style="color:#00afaf">&#34;Username already exists&#34;</span>});
+
+            <span style="color:#5f8700">return</span> CreatedAtAction(<span style="color:#00afaf">&#34;GetUser&#34;</span>, <span style="color:#5f8700">new</span> { id = user.Id }, user);
+        }
+    }
+}
+</code></pre></div><h1 id="implementing-our-components">Implementing our Components</h1>
+<h2 id="adjusting-your-dbcontext">Adjusting your DbContext</h2>
+<p>In your <code>DbContext</code> you&rsquo;ll need to add the following:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#5f8700">public</span> <span style="color:#5f8700">virtual</span> DbSet&lt;ApplicationUser&gt; Users { <span style="color:#5f8700">get</span>; <span style="color:#5f8700">set</span>; }
+</code></pre></div><p>Once you&rsquo;ve done this, make sure you migrate and affect your changes by doing the following:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet ef migrations add  AddUserModel -v
+dotnet ef database update -v
+</code></pre></div><h2 id="adding-jwtbearer">Adding JwtBearer</h2>
+<p>You&rsquo;ll need to install the <code>JwtBearer</code> package by running the following command:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+</code></pre></div><p>We need to tell our application to use <code>JwtBearer</code> as it&rsquo;s authentication mechanism.</p>
+<p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#af0000">var</span> key = Encoding.ASCII.GetBytes(<span style="color:#00afaf">&#34;SECRETCODESTRING&#34;</span>);
+services.AddAuthentication(x =&gt;
+{
+	x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(x =&gt;
+{
+	x.RequireHttpsMetadata = <span style="color:#5f8700">false</span>;
+	x.SaveToken = <span style="color:#5f8700">true</span>;
+	x.TokenValidationParameters = <span style="color:#5f8700">new</span> TokenValidationParameters
+	{
+		ValidateIssuerSigningKey = <span style="color:#5f8700">true</span>,
+		IssuerSigningKey = <span style="color:#5f8700">new</span> SymmetricSecurityKey(key),
+		ValidateIssuer = <span style="color:#5f8700">false</span>,
+		ValidateAudience = <span style="color:#5f8700">false</span>
+	};
+});
+</code></pre></div><h2 id="adding-userservice">Adding UserService</h2>
+<p>We need to inject our <code>UserService</code> and it&rsquo;s interface <code>IUserService</code> into <code>Startup</code>.</p>
+<p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">services.AddScoped&lt;IUserService, UserService&gt;();
+</code></pre></div><h2 id="adding-our-middleware-to-use-jwt-httponly-cookie">Adding our Middleware to use JWT HttpOnly Cookie</h2>
+<p>It&rsquo;s really bad form to store our JWT in local storage. Where possible, we want to make use of HttpOnly cookies which are more secure. To make our controllers use the HttpOnly cookie we need to place a middleware in our <code>Startup</code>:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">app.Use(<span style="color:#5f8700">async</span> (context, next) =&gt;
+{
+    <span style="color:#af0000">var</span> token = context.Request.Cookies[<span style="color:#00afaf">&#34;JWT&#34;</span>];
+
+    <span style="color:#5f8700">if</span> (!<span style="color:#af0000">string</span>.IsNullOrEmpty(token))
+        context.Request.Headers.Add(<span style="color:#00afaf">&#34;Authorization&#34;</span>, <span style="color:#00afaf">&#34;Bearer &#34;</span> + token);
+
+    <span style="color:#5f8700">await</span> next();
+});
+</code></pre></div><h2 id="final-touches">Final Touches</h2>
+<p>Adjust your <code>Configure(IApplicationBuilder app, IWebHostEnvironment env)</code> with the following additions:</p>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">app.UseAuthentication();
+app.UseAuthorization();
+</code></pre></div><h2 id="requiring-authorization-for-your-controllers">Requiring Authorization for your Controllers</h2>
+<p>You can now specify <code>[Authorize]</code> at the top of your controller definitions to require a JWT token. If you want to allow anonymous access to a route, you can specify the <code>[AllowAnonymous]</code> decorator for the specific route.</p>
+<h1 id="closing-thoughts">Closing Thoughts</h1>
+<p>Implementing your own alternative to <code>Identity</code> is not overly cumbersome - it can be done quite quickly and effectively as above.</p>
+<p>While I was predominately using Django, I found myself using third party libraries to achieve what I wanted. The result of this was that I did not truly understand the flow of my program&rsquo;s authentication.</p>
+<p>By doing the above implementation, I was able to:</p>
+<ol>
+<li>Understand the process very clearly</li>
+<li>Ensure that the JWT implementation did not contain additional bloat.</li>
+</ol>
+<p>Lastly, I hope this post was helpful, if you have any comments or critiques to my approach for implementing JWT above I&rsquo;d love to hear it.</p>
+
+
+</article>
+
+
+<section class="post-nav">
+    <ul>
+        
+        <li>
+            <a href="https://marzukia.github.io/posts/fedora32-vfio/"><i class="fa fa-chevron-circle-left"></i> Fedora 32 and GPU Passthrough (VFIO)</a>
+        </li>
+        
+        
+        <li>
+            <a href="https://marzukia.github.io/posts/frontend-resuable-api/">Using Fetch over Axios in ReactJS Applications <i class="fa fa-chevron-circle-right"></i> </a>
+        </li>
+        
+    </ul>
+</section>
+  
+    
+    
+        <section class="comments-block">
+      <button id="show-comments" style="display: none;"><i class="fa fa-comments"></i> Add/View Comments</button>
+</section>
+
+<section id="disqus_thread"></section>
+
+<script>
+      (function () {
+            
+            
+            if (window.location.hostname == "localhost")
+                  return;
+
+            var disqus_loaded = false;
+            var disqus_shortname = 'marzukia';
+            var disqus_button = document.getElementById("show-comments");
+
+            var disqus_autoload =  null ;
+            var disable_comment =  null ;
+
+            if (disable_comment)
+                  return;
+
+            disqus_button.style.display = "";
+
+            if (disqus_autoload){
+                  disqus();
+            }else{
+                  disqus_button.addEventListener("click", disqus, false);
+            }
+
+            function disqus() {
+
+                  if (!disqus_loaded) {
+                        disqus_loaded = true;
+
+                        var e = document.createElement("script");
+                        e.type = "text/javascript";
+                        e.async = true;
+                        e.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+                        (document.getElementsByTagName("head")[0] ||
+                              document.getElementsByTagName("body")[0])
+                        .appendChild(e);
+
+                        
+                        document.getElementById("show-comments").style.display = "none";
+                  }
+            }
+
+            
+            var hash = window.location.hash.substr(1);
+            if (hash.length > 8) {
+                  if (hash.substring(0, 8) == "comment-") {
+                        disqus();
+                  }
+            }
+
+            
+            if (/bot|google|baidu|bing|msn|duckduckgo|slurp|yandex/i.test(navigator.userAgent)) {
+                  disqus();
+            }
+      })();
+</script>
+
+    
+  
+
+
+
+
+
+</main>
+    <footer>
+        <h6>© 2020, Andryo Marzuki |
+            Rendered by <a href="https://gohugo.io" title="Hugo">Hugo</a> |
+            <a href="https://marzukia.github.ioindex.xml">Subscribe </a></h6>
+    </footer>
+</div>
+<script src="https://marzukia.github.io/js/scripts.js"></script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-170171726-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+
+</html>
+

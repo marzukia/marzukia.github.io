@@ -13,12 +13,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/mocking-dbcontext-tests-aspnet/</loc>
+    <loc>https://marzukia.github.io/posts/mocking-dbcontext-tests-aspnet/</loc>
     <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/</loc>
+    <loc>https://marzukia.github.io/posts/</loc>
     <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,12 +48,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/frontend-resuable-api/</loc>
+    <loc>https://marzukia.github.io/posts/frontend-resuable-api/</loc>
     <lastmod>2020-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/aspnet-jwt-webapi/</loc>
+    <loc>https://marzukia.github.io/posts/aspnet-jwt-webapi/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -73,7 +73,7 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/fedora32-vfio/</loc>
+    <loc>https://marzukia.github.io/posts/fedora32-vfio/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
   
@@ -89,12 +89,12 @@
   
   <url>
     <loc>https://marzukia.github.io/</loc>
-    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://marzukia.github.io/about/</loc>
-    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -103,10 +103,6 @@
   
   <url>
     <loc>https://marzukia.github.io/tags/index/</loc>
-  </url>
-  
-  <url>
-    <loc>https://marzukia.github.io/series/</loc>
   </url>
   
 </urlset>
