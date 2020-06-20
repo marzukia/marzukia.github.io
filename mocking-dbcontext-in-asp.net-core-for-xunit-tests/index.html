@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal dev blog of Andryo Marzuki">
+    
+    <link rel="shortcut icon" href="https://marzukia.github.io/favicon.ico">
+    
+    <link rel="stylesheet" href="https://marzukia.github.io/css/style.min.css">
+
+    <title>Mocking DbContext in ASP.NET Core for xUnit Tests</title>
+</head>
+<body><header id="banner">
+    <h2><a href="https://marzukia.github.io">Andryo Marzuki</a></h2>
+    <nav>
+        <ul>
+            <li><a href="https://marzukia.github.io">posts</a></li>
+            
+            <li>
+                <a href="https://marzukia.github.io/about/">About</a>
+            </li>
+            
+        </ul>
+    </nav>
+</header>
+<main id="content">
+<article>
+    <header id="post-header">
+        <h1>Mocking DbContext in ASP.NET Core for xUnit Tests</h1><time>June 18, 2020</time></header><p>Having unit tests in your application is important to ensure that your application functions how you intend for it to function. This is especially important as the scope and complexity of your application increases in size.</p>
+<p>My starting point was this <a href="https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test">MSDN article</a> discussing how to use xUnit with ASP.NET Core. The example itself is quite bare in my opinion, it doesn&rsquo;t actually provide any real useful examples on how to implement xUnit with your application&rsquo;s <code>DbContext</code>.</p>
+<p>Mocking is the process of creating an instance of your context which you can populate with fake data, as the name suggests you are making a &lsquo;mock&rsquo; of it. By mocking your <code>DbContext</code> you are able to isolate behaviour related to your Services which call upon your database.</p>
+<p><strong>Note</strong>: This is a follow up to my <a href="https://marzukia.github.io/post/aspnet-jwt-webapi/">previous article</a>, where I outlined how I implemented JWT authentication in my Web API.</p>
+<h1 id="the-setup">The Setup</h1>
+<p>Queue two great testing libraries: <a href="https://github.com/Moq/moq4/">Moq</a> and <a href="https://github.com/romantitov/MockQueryable">MockQueryable</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Moq
+dotnet add package MockQueryable.Moq
+</code></pre></div><p>With these libraries installed, we can get started writing our unit tests. The steps to set up a basic unit test which uses a mocked <code>DbContext</code> is as follows:</p>
+<ol>
+<li>Create some fake data which we&rsquo;ll use to test</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">var</span> users = <span style="color:#66d9ef">new</span> List&lt;ApplicationUser&gt;() {
+    <span style="color:#66d9ef">new</span> ApplicationUser() {
+        Username = <span style="color:#e6db74">&#34;test&#34;</span>,
+        Password = <span style="color:#e6db74">&#34;gw9L3AOoUxiEuKahonc17Twg47Sam64b4rm/ui/zTjU=&#34;</span>,
+        Salt = Encoding
+            .ASCII
+            .GetBytes(<span style="color:#e6db74">&#34;\xea2858b16c8357ecb9ba6ababaa05594&#34;</span>)
+    }
+};
+</code></pre></div><ol start="2">
+<li>Convert this data into a queryable set using <code>MockQuerayble</code>.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">var</span> mock = users.AsQueryable().BuildMockDbSet();
+</code></pre></div><ol start="3">
+<li>Create new <code>DbContext</code> taking advantage of <code>UseInMemoryDatabase()</code>. You can find more discussion about this on this <a href="https://docs.microsoft.com/en-us/ef/core/miscellaneous/testing/">MSDN article</a>.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">var</span> options = <span style="color:#66d9ef">new</span> DbContextOptionsBuilder&lt;UnitTestExampleContext&gt;()
+    .UseInMemoryDatabase(databaseName: <span style="color:#e6db74">&#34;UserServiceTest&#34;</span>)
+    .Options;
+
+MockContext = <span style="color:#66d9ef">new</span> Mock&lt;UnitTestExampleContext&gt;(options);
+</code></pre></div><ol start="4">
+<li>Setup our <code>MockContext</code> to map our <code>Users</code> model correctly.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">MockContext.Setup(c =&gt; c.Users).Returns(mock.Object);
+</code></pre></div><ol start="5">
+<li>Instantiate your <code>UserService</code> and pass through the <code>MockContext</code> into its constructor.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">_userService = <span style="color:#66d9ef">new</span> UserService(MockContext.Object);
+</code></pre></div><ol start="6">
+<li>Write your tests!</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#a6e22e">[Fact]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">async</span> Task AuthenticateUser_IsValidUser_ReturnUser()
+{
+    <span style="color:#66d9ef">var</span> user = <span style="color:#66d9ef">await</span> _userService
+        .Authenticate(<span style="color:#e6db74">&#34;test&#34;</span>, <span style="color:#e6db74">&#34;testerday123&#34;</span>);
+
+    Assert.True(user.GetType() == <span style="color:#66d9ef">typeof</span>(User),
+        <span style="color:#e6db74">&#34;Valid user did not return a User object&#34;</span>);
+}
+</code></pre></div><h1 id="full-working-example">Full Working Example</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System.Text;
+<span style="color:#66d9ef">using</span> System.Linq;
+<span style="color:#66d9ef">using</span> System.Collections.Generic;
+<span style="color:#66d9ef">using</span> System.Threading.Tasks;
+
+<span style="color:#66d9ef">using</span> Microsoft.Extensions.Options;
+<span style="color:#66d9ef">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:#66d9ef">using</span> UnitTestExample.Services;
+<span style="color:#66d9ef">using</span> UnitTestExample.Models;
+
+<span style="color:#66d9ef">using</span> Xunit;
+
+<span style="color:#66d9ef">using</span> Moq;
+<span style="color:#66d9ef">using</span> MockQueryable.Moq;
+
+<span style="color:#66d9ef">namespace</span> UnitTestExample.Tests.Services
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserServiceTest</span>
+    {
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> IUserService _userService;
+
+        <span style="color:#66d9ef">protected</span> Mock&lt;UnitTestExampleContext&gt; MockContext;
+
+        <span style="color:#66d9ef">public</span> UserServiceTest()
+        {
+            <span style="color:#66d9ef">var</span> users = <span style="color:#66d9ef">new</span> List&lt;ApplicationUser&gt;() {
+                <span style="color:#66d9ef">new</span> ApplicationUser() {
+                    Username = <span style="color:#e6db74">&#34;test&#34;</span>,
+                    Password = <span style="color:#e6db74">&#34;gw9L3AOoUxiEuKahonc17Twg47Sam64b4rm/ui/zTjU=&#34;</span>,
+                    Salt = Encoding.ASCII
+                        .GetBytes(<span style="color:#e6db74">&#34;\xea2858b16c8357ecb9ba6ababaa05594&#34;</span>)
+                }
+            };
+
+            <span style="color:#66d9ef">var</span> mock = users.AsQueryable().BuildMockDbSet();
+
+            <span style="color:#66d9ef">var</span> options = <span style="color:#66d9ef">new</span> DbContextOptionsBuilder&lt;UnitTestExampleContext&gt;()
+                .UseInMemoryDatabase(databaseName: <span style="color:#e6db74">&#34;UserServiceTest&#34;</span>)
+                .Options;
+
+            MockContext = <span style="color:#66d9ef">new</span> Mock&lt;UnitTestExampleContext&gt;(options);
+            MockContext
+                .Setup(c =&gt; c.Users)
+                .Returns(mock.Object);
+
+            _userService = <span style="color:#66d9ef">new</span> UserService(MockContext.Object);
+        }
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [Fact]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">async</span> Task AuthenticateUser_IsValidUser_ReturnUser()
+        {
+            <span style="color:#66d9ef">var</span> user = <span style="color:#66d9ef">await</span> _userService
+                .Authenticate(<span style="color:#e6db74">&#34;test&#34;</span>, <span style="color:#e6db74">&#34;testerday123&#34;</span>);
+
+            Assert.True(user.GetType() == <span style="color:#66d9ef">typeof</span>(User),
+                <span style="color:#e6db74">&#34;Valid user did not return a User object&#34;</span>);
+        }
+    }
+}
+</code></pre></div><h1 id="closing-thoughts">Closing Thoughts</h1>
+<p>It&rsquo;s not a hard process to set up a mocked <code>DbContext</code>, however with the lack of general documentation it can be quite confusing initially.</p>
+<p>Hope I&rsquo;ve saved you some time and good luck!</p>
+</article>
+
+        </main><footer id="footer">
+    © 2020, Andryo Marzuki
+</footer>
+</body>
+</html>

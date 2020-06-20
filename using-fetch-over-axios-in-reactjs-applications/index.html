@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal dev blog of Andryo Marzuki">
+    
+    <link rel="shortcut icon" href="https://marzukia.github.io/favicon.ico">
+    
+    <link rel="stylesheet" href="https://marzukia.github.io/css/style.min.css">
+
+    <title>Using Fetch over Axios in ReactJS Applications</title>
+</head>
+<body><header id="banner">
+    <h2><a href="https://marzukia.github.io">Andryo Marzuki</a></h2>
+    <nav>
+        <ul>
+            <li><a href="https://marzukia.github.io">posts</a></li>
+            
+            <li>
+                <a href="https://marzukia.github.io/about/">About</a>
+            </li>
+            
+        </ul>
+    </nav>
+</header>
+<main id="content">
+<article>
+    <header id="post-header">
+        <h1>Using Fetch over Axios in ReactJS Applications</h1><time>June 17, 2020</time></header><p>For my last few projects I&rsquo;ve made the switch from <a href="https://www.google.com/search?client=firefox-b-d&amp;q=axios">Axios</a> to plain ol&rsquo; <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch</a>. My rationale for making this switch was:</p>
+<ol>
+<li>Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and</li>
+<li>Fetch is a perfectly capable library for the purposes of building my resuable API class with.</li>
+</ol>
+<p>My approach in using Fetch or Axios is to create a class which contains all my API logic. The idea is to clearly define my <code>GET</code>, <code>POST</code>, <code>DELETE</code>, <code>PUT</code> methods and then build understandable and elegant functions on top of these.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Params</span> { [<span style="color:#a6e22e">key</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span> };
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">API</span> {
+    <span style="color:#a6e22e">baseUrl</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">params</span>: <span style="color:#66d9ef">Params</span> <span style="color:#f92672">=</span> {
+        <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+            <span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>,
+        },
+        <span style="color:#a6e22e">credentials</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;include&#39;</span>,
+        <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;cors&#39;</span>
+    };
+
+    <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">baseUrl</span>: <span style="color:#66d9ef">string</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseUrl</span>
+    };
+};
+</code></pre></div><h1 id="reusable-methods">Reusable Methods</h1>
+<p>This next section I&rsquo;ll break down my &lsquo;main&rsquo; methods which form the basis of my API class&rsquo; functions.</p>
+<h2 id="get">GET</h2>
+<p>With my <code>GET</code> method, I make params optional given. The params are then converted to search params and added to the url if applicable.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">async</span> <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">params?</span>: <span style="color:#66d9ef">Params</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">params</span>)
+        <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">search</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URLSearchParams</span>(<span style="color:#a6e22e">params</span>).<span style="color:#a6e22e">toString</span>();
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;GET&#39;</span>})
+        .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+        .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>})
+};
+</code></pre></div><h2 id="post">POST</h2>
+<p>With my <code>POST</code> method, params are compulsory. The params are passed through in the request&rsquo;s body.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">async</span> <span style="color:#a6e22e">post</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">params</span>: <span style="color:#66d9ef">Params</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;POST&#39;</span>, <span style="color:#a6e22e">body</span>: <span style="color:#66d9ef">JSON.stringify</span>(<span style="color:#a6e22e">params</span>),})
+        .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+        .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>})
+};
+</code></pre></div><h2 id="put--delete">PUT / DELETE</h2>
+<p>My <code>PUT</code> and <code>DELETE</code> methods are more or less the same as how I construct my <code>POST</code> method.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">async</span> <span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">params</span>: <span style="color:#66d9ef">Params</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;PUT&#39;</span>, <span style="color:#a6e22e">body</span>: <span style="color:#66d9ef">JSON.stringify</span>(<span style="color:#a6e22e">params</span>),})
+        .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+        .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>})
+};
+
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DELETE&#39;</span>})
+        .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+        .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>});
+}
+</code></pre></div><h2 id="usage">Usage</h2>
+<p>Once we&rsquo;ve defined these methods, we can create more specific methods which are highly understandable and structured. The below example shows how I would create a function which authenticates the user:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">async</span> <span style="color:#a6e22e">authenticate</span>(<span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">User</span><span style="color:#f92672">&gt;</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;users/authenticate/&#39;</span>;
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">post</span>(<span style="color:#a6e22e">endpoint</span>, {<span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">username</span>, <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">password</span>});
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+};
+</code></pre></div><h1 id="full-working-example">Full Working Example</h1>
+<p>Here is the full working example of my boilerplate Fetch API class.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Params</span> { [<span style="color:#a6e22e">key</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span> };
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">API</span> {
+    <span style="color:#a6e22e">baseUrl</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">params</span>: <span style="color:#66d9ef">Params</span> <span style="color:#f92672">=</span> {
+        <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+            <span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>,
+        },
+        <span style="color:#a6e22e">credentials</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;include&#39;</span>,
+        <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;cors&#39;</span>
+    };
+
+    <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">baseUrl</span>: <span style="color:#66d9ef">string</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseUrl</span>
+    };
+
+    <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">params?</span>: <span style="color:#66d9ef">Params</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">params</span>)
+            <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">search</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URLSearchParams</span>(<span style="color:#a6e22e">params</span>).<span style="color:#a6e22e">toString</span>();
+
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;GET&#39;</span>})
+            .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+            .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>})
+    };
+
+    <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">post</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">params</span>: <span style="color:#66d9ef">Params</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;POST&#39;</span>, <span style="color:#a6e22e">body</span>: <span style="color:#66d9ef">JSON.stringify</span>(<span style="color:#a6e22e">params</span>),})
+            .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+            .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>})
+    };
+
+    <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">params</span>: <span style="color:#66d9ef">Params</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;PUT&#39;</span>, <span style="color:#a6e22e">body</span>: <span style="color:#66d9ef">JSON.stringify</span>(<span style="color:#a6e22e">params</span>),})
+            .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+            .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>})
+    };
+
+    <span style="color:#a6e22e">async</span> <span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">URL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">endpoint</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span>);
+
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">toString</span>(), {...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DELETE&#39;</span>})
+            .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()})
+            .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">error</span>});
+    }
+
+    <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">authenticate</span>(<span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">User</span><span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;users/authenticate/&#39;</span>;
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">post</span>(<span style="color:#a6e22e">endpoint</span>, {<span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">username</span>, <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">password</span>});
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+    };
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">api</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">API</span>(<span style="color:#e6db74">&#39;https://localhost:5001/api/&#39;</span>)
+</code></pre></div><h1 id="closing-thoughts">Closing Thoughts</h1>
+<p>If you&rsquo;re already invested in using Axios in your developments/projects, there&rsquo;s probably no reason to change.</p>
+<p>I personally quite like how succint the code is using Fetch, and bonus points to the fact that I am no longer reliant on a third party library.</p>
+<p>Lastly, with this article posted, I can now delete the code scraps I have saved on GitHub!</p>
+<p>Hope you&rsquo;ve found the article useful.</p>
+</article>
+
+        </main><footer id="footer">
+    © 2020, Andryo Marzuki
+</footer>
+</body>
+</html>
