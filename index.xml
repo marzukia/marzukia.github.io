@@ -13,6 +13,16 @@
     
     
     <item>
+      <title>Mocking DbContext in ASP.NET Core for xUnit Tests</title>
+      <link>https://marzukia.github.io/post/mocking-dbcontext-tests-aspnet/</link>
+      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/mocking-dbcontext-tests-aspnet/</guid>
+      <description>Are you Mocking me? Having unit tests in your application is important to ensure that your application functions how you intend for it to function. This is especially important as the scope and complexity of your application increases in size.
+My starting point was this MSDN article discussing how to use xUnit with ASP.NET Core. The example itself is quite bare in my opinion, it doesn&amp;rsquo;t actually provide any real useful examples on how to implement xUnit with your application&amp;rsquo;s DbContext.</description>
+    </item>
+    
+    <item>
       <title>Using Fetch over Axios in ReactJS Applications</title>
       <link>https://marzukia.github.io/post/frontend-resuable-api/</link>
       <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>

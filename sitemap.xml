@@ -3,17 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://marzukia.github.io/post/</loc>
-    <lastmod>2020-06-17T00:00:00+00:00</lastmod>
+    <loc>https://marzukia.github.io/tags/asp.net-core/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/tags/reactjs/</loc>
-    <lastmod>2020-06-17T00:00:00+00:00</lastmod>
+    <loc>https://marzukia.github.io/tags/c#/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/post/mocking-dbcontext-tests-aspnet/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/post/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://marzukia.github.io/tags/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/unit-testing/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/xunit/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/reactjs/</loc>
     <lastmod>2020-06-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -28,22 +53,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/tags/asp.net-core/</loc>
-    <lastmod>2020-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://marzukia.github.io/post/aspnet-jwt-webapi/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://marzukia.github.io/tags/authentication/</loc>
-    <lastmod>2020-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://marzukia.github.io/tags/c#/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
   </url>
   

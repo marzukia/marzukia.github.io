@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2020, Andryo Marzuki</copyright>
-    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mocking DbContext in ASP.NET Core for xUnit Tests</title>
+      <link>https://marzukia.github.io/post/mocking-dbcontext-tests-aspnet/</link>
+      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/mocking-dbcontext-tests-aspnet/</guid>
+      <description>Are you Mocking me? Having unit tests in your application is important to ensure that your application functions how you intend for it to function. This is especially important as the scope and complexity of your application increases in size.
+My starting point was this MSDN article discussing how to use xUnit with ASP.NET Core. The example itself is quite bare in my opinion, it doesn&amp;rsquo;t actually provide any real useful examples on how to implement xUnit with your application&amp;rsquo;s DbContext.</description>
+    </item>
     
     <item>
       <title>ASP.NET Core Web API JWT Implementation</title>

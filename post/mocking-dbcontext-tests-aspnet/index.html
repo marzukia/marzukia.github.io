@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Andryo Marzuki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service." />
+
+    <meta property="og:title" content="Mocking DbContext in ASP.NET Core for xUnit Tests" />
+    <meta property="og:description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://marzukia.github.io/post/mocking-dbcontext-tests-aspnet/" />
+    <meta itemprop="name" content="Mocking DbContext in ASP.NET Core for xUnit Tests">
+    <meta itemprop="description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service.">
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Mocking DbContext in ASP.NET Core for xUnit Tests"/>
+    <meta name="twitter:description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service."/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+
+    
+    <link rel="stylesheet" href="https://marzukia.github.io/scss/style.min.985143681d775454f5a82b04717e0f516b4b4551f47e9e48055cfa7fafc10e99.css" >
+</head>
+<body>
+    <header>
+    <div class="header header-frame">
+        <div>
+          
+            <h1 class="header__title">Mocking DbContext in ASP.NET Core for xUnit Tests</h1>
+          
+            
+                <div class="header__description">Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service.</div>
+            
+        </div>
+        <nav class="header-nav">
+            <ul class="header-nav-list header-nav-list--menu">
+                
+                
+                    
+                        <li class="header-nav-list__item">
+                            <a class="header-nav-list__link" href="/about/">
+                                
+                                <span>About</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li class="header-nav-list__item">
+                            <a class="header-nav-list__link" href="/">
+                                
+                                <span>Home</span>
+                            </a>
+                        </li>
+                    
+                
+            </ul>
+            <button class="header-nav-list__nav-btn">navigation</button>
+        </nav>
+        <button class="mb-header__menu-btn">
+            <span class="mb-header__menu-btn-line"></span>
+            <span class="mb-header__menu-btn-line"></span>
+            <span class="mb-header__menu-btn-line"></span>
+        </button>
+    </div>
+    <nav id="mobile-header-nav" class="mb-header-nav">
+  
+  
+  <button class="mb-header-nav__close-btn flex-center">
+    <svg
+            class="mb-header-nav__svg-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="32"
+            height="32"
+            >
+            <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                />
+            <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+    </button>
+    
+    <div class="mb-header-nav__wrapper">
+        <div class="mb-header-nav__container">
+            <svg
+                width="240"
+                height="72"
+                viewBox="0 0 240 72"
+                class="mb-header-nav__title"
+                >
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">
+                Tags
+                </text>
+            </svg>
+            <ul class="mb-header-nav-list">
+                
+                    
+                        
+                          <li class="mb-header-nav-list__item ">
+                        <a class="mb-header-nav-list__link" href="https://marzukia.github.io/tags/asp.net-core/"
+                                                            >ASP.NET Core</a
+                                                        >
+                    </li>
+                        
+                    
+                        
+                          <li class="mb-header-nav-list__item ">
+                        <a class="mb-header-nav-list__link" href="https://marzukia.github.io/tags/xunit/"
+                                                            >xUnit</a
+                                                        >
+                    </li>
+                        
+                    
+                        
+                    
+                        
+                          <li class="mb-header-nav-list__item ">
+                        <a class="mb-header-nav-list__link" href="https://marzukia.github.io/tags/unit-testing/"
+                                                            >Unit Testing</a
+                                                        >
+                    </li>
+                        
+                    
+                
+            </ul>
+        </div>
+        <div class="mb-header-nav__container">
+            <svg
+                width="240"
+                height="72"
+                viewBox="0 0 240 72"
+                class="mb-header-nav__title"
+                >
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">
+                Menu
+                </text>
+            </svg>
+            <ul class="mb-header-nav-list">
+                
+                
+                    
+                      <li class="mb-header-nav-list__item ">
+                            <a class="mb-header-nav-list__link" href="/about/">
+                                About
+                            </a>
+                        </li>
+                    
+                
+                    
+                      <li class="mb-header-nav-list__item ">
+                            <a class="mb-header-nav-list__link" href="/">
+                                Home
+                            </a>
+                        </li>
+                    
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+</header>
+
+
+
+    <div id="content">
+<article class="post">
+  
+    <div class="post-content"><h1 id="are-you-mocking-me">Are you Mocking me?</h1>
+<p>Having unit tests in your application is important to ensure that your application functions how you intend for it to function. This is especially important as the scope and complexity of your application increases in size.</p>
+<p>My starting point was this <a href="https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test">MSDN article</a> discussing how to use xUnit with ASP.NET Core. The example itself is quite bare in my opinion, it doesn&rsquo;t actually provide any real useful examples on how to implement xUnit with your application&rsquo;s <code>DbContext</code>.</p>
+<p>Mocking is the process of creating an instance of your context which you can populate with fake data, as the name suggests you are making a &lsquo;mock&rsquo; of it. By mocking your <code>DbContext</code> you are able to isolate behaviour related to your Services which call upon your database.</p>
+<p><strong>Note</strong>: This is a follow up to my <a href="https://marzukia.github.io/post/aspnet-jwt-webapi/">previous article</a>, where I outlined how I implemented JWT authentication in my Web API.</p>
+<h1 id="the-setup">The Setup</h1>
+<p>Queue two great testing libraries: <a href="https://github.com/Moq/moq4/">Moq</a> and <a href="https://github.com/romantitov/MockQueryable">MockQueryable</a>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Moq
+dotnet add package MockQueryable.Moq
+</code></pre></div><p>With these libraries installed, we can get started writing our unit tests. The steps to set up a basic unit test which uses a mocked <code>DbContext</code> is as follows:</p>
+<ol>
+<li>Create some fake data which we&rsquo;ll use to test</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#2b91af">var</span> users = <span style="color:#00f">new</span> List&lt;ApplicationUser&gt;() {
+    <span style="color:#00f">new</span> ApplicationUser() {
+        Username = <span style="color:#a31515">&#34;test&#34;</span>,
+        Password = <span style="color:#a31515">&#34;gw9L3AOoUxiEuKahonc17Twg47Sam64b4rm/ui/zTjU=&#34;</span>,
+        Salt = Encoding.ASCII.GetBytes(<span style="color:#a31515">&#34;\xea2858b16c8357ecb9ba6ababaa05594&#34;</span>)
+    }
+};
+</code></pre></div><ol start="2">
+<li>Convert this data into a queryable set using <code>MockQuerayble</code>.</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#2b91af">var</span> mock = users.AsQueryable().BuildMockDbSet();
+</code></pre></div><ol start="3">
+<li>Create new <code>DbContext</code> taking advantage of <code>UseInMemoryDatabase()</code>. You can find more discussion about this on this <a href="https://docs.microsoft.com/en-us/ef/core/miscellaneous/testing/">MSDN article</a>.</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#2b91af">var</span> options = <span style="color:#00f">new</span> DbContextOptionsBuilder&lt;UnitTestExampleContext&gt;()
+    .UseInMemoryDatabase(databaseName: <span style="color:#a31515">&#34;UserServiceTest&#34;</span>)
+    .Options;
+
+MockContext = <span style="color:#00f">new</span> Mock&lt;UnitTestExampleContext&gt;(options);
+</code></pre></div><ol start="4">
+<li>Setup our <code>MockContext</code> to map our <code>Users</code> model correctly.</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">MockContext.Setup(c =&gt; c.Users).Returns(mock.Object);
+</code></pre></div><ol start="5">
+<li>Instantiate your <code>UserService</code> and pass through the <code>MockContext</code> into its constructor.</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">_userService = <span style="color:#00f">new</span> UserService(MockContext.Object);
+</code></pre></div><ol start="6">
+<li>Write your tests!</li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">[Fact]
+<span style="color:#00f">public</span> <span style="color:#00f">virtual</span> <span style="color:#00f">async</span> Task AuthenticateUser_IsValidUser_ReturnUser()
+{
+    <span style="color:#2b91af">var</span> user = <span style="color:#00f">await</span> _userService.Authenticate(<span style="color:#a31515">&#34;test&#34;</span>, <span style="color:#a31515">&#34;testerday123&#34;</span>);
+
+    Assert.True(user.GetType() == <span style="color:#00f">typeof</span>(User), <span style="color:#a31515">&#34;Valid user did not return a User object&#34;</span>);
+}
+</code></pre></div><h1 id="full-working-example">Full Working Example</h1>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00f">using</span> System.Text;
+<span style="color:#00f">using</span> System.Linq;
+<span style="color:#00f">using</span> System.Collections.Generic;
+<span style="color:#00f">using</span> System.Threading.Tasks;
+
+<span style="color:#00f">using</span> Microsoft.Extensions.Options;
+<span style="color:#00f">using</span> Microsoft.EntityFrameworkCore;
+
+<span style="color:#00f">using</span> UnitTestExample.Services;
+<span style="color:#00f">using</span> UnitTestExample.Models;
+
+<span style="color:#00f">using</span> Xunit;
+
+<span style="color:#00f">using</span> Moq;
+<span style="color:#00f">using</span> MockQueryable.Moq;
+
+<span style="color:#00f">namespace</span> UnitTestExample.Tests.Services
+{
+    <span style="color:#00f">public</span> <span style="color:#00f">class</span> <span style="color:#2b91af">UserServiceTest</span>
+    {
+        <span style="color:#00f">private</span> <span style="color:#00f">readonly</span> IUserService _userService;
+
+        <span style="color:#00f">protected</span> Mock&lt;UnitTestExampleContext&gt; MockContext;
+
+        <span style="color:#00f">public</span> UserServiceTest()
+        {
+            <span style="color:#2b91af">var</span> users = <span style="color:#00f">new</span> List&lt;ApplicationUser&gt;() {
+                <span style="color:#00f">new</span> ApplicationUser() {
+                    Username = <span style="color:#a31515">&#34;test&#34;</span>,
+                    Password = <span style="color:#a31515">&#34;gw9L3AOoUxiEuKahonc17Twg47Sam64b4rm/ui/zTjU=&#34;</span>,
+                    Salt = Encoding.ASCII.GetBytes(<span style="color:#a31515">&#34;\xea2858b16c8357ecb9ba6ababaa05594&#34;</span>)
+                }
+            };
+
+            <span style="color:#2b91af">var</span> mock = users.AsQueryable().BuildMockDbSet();
+
+            <span style="color:#2b91af">var</span> options = <span style="color:#00f">new</span> DbContextOptionsBuilder&lt;UnitTestExampleContext&gt;()
+                .UseInMemoryDatabase(databaseName: <span style="color:#a31515">&#34;UserServiceTest&#34;</span>)
+                .Options;
+
+            MockContext = <span style="color:#00f">new</span> Mock&lt;UnitTestExampleContext&gt;(options);
+            MockContext.Setup(c =&gt; c.Users).Returns(mock.Object);
+
+            _userService = <span style="color:#00f">new</span> UserService(MockContext.Object);
+        }
+
+        [Fact]
+        <span style="color:#00f">public</span> <span style="color:#00f">virtual</span> <span style="color:#00f">async</span> Task AuthenticateUser_IsValidUser_ReturnUser()
+        {
+            <span style="color:#2b91af">var</span> user = <span style="color:#00f">await</span> _userService.Authenticate(<span style="color:#a31515">&#34;test&#34;</span>, <span style="color:#a31515">&#34;testerday123&#34;</span>);
+
+            Assert.True(user.GetType() == <span style="color:#00f">typeof</span>(User), <span style="color:#a31515">&#34;Valid user did not return a User object&#34;</span>);
+        }
+    }
+}
+</code></pre></div><h1 id="closing-thoughts">Closing Thoughts</h1>
+<p>It&rsquo;s not a hard process to set up a mocked <code>DbContext</code>, however with the lack of general documentation it can be quite confusing initially.</p>
+<p>Hope I&rsquo;ve saved you some time and good luck!</p>
+</div>
+  
+</article>
+<button class="floating-button">
+    <a class="floating-button__link" href="https://marzukia.github.io">
+        <span>home</span>
+    </a>
+</button>
+
+
+    </div>
+    
+    <footer class="post-footer">
+    <div class="footer">
+        
+            <div>© 2020, Andryo Marzuki</div>
+        
+        <div class="footer__socials">
+
+
+
+
+
+
+<a
+  href="https://www.linkedin.com/in/andryomarzuki/"
+  target="_blank"
+  class="social-link"
+  title="LinkedIn link"
+  rel="noopener"
+  aria-label="follow on LinkedIn——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm8 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.397-2.586 7-2.777 7 2.476v6.759z"/></svg>
+</a>
+
+
+<a
+  href="https://github.com/marzukia"
+  target="_blank"
+  class="social-link"
+  title="Github link"
+  rel="noopener"
+  aria-label="follow on Github——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm14.534 19.59c-.406.078-.534-.171-.534-.384v-2.195c0-.747-.262-1.233-.55-1.481 1.782-.198 3.654-.875 3.654-3.947 0-.874-.311-1.588-.824-2.147.083-.202.357-1.016-.079-2.117 0 0-.671-.215-2.198.82-.639-.18-1.323-.267-2.003-.271-.68.003-1.364.091-2.003.269-1.528-1.035-2.2-.82-2.2-.82-.434 1.102-.16 1.915-.077 2.118-.512.56-.824 1.273-.824 2.147 0 3.064 1.867 3.751 3.645 3.954-.229.2-.436.552-.508 1.07-.457.204-1.614.557-2.328-.666 0 0-.423-.768-1.227-.825 0 0-.78-.01-.055.487 0 0 .525.246.889 1.17 0 0 .463 1.428 2.688.944v1.489c0 .211-.129.459-.528.385-3.18-1.057-5.472-4.056-5.472-7.59 0-4.419 3.582-8 8-8s8 3.581 8 8c0 3.533-2.289 6.531-5.466 7.59z"/></svg>
+</a>
+
+
+
+
+</div>
+    </div>
+</footer>
+
+
+    
+    
+      
+<script src="https://marzukia.github.io/js/script.js"></script>
+
+    
+  </body>
+</html>
