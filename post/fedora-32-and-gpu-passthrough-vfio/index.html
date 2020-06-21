@@ -265,6 +265,7 @@ drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel dri
 <h4 id="understanding-your-cores">Understanding your Cores</h4>
 <p>I use <code>lstopo</code> in this section. If you have something else you prefer to use, you can use that too.</p>
 <p>In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI 41:00.0</code>. Now that I know which cores to use, I can explicitly allocate them in my virtual machine&rsquo;s configuration.</p>
+<p><img src="https://marzukia.github.io/images/cpu_topology.png" width="100%" alt="lstopo" /></p>
 <h4 id="modifying-your-settings">Modifying your Settings</h4>
 <p>Using the following command again:</p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#111">EDITOR</span><span style="color:#f92672">=</span>vim virsh edit win10
