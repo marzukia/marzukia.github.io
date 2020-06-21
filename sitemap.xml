@@ -8,11 +8,6 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/tags/c#/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://marzukia.github.io/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</loc>
     <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
@@ -99,10 +94,6 @@
   
   <url>
     <loc>https://marzukia.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://marzukia.github.io/tags/index/</loc>
   </url>
   
 </urlset>

@@ -1,37 +1,84 @@
 <!DOCTYPE html>
-<html><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal dev blog of Andryo Marzuki">
-    
-    <link rel="shortcut icon" href="https://marzukia.github.io/favicon.ico">
-    
-    <link rel="stylesheet" href="https://marzukia.github.io/css/style.min.css">
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Andryo Marzuki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>ASP.NET Core Web API JWT Implementation</title>
+    <meta name="description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service." />
+
+    <meta property="og:title" content="ASP.NET Core Web API JWT Implementation" />
+    <meta property="og:description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://marzukia.github.io/asp.net-core-web-api-jwt-implementation/" />
+    <meta itemprop="name" content="ASP.NET Core Web API JWT Implementation">
+    <meta itemprop="description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service.">
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="ASP.NET Core Web API JWT Implementation"/>
+    <meta name="twitter:description" content="Using a custom minimal JWT implementation in a ASP.NET Core WebApi rather than using the in-build Identity service."/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+
+    
+    <link rel="stylesheet" href="https://marzukia.github.io/scss/style.min.0e7a37d1a7ff429f827336a20496b11317f6332dfdde4230a88c1d7e4d8d2e9a.css" >
 </head>
-<body><header id="banner">
-    <h2><a href="https://marzukia.github.io">Andryo Marzuki</a></h2>
-    <nav>
-        <ul>
-            <li><a href="https://marzukia.github.io">posts</a></li>
-            
-            <li>
-                <a href="https://marzukia.github.io/about/">About</a>
-            </li>
-            
-        </ul>
-    </nav>
+<body><header>
+    <a href='https://marzukia.github.io/'></a><h1 class="site-title">Andryo Marzuki</h1>
+    <center>
+
+
+
+
+<a
+  href="https://instagram.com/andryo"
+  target="_blank"
+  class="social-link"
+  title="Instagram link"
+  rel="noopener"
+  aria-label="follow on Instagram——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14.667 12c0 1.473-1.194 2.667-2.667 2.667-1.473 0-2.667-1.193-2.667-2.667 0-1.473 1.194-2.667 2.667-2.667 1.473 0 2.667 1.194 2.667 2.667zm3.846-3.232c.038.843.046 1.096.046 3.232s-.008 2.389-.046 3.233c-.1 2.15-1.109 3.181-3.279 3.279-.844.038-1.097.047-3.234.047-2.136 0-2.39-.008-3.232-.046-2.174-.099-3.181-1.132-3.279-3.279-.039-.845-.048-1.098-.048-3.234s.009-2.389.047-3.232c.099-2.152 1.109-3.181 3.279-3.279.844-.039 1.097-.047 3.233-.047s2.39.008 3.233.046c2.168.099 3.18 1.128 3.28 3.28zm-2.405 3.232c0-2.269-1.84-4.108-4.108-4.108-2.269 0-4.108 1.839-4.108 4.108 0 2.269 1.84 4.108 4.108 4.108 2.269 0 4.108-1.839 4.108-4.108zm1.122-4.27c0-.53-.43-.96-.96-.96s-.96.43-.96.96.43.96.96.96c.531 0 .96-.43.96-.96zm6.77-7.73v24h-24v-24h24zm-4 12c0-2.172-.009-2.445-.048-3.298-.131-2.902-1.745-4.52-4.653-4.653-.854-.04-1.126-.049-3.299-.049s-2.444.009-3.298.048c-2.906.133-4.52 1.745-4.654 4.653-.039.854-.048 1.127-.048 3.299 0 2.173.009 2.445.048 3.298.134 2.906 1.746 4.521 4.654 4.654.854.039 1.125.048 3.298.048s2.445-.009 3.299-.048c2.902-.133 4.522-1.745 4.653-4.654.039-.853.048-1.125.048-3.298z"/></svg>
+</a>
+
+
+
+<a
+  href="https://linkedin.com/in/andryomarzuki"
+  target="_blank"
+  class="social-link"
+  title="LinkedIn link"
+  rel="noopener"
+  aria-label="follow on LinkedIn——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm8 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.397-2.586 7-2.777 7 2.476v6.759z"/></svg>
+</a>
+
+
+<a
+  href="https://github.com/marzukia"
+  target="_blank"
+  class="social-link"
+  title="Github link"
+  rel="noopener"
+  aria-label="follow on Github——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm14.534 19.59c-.406.078-.534-.171-.534-.384v-2.195c0-.747-.262-1.233-.55-1.481 1.782-.198 3.654-.875 3.654-3.947 0-.874-.311-1.588-.824-2.147.083-.202.357-1.016-.079-2.117 0 0-.671-.215-2.198.82-.639-.18-1.323-.267-2.003-.271-.68.003-1.364.091-2.003.269-1.528-1.035-2.2-.82-2.2-.82-.434 1.102-.16 1.915-.077 2.118-.512.56-.824 1.273-.824 2.147 0 3.064 1.867 3.751 3.645 3.954-.229.2-.436.552-.508 1.07-.457.204-1.614.557-2.328-.666 0 0-.423-.768-1.227-.825 0 0-.78-.01-.055.487 0 0 .525.246.889 1.17 0 0 .463 1.428 2.688.944v1.489c0 .211-.129.459-.528.385-3.18-1.057-5.472-4.056-5.472-7.59 0-4.419 3.582-8 8-8s8 3.581 8 8c0 3.533-2.289 6.531-5.466 7.59z"/></svg>
+</a>
+
+
+
+
+</center>
 </header>
-<main id="content">
-<article>
-    <header id="post-header">
-        <h1>ASP.NET Core Web API JWT Implementation</h1><time>June 16, 2020</time></header><p>I&rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C# for things like Unity, and later realizing how much better ASP.NET Core is than Django.</p>
+<div class="post">
+    <h1>ASP.NET Core Web API JWT Implementation</h1>
+    <div class="post-content">
+        <p>I&rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C## for things like Unity, and later realizing how much better ASP.NET Core is than Django.</p>
 <p>As I mostly use ReactJS for my application frontends, I did not need the &lsquo;Razor&rsquo; pages integrated in ASP.NET. As a result, my preference was to bootstrap my projects as <code>webapi</code> rather than <code>webapp</code> or even <code>mvc</code>.</p>
 <p>ASP.NET Core 3.1 is packaged the <code>Identity</code> service. Micrsoft&rsquo;s documentation on how to use this library with single page applications can be found <a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-api-authorization?view=aspnetcore-3.1">here</a>. My general issue with this is the fact that you need to implement usage of <a href="https://identityserver.io/">IdentityServer</a>, and by bootstrapping your project in this manner you are using their <code>mvc</code> or <code>webapp</code> templates which contain a fair bit of bloat.</p>
 <p>This post will outline my implementation of a lightweight JWT authentication which is intended to be easily added onto a bare-bones <code>webapi</code> project.</p>
 <p><strong>Note</strong>: At time of writing, I am using ASP.NET Core version 3.1.5. If you are using an older version of ASP.NET core, some things <em>may</em> not work.</p>
-<h1 id="implementation-summary">Implementation Summary</h1>
+<h2 id="implementation-summary">Implementation Summary</h2>
 <p>My implementation of JWT consists of the following components:</p>
 <ol>
 <li><code>PasswordHasher</code> helper to create a salt, and then a hashed password for safe storage.</li>
@@ -54,53 +101,53 @@
 <li><code>POST /api/user/login/</code> to allow users to login and authenticate themselves.</li>
 <li><code>GET /api/user/info/</code> to retrieve a user&rsquo;s detail from their <code>Bearer</code> token.</li>
 </ol>
-<h1 id="component-explanation">Component Explanation</h1>
-<h2 id="passwordhasher">PasswordHasher</h2>
+<h2 id="component-explanation">Component Explanation</h2>
+<h3 id="passwordhasher">PasswordHasher</h3>
 <p>The password which we&rsquo;ll be storing will be encrypted using a salt we will generate. It should go without saying, but do not store passwords in plaintext.</p>
 <p>In order for us to achieve this, we&rsquo;ll need to create a helper function which will:</p>
 <ol>
 <li>Generate a <code>byte[]</code> salt</li>
 <li>And then hash the password using this salt, providing us a hashed password.</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System;
-<span style="color:#66d9ef">using</span> System.Security.Cryptography;
-<span style="color:#66d9ef">using</span> Microsoft.AspNetCore.Cryptography.KeyDerivation;
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Security.Cryptography</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Cryptography.KeyDerivation</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">namespace</span> JwtAuthExample.Helpers
-{
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> IPasswordHasher
-    {
-        <span style="color:#66d9ef">byte</span>[] GenerateSalt();
-        <span style="color:#66d9ef">string</span> HashPassword(<span style="color:#66d9ef">string</span> password, <span style="color:#66d9ef">byte</span>[] salt);
-    }
+<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Helpers</span>
+<span style="color:#111">{</span>
+    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">IPasswordHasher</span>
+    <span style="color:#111">{</span>
+        <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">GenerateSalt</span><span style="color:#111">();</span>
+        <span style="color:#00a8c8">string</span> <span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">salt</span><span style="color:#111">);</span>
+    <span style="color:#111">}</span>
 
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PasswordHasher</span> : IPasswordHasher
-    {
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span>[] GenerateSalt()
-        {
-            <span style="color:#66d9ef">var</span> salt = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span>[<span style="color:#ae81ff">128</span> / <span style="color:#ae81ff">8</span>];
-            <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> rng = RNGCryptoServiceProvider.Create())
-            {
-                rng.GetBytes(salt);
-            }
-            <span style="color:#66d9ef">return</span> salt;
-        }
+    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">PasswordHasher</span> <span style="color:#111">:</span> <span style="color:#111">IPasswordHasher</span>
+    <span style="color:#111">{</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">GenerateSalt</span><span style="color:#111">()</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">salt</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[</span><span style="color:#ae81ff">128</span> <span style="color:#111">/</span> <span style="color:#ae81ff">8</span><span style="color:#111">];</span>
+            <span style="color:#00a8c8">using</span> <span style="color:#111">(</span><span style="color:#00a8c8">var</span> <span style="color:#111">rng</span> <span style="color:#111">=</span> <span style="color:#111">RNGCryptoServiceProvider</span><span style="color:#111">.</span><span style="color:#111">Create</span><span style="color:#111">())</span>
+            <span style="color:#111">{</span>
+                <span style="color:#111">rng</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#111">salt</span><span style="color:#111">);</span>
+            <span style="color:#111">}</span>
+            <span style="color:#00a8c8">return</span> <span style="color:#111">salt</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> HashPassword(<span style="color:#66d9ef">string</span> password, <span style="color:#66d9ef">byte</span>[] salt)
-        {
-            <span style="color:#66d9ef">var</span> hashedPassword = KeyDerivation.Pbkdf2(
-                password: password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: <span style="color:#ae81ff">10000</span>,
-                numBytesRequested: <span style="color:#ae81ff">258</span> / <span style="color:#ae81ff">8</span>
-            );
-            <span style="color:#66d9ef">return</span> Convert.ToBase64String(hashedPassword);
-        }
-    }
-}
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">salt</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">KeyDerivation</span><span style="color:#111">.</span><span style="color:#111">Pbkdf2</span><span style="color:#111">(</span>
+                <span style="color:#111">password</span><span style="color:#111">:</span> <span style="color:#111">password</span><span style="color:#111">,</span>
+                <span style="color:#111">salt</span><span style="color:#111">:</span> <span style="color:#111">salt</span><span style="color:#111">,</span>
+                <span style="color:#111">prf</span><span style="color:#111">:</span> <span style="color:#111">KeyDerivationPrf</span><span style="color:#111">.</span><span style="color:#111">HMACSHA1</span><span style="color:#111">,</span>
+                <span style="color:#111">iterationCount</span><span style="color:#111">:</span> <span style="color:#ae81ff">10000</span><span style="color:#111">,</span>
+                <span style="color:#111">numBytesRequested</span><span style="color:#111">:</span> <span style="color:#ae81ff">258</span> <span style="color:#111">/</span> <span style="color:#ae81ff">8</span>
+            <span style="color:#111">);</span>
+            <span style="color:#00a8c8">return</span> <span style="color:#111">Convert</span><span style="color:#111">.</span><span style="color:#111">ToBase64String</span><span style="color:#111">(</span><span style="color:#111">hashedPassword</span><span style="color:#111">);</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
 </code></pre></div><p>In the example above we take advantage of ASP.NET Core&rsquo;s cryptographic library and use their <code>Pbkdf2</code> key derivation function and the <code>HMACSHA1</code> algorithm to hash our password using the salt we generate with our <code>GenerateSalt()</code> function.</p>
-<h2 id="user">User</h2>
+<h3 id="user">User</h3>
 <p>I consider this definition my &lsquo;base&rsquo; <code>User</code> model. I will normally extend this model as needed by creating another model such as <code>ApplicationUser</code> which inherits from <code>User</code>.</p>
 <p>The data we want to capture is as follows:</p>
 <ol>
@@ -110,38 +157,38 @@
 <li><code>string</code> Token</li>
 </ol>
 <p>Our model definition is as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System.ComponentModel.DataAnnotations;
-<span style="color:#66d9ef">using</span> System.ComponentModel.DataAnnotations.Schema;
-<span style="color:#66d9ef">using</span> System.Text.Json.Serialization;
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">System.ComponentModel.DataAnnotations</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.ComponentModel.DataAnnotations.Schema</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Text.Json.Serialization</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">namespace</span> JwtAuthExample.Models
-{
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>
-    {
-<span style="color:#a6e22e">        [Key]</span>
-<span style="color:#a6e22e">        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Models</span>
+<span style="color:#111">{</span>
+    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">User</span>
+    <span style="color:#111">{</span>
+<span style="color:#75af00">        [Key]</span>
+<span style="color:#75af00">        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">long</span> <span style="color:#111">Id</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Username { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
-<span style="color:#a6e22e">
-</span><span style="color:#a6e22e">        [JsonIgnore]</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Password { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
-<span style="color:#a6e22e">
-</span><span style="color:#a6e22e">        [JsonIgnore]</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span>[] Salt { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Username</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+<span style="color:#75af00">
+</span><span style="color:#75af00">        [JsonIgnore]</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Password</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+<span style="color:#75af00">
+</span><span style="color:#75af00">        [JsonIgnore]</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">Salt</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Token { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
-    }
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Token</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
 
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDTO</span>
-    {
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Username { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Password { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
-    }
-}
+    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UserDTO</span>
+    <span style="color:#111">{</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Username</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Password</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
 </code></pre></div><p>In the above example we&rsquo;ve explicitly declared <code>Password</code> to be ignored during serialization. This is good practice to ensure that this data is never unintentionally accessible.</p>
 <p>We&rsquo;ll create a Data Transfer Object (DTO) as our temporary model when doing things such as authenticating or registering the user. You&rsquo;ll see how this works in the <code>UsersController</code> section.</p>
-<h2 id="userservice">UserService</h2>
+<h3 id="userservice">UserService</h3>
 <p>Our <code>UserService</code> will handle all the operations related to our <code>User</code> actions.</p>
 <p>The <code>Authenticate(username, password)</code> functions is summarized as follows:</p>
 <ol>
@@ -156,243 +203,243 @@
 <li>Upon successful generation of the above, a new <code>User</code> is created.</li>
 </ol>
 <p>This is defined as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System;
-<span style="color:#66d9ef">using</span> System.IdentityModel.Tokens.Jwt;
-<span style="color:#66d9ef">using</span> System.Security.Claims;
-<span style="color:#66d9ef">using</span> System.Text;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.IdentityModel.Tokens.Jwt</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Security.Claims</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Text</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Threading.Tasks</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">using</span> Microsoft.Extensions.Options;
-<span style="color:#66d9ef">using</span> Microsoft.IdentityModel.Tokens;
-<span style="color:#66d9ef">using</span> Microsoft.EntityFrameworkCore;
+<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.Extensions.Options</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.IdentityModel.Tokens</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.EntityFrameworkCore</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">using</span> JwtAuthExample.Models;
-<span style="color:#66d9ef">using</span> JwtAuthExample.Helpers;
+<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Models</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Helpers</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">namespace</span> JwtAuthExample.Services
-{
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> IUserService
-    {
-        Task&lt;User&gt; Authenticate(<span style="color:#66d9ef">string</span> username, <span style="color:#66d9ef">string</span> password);
-        Task&lt;User&gt; Register(<span style="color:#66d9ef">string</span> username, <span style="color:#66d9ef">string</span> password);
-    }
+<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Services</span>
+<span style="color:#111">{</span>
+    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">IUserService</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">);</span>
+        <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">);</span>
+    <span style="color:#111">}</span>
 
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserService</span>: IUserService
-    {
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> JwtAuthExampleContext _context;
+    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UserService</span><span style="color:#111">:</span> <span style="color:#111">IUserService</span>
+    <span style="color:#111">{</span>
+        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">_context</span><span style="color:#111">;</span>
 
-        <span style="color:#66d9ef">public</span> UserService(JwtAuthExampleContext context)
-        {
-            _context = context;
-        }
+        <span style="color:#00a8c8">public</span> <span style="color:#111">UserService</span><span style="color:#111">(</span><span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">context</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#111">_context</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;User&gt; Authenticate(<span style="color:#66d9ef">string</span> username, <span style="color:#66d9ef">string</span> password)
-        {
-            <span style="color:#66d9ef">var</span> hasher = <span style="color:#66d9ef">new</span> PasswordHasher();
-            <span style="color:#66d9ef">var</span> user = <span style="color:#66d9ef">await</span> _context.Users.FirstOrDefaultAsync(x =&gt;
-                x.Username == username
-            );
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">hasher</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">PasswordHasher</span><span style="color:#111">();</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FirstOrDefaultAsync</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+                <span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">Username</span> <span style="color:#111">==</span> <span style="color:#111">username</span>
+            <span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">if</span> (user == <span style="color:#66d9ef">null</span>)
-                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+                <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
 
-            <span style="color:#66d9ef">var</span> hashedPassword = hasher.HashPassword(password, user.Salt);
+            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Salt</span><span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">if</span> (user.Password == hashedPassword)
-            {
-                <span style="color:#66d9ef">var</span> tokenHandler = <span style="color:#66d9ef">new</span> JwtSecurityTokenHandler();
-                <span style="color:#66d9ef">var</span> key = Encoding.ASCII.GetBytes(<span style="color:#e6db74">&#34;SECRETCODESTRING&#34;</span>);
-                <span style="color:#66d9ef">var</span> tokenDescriptor = <span style="color:#66d9ef">new</span> SecurityTokenDescriptor
-                {
-                    Subject = <span style="color:#66d9ef">new</span> ClaimsIdentity(<span style="color:#66d9ef">new</span> Claim[]
-                    {
-                        <span style="color:#66d9ef">new</span> Claim(ClaimTypes.Name, user.Id.ToString())
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(<span style="color:#ae81ff">7</span>),
-                    SigningCredentials = <span style="color:#66d9ef">new</span> SigningCredentials(
-                        <span style="color:#66d9ef">new</span> SymmetricSecurityKey(key),
-                        SecurityAlgorithms.HmacSha256Signature
-                    )
-                };
-                <span style="color:#66d9ef">var</span> token = tokenHandler.CreateToken(tokenDescriptor);
-                user.Token = tokenHandler.WriteToken(token);
-                <span style="color:#66d9ef">await</span> _context.SaveChangesAsync();
-            } <span style="color:#66d9ef">else</span> {
-                user = <span style="color:#66d9ef">null</span>;
-            }
+            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Password</span> <span style="color:#111">==</span> <span style="color:#111">hashedPassword</span><span style="color:#111">)</span>
+            <span style="color:#111">{</span>
+                <span style="color:#00a8c8">var</span> <span style="color:#111">tokenHandler</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">JwtSecurityTokenHandler</span><span style="color:#111">();</span>
+                <span style="color:#00a8c8">var</span> <span style="color:#111">key</span> <span style="color:#111">=</span> <span style="color:#111">Encoding</span><span style="color:#111">.</span><span style="color:#111">ASCII</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#d88200">&#34;SECRETCODESTRING&#34;</span><span style="color:#111">);</span>
+                <span style="color:#00a8c8">var</span> <span style="color:#111">tokenDescriptor</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SecurityTokenDescriptor</span>
+                <span style="color:#111">{</span>
+                    <span style="color:#111">Subject</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">ClaimsIdentity</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#111">Claim</span><span style="color:#111">[]</span>
+                    <span style="color:#111">{</span>
+                        <span style="color:#00a8c8">new</span> <span style="color:#111">Claim</span><span style="color:#111">(</span><span style="color:#111">ClaimTypes</span><span style="color:#111">.</span><span style="color:#111">Name</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Id</span><span style="color:#111">.</span><span style="color:#111">ToString</span><span style="color:#111">())</span>
+                    <span style="color:#111">}),</span>
+                    <span style="color:#111">Expires</span> <span style="color:#111">=</span> <span style="color:#111">DateTime</span><span style="color:#111">.</span><span style="color:#111">UtcNow</span><span style="color:#111">.</span><span style="color:#111">AddDays</span><span style="color:#111">(</span><span style="color:#ae81ff">7</span><span style="color:#111">),</span>
+                    <span style="color:#111">SigningCredentials</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SigningCredentials</span><span style="color:#111">(</span>
+                        <span style="color:#00a8c8">new</span> <span style="color:#111">SymmetricSecurityKey</span><span style="color:#111">(</span><span style="color:#111">key</span><span style="color:#111">),</span>
+                        <span style="color:#111">SecurityAlgorithms</span><span style="color:#111">.</span><span style="color:#111">HmacSha256Signature</span>
+                    <span style="color:#111">)</span>
+                <span style="color:#111">};</span>
+                <span style="color:#00a8c8">var</span> <span style="color:#111">token</span> <span style="color:#111">=</span> <span style="color:#111">tokenHandler</span><span style="color:#111">.</span><span style="color:#111">CreateToken</span><span style="color:#111">(</span><span style="color:#111">tokenDescriptor</span><span style="color:#111">);</span>
+                <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Token</span> <span style="color:#111">=</span> <span style="color:#111">tokenHandler</span><span style="color:#111">.</span><span style="color:#111">WriteToken</span><span style="color:#111">(</span><span style="color:#111">token</span><span style="color:#111">);</span>
+                <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">SaveChangesAsync</span><span style="color:#111">();</span>
+            <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+                <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
+            <span style="color:#111">}</span>
 
-            <span style="color:#66d9ef">return</span> user;
-        }
+            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;User&gt; Register(<span style="color:#66d9ef">string</span> username, <span style="color:#66d9ef">string</span> password)
-        {
-            <span style="color:#66d9ef">var</span> validUser = <span style="color:#66d9ef">await</span> _context.Users.FirstOrDefaultAsync(x =&gt;
-                x.Username == username
-            );
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">validUser</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FirstOrDefaultAsync</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+                <span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">Username</span> <span style="color:#111">==</span> <span style="color:#111">username</span>
+            <span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">if</span> (validUser != <span style="color:#66d9ef">null</span>)
-                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">validUser</span> <span style="color:#111">!=</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+                <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
 
-            <span style="color:#66d9ef">var</span> hasher = <span style="color:#66d9ef">new</span> PasswordHasher();
-            <span style="color:#66d9ef">var</span> salt = hasher.GenerateSalt();
-            <span style="color:#66d9ef">var</span> hashedPassword = hasher.HashPassword(password, salt);
+            <span style="color:#00a8c8">var</span> <span style="color:#111">hasher</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">PasswordHasher</span><span style="color:#111">();</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">salt</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">GenerateSalt</span><span style="color:#111">();</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#111">salt</span><span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">var</span> user = <span style="color:#66d9ef">new</span> ApplicationUser
-            {
-                Username = username,
-                Password = hashedPassword,
-                Salt = salt
-            };
+            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">ApplicationUser</span>
+            <span style="color:#111">{</span>
+                <span style="color:#111">Username</span> <span style="color:#111">=</span> <span style="color:#111">username</span><span style="color:#111">,</span>
+                <span style="color:#111">Password</span> <span style="color:#111">=</span> <span style="color:#111">hashedPassword</span><span style="color:#111">,</span>
+                <span style="color:#111">Salt</span> <span style="color:#111">=</span> <span style="color:#111">salt</span>
+            <span style="color:#111">};</span>
 
-            _context.Users.Add(user);
+            <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">Add</span><span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">await</span> _context.SaveChangesAsync();
+            <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">SaveChangesAsync</span><span style="color:#111">();</span>
 
-            <span style="color:#66d9ef">return</span> user;
-        }
-    }
-}
-</code></pre></div><h2 id="userscontroller">UsersController</h2>
+            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
+</code></pre></div><h3 id="userscontroller">UsersController</h3>
 <p>The majority of this code example in this section should hopefully be self explanatory.</p>
 <p>The <code>[HttpGet(&quot;info&quot;)]</code> route demonstrates how to get the <code>User</code> in the controller by using the JWT claim.</p>
 <p>The <code>[HttpPost(&quot;authenticate&quot;)]</code> has a working example on how to set the JWT cookie as a HttpOnly cookie.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> Microsoft.AspNetCore.Mvc;
-<span style="color:#66d9ef">using</span> Microsoft.AspNetCore.Authorization;
-<span style="color:#66d9ef">using</span> Microsoft.EntityFrameworkCore;
-<span style="color:#66d9ef">using</span> Microsoft.Net.Http.Headers;
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Mvc</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Authorization</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.EntityFrameworkCore</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.Net.Http.Headers</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">using</span> System;
-<span style="color:#66d9ef">using</span> System.Net.Http;
-<span style="color:#66d9ef">using</span> System.Collections.Generic;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
+<span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Net.Http</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Collections.Generic</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">System.Threading.Tasks</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">using</span> JwtAuthExample.Services;
-<span style="color:#66d9ef">using</span> JwtAuthExample.Models;
-<span style="color:#66d9ef">using</span> JwtAuthExample.Helpers;
+<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Services</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Models</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Helpers</span><span style="color:#111">;</span>
 
-<span style="color:#66d9ef">namespace</span> JwtAuthExample.Controllers
-{
-<span style="color:#a6e22e">    [Authorize]</span>
-<span style="color:#a6e22e">    [Route(&#34;api/users&#34;)]</span>
-<span style="color:#a6e22e">    [ApiController]</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UsersController</span> : ControllerBase
-    {
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> JwtAuthExampleContext _context;
+<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Controllers</span>
+<span style="color:#111">{</span>
+<span style="color:#75af00">    [Authorize]</span>
+<span style="color:#75af00">    [Route(&#34;api/users&#34;)]</span>
+<span style="color:#75af00">    [ApiController]</span>
+    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UsersController</span> <span style="color:#111">:</span> <span style="color:#111">ControllerBase</span>
+    <span style="color:#111">{</span>
+        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">_context</span><span style="color:#111">;</span>
 
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> IUserService _userService;
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> IUserTools _userTools;
+        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">IUserService</span> <span style="color:#111">_userService</span><span style="color:#111">;</span>
+        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">IUserTools</span> <span style="color:#111">_userTools</span><span style="color:#111">;</span>
 
-        <span style="color:#66d9ef">public</span> UsersController(IUserService userService, JwtAuthExampleContext context)
-        {
-            _userService = userService;
-            _context = context;
-            _userTools = <span style="color:#66d9ef">new</span> UserTools();
-        }
-<span style="color:#a6e22e">
-</span><span style="color:#a6e22e">        [HttpGet(&#34;info&#34;)]</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;ActionResult&lt;User&gt;&gt; GetUser()
-        {
-            <span style="color:#66d9ef">var</span> claimsIdentity = <span style="color:#66d9ef">this</span>.User.Identity <span style="color:#66d9ef">as</span> ClaimsIdentity;
-            <span style="color:#66d9ef">var</span> userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
-            <span style="color:#66d9ef">var</span> user = <span style="color:#66d9ef">await</span> _context.Users.FindAsync(<span style="color:#66d9ef">long</span>.Parse(userId));
+        <span style="color:#00a8c8">public</span> <span style="color:#111">UsersController</span><span style="color:#111">(</span><span style="color:#111">IUserService</span> <span style="color:#111">userService</span><span style="color:#111">,</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">context</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#111">_userService</span> <span style="color:#111">=</span> <span style="color:#111">userService</span><span style="color:#111">;</span>
+            <span style="color:#111">_context</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">;</span>
+            <span style="color:#111">_userTools</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">UserTools</span><span style="color:#111">();</span>
+        <span style="color:#111">}</span>
+<span style="color:#75af00">
+</span><span style="color:#75af00">        [HttpGet(&#34;info&#34;)]</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">GetUser</span><span style="color:#111">()</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">claimsIdentity</span> <span style="color:#111">=</span> <span style="color:#00a8c8">this</span><span style="color:#111">.</span><span style="color:#111">User</span><span style="color:#111">.</span><span style="color:#111">Identity</span> <span style="color:#00a8c8">as</span> <span style="color:#111">ClaimsIdentity</span><span style="color:#111">;</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">userId</span> <span style="color:#111">=</span> <span style="color:#111">claimsIdentity</span><span style="color:#111">.</span><span style="color:#111">FindFirst</span><span style="color:#111">(</span><span style="color:#111">ClaimTypes</span><span style="color:#111">.</span><span style="color:#111">Name</span><span style="color:#111">)?.</span><span style="color:#111">Value</span><span style="color:#111">;</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FindAsync</span><span style="color:#111">(</span><span style="color:#00a8c8">long</span><span style="color:#111">.</span><span style="color:#111">Parse</span><span style="color:#111">(</span><span style="color:#111">userId</span><span style="color:#111">));</span>
 
-            <span style="color:#66d9ef">if</span> (user == <span style="color:#66d9ef">null</span>)
-                <span style="color:#66d9ef">return</span> BadRequest();
+            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">();</span>
 
-            <span style="color:#66d9ef">return</span> user;
-        }
-<span style="color:#a6e22e">
-</span><span style="color:#a6e22e">        [AllowAnonymous]</span>
-<span style="color:#a6e22e">        [HttpPost(&#34;authenticate&#34;)]</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;ActionResult&lt;User&gt;&gt; Authenticate([FromBody]UserDTO model)
-        {
-            <span style="color:#66d9ef">var</span> user = <span style="color:#66d9ef">await</span> _userService.Authenticate(model.Username, model.Password);
+            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
+<span style="color:#75af00">
+</span><span style="color:#75af00">        [AllowAnonymous]</span>
+<span style="color:#75af00">        [HttpPost(&#34;authenticate&#34;)]</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">([</span><span style="color:#111">FromBody</span><span style="color:#111">]</span><span style="color:#111">UserDTO</span> <span style="color:#111">model</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_userService</span><span style="color:#111">.</span><span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Username</span><span style="color:#111">,</span> <span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Password</span><span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">if</span> (user == <span style="color:#66d9ef">null</span>)
-            {
-                <span style="color:#66d9ef">var</span> errorMessage = <span style="color:#66d9ef">new</span> {message = <span style="color:#e6db74">&#34;Username or password is incorrect&#34;</span>};
-                <span style="color:#66d9ef">return</span> BadRequest(errorMessage);
-            }
+            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+            <span style="color:#111">{</span>
+                <span style="color:#00a8c8">var</span> <span style="color:#111">errorMessage</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">{</span><span style="color:#111">message</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;Username or password is incorrect&#34;</span><span style="color:#111">};</span>
+                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">(</span><span style="color:#111">errorMessage</span><span style="color:#111">);</span>
+            <span style="color:#111">}</span>
 
-            <span style="color:#66d9ef">var</span> cookieOptions = <span style="color:#66d9ef">new</span> CookieOptions
-            {
-                Path = <span style="color:#e6db74">&#34;/&#34;</span>,
-                Expires = DateTimeOffset.UtcNow.AddDays(<span style="color:#ae81ff">7</span>),
-                IsEssential = <span style="color:#66d9ef">true</span>,
-                HttpOnly = <span style="color:#66d9ef">true</span>,
-                Secure = <span style="color:#66d9ef">true</span>
-            };
+            <span style="color:#00a8c8">var</span> <span style="color:#111">cookieOptions</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">CookieOptions</span>
+            <span style="color:#111">{</span>
+                <span style="color:#111">Path</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;/&#34;</span><span style="color:#111">,</span>
+                <span style="color:#111">Expires</span> <span style="color:#111">=</span> <span style="color:#111">DateTimeOffset</span><span style="color:#111">.</span><span style="color:#111">UtcNow</span><span style="color:#111">.</span><span style="color:#111">AddDays</span><span style="color:#111">(</span><span style="color:#ae81ff">7</span><span style="color:#111">),</span>
+                <span style="color:#111">IsEssential</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
+                <span style="color:#111">HttpOnly</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
+                <span style="color:#111">Secure</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span>
+            <span style="color:#111">};</span>
 
-            Response.Cookies.Append(<span style="color:#e6db74">&#34;JWT&#34;</span>, user.Token, cookieOptions);
+            <span style="color:#111">Response</span><span style="color:#111">.</span><span style="color:#111">Cookies</span><span style="color:#111">.</span><span style="color:#111">Append</span><span style="color:#111">(</span><span style="color:#d88200">&#34;JWT&#34;</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Token</span><span style="color:#111">,</span> <span style="color:#111">cookieOptions</span><span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">return</span> Ok(user);
-        }
-<span style="color:#a6e22e">
-</span><span style="color:#a6e22e">        [AllowAnonymous]</span>
-<span style="color:#a6e22e">        [HttpPost(&#34;register&#34;)]</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;ActionResult&lt;User&gt;&gt; RegisterUser(UserDTO model)
-        {
-            <span style="color:#66d9ef">var</span> user = <span style="color:#66d9ef">await</span> _userService.Register(model.Username, model.Password);
+            <span style="color:#00a8c8">return</span> <span style="color:#111">Ok</span><span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">);</span>
+        <span style="color:#111">}</span>
+<span style="color:#75af00">
+</span><span style="color:#75af00">        [AllowAnonymous]</span>
+<span style="color:#75af00">        [HttpPost(&#34;register&#34;)]</span>
+        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">RegisterUser</span><span style="color:#111">(</span><span style="color:#111">UserDTO</span> <span style="color:#111">model</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_userService</span><span style="color:#111">.</span><span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Username</span><span style="color:#111">,</span> <span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Password</span><span style="color:#111">);</span>
 
-            <span style="color:#66d9ef">if</span> (user == <span style="color:#66d9ef">null</span>)
-                <span style="color:#66d9ef">return</span> BadRequest(<span style="color:#66d9ef">new</span> {message = <span style="color:#e6db74">&#34;Username already exists&#34;</span>});
+            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#111">{</span><span style="color:#111">message</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;Username already exists&#34;</span><span style="color:#111">});</span>
 
-            <span style="color:#66d9ef">return</span> CreatedAtAction(<span style="color:#e6db74">&#34;GetUser&#34;</span>, <span style="color:#66d9ef">new</span> { id = user.Id }, user);
-        }
-    }
-}
-</code></pre></div><h1 id="implementing-our-components">Implementing our Components</h1>
-<h2 id="adjusting-your-dbcontext">Adjusting your DbContext</h2>
+            <span style="color:#00a8c8">return</span> <span style="color:#111">CreatedAtAction</span><span style="color:#111">(</span><span style="color:#d88200">&#34;GetUser&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">new</span> <span style="color:#111">{</span> <span style="color:#111">id</span> <span style="color:#111">=</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Id</span> <span style="color:#111">},</span> <span style="color:#111">user</span><span style="color:#111">);</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
+</code></pre></div><h2 id="implementing-our-components">Implementing our Components</h2>
+<h3 id="adjusting-your-dbcontext">Adjusting your DbContext</h3>
 <p>In your <code>DbContext</code> you&rsquo;ll need to add the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> DbSet&lt;ApplicationUser&gt; Users { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">public</span> <span style="color:#00a8c8">virtual</span> <span style="color:#111">DbSet</span><span style="color:#111">&lt;</span><span style="color:#111">ApplicationUser</span><span style="color:#111">&gt;</span> <span style="color:#111">Users</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
 </code></pre></div><p>Once you&rsquo;ve done this, make sure you migrate and affect your changes by doing the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet ef migrations add  AddUserModel -v
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet ef migrations add  AddUserModel -v
 dotnet ef database update -v
-</code></pre></div><h2 id="adding-jwtbearer">Adding JwtBearer</h2>
+</code></pre></div><h3 id="adding-jwtbearer">Adding JwtBearer</h3>
 <p>You&rsquo;ll need to install the <code>JwtBearer</code> package by running the following command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 </code></pre></div><p>We need to tell our application to use <code>JwtBearer</code> as it&rsquo;s authentication mechanism.</p>
 <p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">var</span> key = Encoding.ASCII.GetBytes(<span style="color:#e6db74">&#34;SECRETCODESTRING&#34;</span>);
-services.AddAuthentication(x =&gt;
-{
-	x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-	x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(x =&gt;
-{
-	x.RequireHttpsMetadata = <span style="color:#66d9ef">false</span>;
-	x.SaveToken = <span style="color:#66d9ef">true</span>;
-	x.TokenValidationParameters = <span style="color:#66d9ef">new</span> TokenValidationParameters
-	{
-		ValidateIssuerSigningKey = <span style="color:#66d9ef">true</span>,
-		IssuerSigningKey = <span style="color:#66d9ef">new</span> SymmetricSecurityKey(key),
-		ValidateIssuer = <span style="color:#66d9ef">false</span>,
-		ValidateAudience = <span style="color:#66d9ef">false</span>
-	};
-});
-</code></pre></div><h2 id="adding-userservice">Adding UserService</h2>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">var</span> <span style="color:#111">key</span> <span style="color:#111">=</span> <span style="color:#111">Encoding</span><span style="color:#111">.</span><span style="color:#111">ASCII</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#d88200">&#34;SECRETCODESTRING&#34;</span><span style="color:#111">);</span>
+<span style="color:#111">services</span><span style="color:#111">.</span><span style="color:#111">AddAuthentication</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+<span style="color:#111">{</span>
+	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">DefaultAuthenticateScheme</span> <span style="color:#111">=</span> <span style="color:#111">JwtBearerDefaults</span><span style="color:#111">.</span><span style="color:#111">AuthenticationScheme</span><span style="color:#111">;</span>
+	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">DefaultChallengeScheme</span> <span style="color:#111">=</span> <span style="color:#111">JwtBearerDefaults</span><span style="color:#111">.</span><span style="color:#111">AuthenticationScheme</span><span style="color:#111">;</span>
+<span style="color:#111">})</span>
+<span style="color:#111">.</span><span style="color:#111">AddJwtBearer</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+<span style="color:#111">{</span>
+	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">RequireHttpsMetadata</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">SaveToken</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">;</span>
+	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">TokenValidationParameters</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">TokenValidationParameters</span>
+	<span style="color:#111">{</span>
+		<span style="color:#111">ValidateIssuerSigningKey</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
+		<span style="color:#111">IssuerSigningKey</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SymmetricSecurityKey</span><span style="color:#111">(</span><span style="color:#111">key</span><span style="color:#111">),</span>
+		<span style="color:#111">ValidateIssuer</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">,</span>
+		<span style="color:#111">ValidateAudience</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span>
+	<span style="color:#111">};</span>
+<span style="color:#111">});</span>
+</code></pre></div><h3 id="adding-userservice">Adding UserService</h3>
 <p>We need to inject our <code>UserService</code> and it&rsquo;s interface <code>IUserService</code> into <code>Startup</code>.</p>
 <p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">services.AddScoped&lt;IUserService, UserService&gt;();
-</code></pre></div><h2 id="adding-our-middleware-to-use-jwt-httponly-cookie">Adding our Middleware to use JWT HttpOnly Cookie</h2>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#111">services</span><span style="color:#111">.</span><span style="color:#111">AddScoped</span><span style="color:#111">&lt;</span><span style="color:#111">IUserService</span><span style="color:#111">,</span> <span style="color:#111">UserService</span><span style="color:#111">&gt;();</span>
+</code></pre></div><h3 id="adding-our-middleware-to-use-jwt-httponly-cookie">Adding our Middleware to use JWT HttpOnly Cookie</h3>
 <p>It&rsquo;s really bad form to store our JWT in local storage. Where possible, we want to make use of HttpOnly cookies which are more secure. To make our controllers use the HttpOnly cookie we need to place a middleware in our <code>Startup</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">app.Use(<span style="color:#66d9ef">async</span> (context, next) =&gt;
-{
-    <span style="color:#66d9ef">var</span> token = context.Request.Cookies[<span style="color:#e6db74">&#34;JWT&#34;</span>];
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">Use</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">(</span><span style="color:#111">context</span><span style="color:#111">,</span> <span style="color:#111">next</span><span style="color:#111">)</span> <span style="color:#111">=&gt;</span>
+<span style="color:#111">{</span>
+    <span style="color:#00a8c8">var</span> <span style="color:#111">token</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Request</span><span style="color:#111">.</span><span style="color:#111">Cookies</span><span style="color:#111">[</span><span style="color:#d88200">&#34;JWT&#34;</span><span style="color:#111">];</span>
 
-    <span style="color:#66d9ef">if</span> (!<span style="color:#66d9ef">string</span>.IsNullOrEmpty(token))
-        context.Request.Headers.Add(<span style="color:#e6db74">&#34;Authorization&#34;</span>, <span style="color:#e6db74">&#34;Bearer &#34;</span> + token);
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(!</span><span style="color:#00a8c8">string</span><span style="color:#111">.</span><span style="color:#111">IsNullOrEmpty</span><span style="color:#111">(</span><span style="color:#111">token</span><span style="color:#111">))</span>
+        <span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Request</span><span style="color:#111">.</span><span style="color:#111">Headers</span><span style="color:#111">.</span><span style="color:#111">Add</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Authorization&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;Bearer &#34;</span> <span style="color:#111">+</span> <span style="color:#111">token</span><span style="color:#111">);</span>
 
-    <span style="color:#66d9ef">await</span> next();
-});
-</code></pre></div><h2 id="final-touches">Final Touches</h2>
+    <span style="color:#00a8c8">await</span> <span style="color:#111">next</span><span style="color:#111">();</span>
+<span style="color:#111">});</span>
+</code></pre></div><h3 id="final-touches">Final Touches</h3>
 <p>Adjust your <code>Configure(IApplicationBuilder app, IWebHostEnvironment env)</code> with the following additions:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">app.UseAuthentication();
-app.UseAuthorization();
-</code></pre></div><h2 id="requiring-authorization-for-your-controllers">Requiring Authorization for your Controllers</h2>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">UseAuthentication</span><span style="color:#111">();</span>
+<span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">UseAuthorization</span><span style="color:#111">();</span>
+</code></pre></div><h3 id="requiring-authorization-for-your-controllers">Requiring Authorization for your Controllers</h3>
 <p>You can now specify <code>[Authorize]</code> at the top of your controller definitions to require a JWT token. If you want to allow anonymous access to a route, you can specify the <code>[AllowAnonymous]</code> decorator for the specific route.</p>
-<h1 id="closing-thoughts">Closing Thoughts</h1>
+<h2 id="closing-thoughts">Closing Thoughts</h2>
 <p>Implementing your own alternative to <code>Identity</code> is not overly cumbersome - it can be done quite quickly and effectively as above.</p>
 <p>While I was predominately using Django, I found myself using third party libraries to achieve what I wanted. The result of this was that I did not truly understand the flow of my program&rsquo;s authentication.</p>
 <p>By doing the above implementation, I was able to:</p>
@@ -401,9 +448,10 @@ app.UseAuthorization();
 <li>Ensure that the JWT implementation did not contain additional bloat.</li>
 </ol>
 <p>Lastly, I hope this post was helpful, if you have any comments or critiques to my approach for implementing JWT above I&rsquo;d love to hear it.</p>
-</article>
 
-        </main><footer id="footer">
+    </div>
+</div>
+<footer>
     © 2020, Andryo Marzuki
 </footer>
 </body>
