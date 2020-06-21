@@ -13,10 +13,10 @@
     
     <item>
       <title>Using Fetch over Axios in ReactJS Applications</title>
-      <link>https://marzukia.github.io/using-fetch-over-axios-in-reactjs-applications/</link>
+      <link>https://marzukia.github.io/post/using-fetch-over-axios-in-reactjs-applications/</link>
       <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/using-fetch-over-axios-in-reactjs-applications/</guid>
+      <guid>https://marzukia.github.io/post/using-fetch-over-axios-in-reactjs-applications/</guid>
       <description>For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&amp;rsquo; Fetch. My rationale for making this switch was:
  Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.</description>
     </item>

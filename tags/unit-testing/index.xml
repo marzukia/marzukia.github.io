@@ -13,10 +13,10 @@
     
     <item>
       <title>Mocking DbContext in ASP.NET Core for xUnit Tests</title>
-      <link>https://marzukia.github.io/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</link>
+      <link>https://marzukia.github.io/post/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</link>
       <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</guid>
+      <guid>https://marzukia.github.io/post/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</guid>
       <description>Having unit tests in your application is important to ensure that your application functions how you intend for it to function. This is especially important as the scope and complexity of your application increases in size.</description>
     </item>
     
