@@ -6,15 +6,25 @@
     <description>Recent content in Posts on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Creating a Genetic Algorithm to Recreate Images</title>
+      <link>https://marzukia.github.io/post/creating-a-genetic-algorithm-to-recreate-images/</link>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/creating-a-genetic-algorithm-to-recreate-images/</guid>
+      <description>Have you ever heard of a genetic algorithm?
+In the context of sexual reproduction, an offspring inherits half of it&amp;rsquo;s mother&amp;rsquo;s genes and half of it&amp;rsquo;s father&amp;rsquo;s genes. The inheritance of genes occurs completely randomly, the offspring&amp;rsquo;s genes are a random mixture of it&amp;rsquo;s two parents.</description>
+    </item>
+    
+    <item>
       <title>Mocking DbContext in ASP.NET Core for xUnit Tests</title>
       <link>https://marzukia.github.io/post/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</link>
-      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://marzukia.github.io/post/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</guid>
       <description>Having unit tests in your application is important to ensure that your application functions how you intend for it to function. This is especially important as the scope and complexity of your application increases in size.</description>

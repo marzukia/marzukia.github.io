@@ -3,33 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://marzukia.github.io/tags/asp.net-core/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <loc>https://marzukia.github.io/post/creating-a-genetic-algorithm-to-recreate-images/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://marzukia.github.io/tags/csharp/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <loc>https://marzukia.github.io/tags/genetic-algorithm/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://marzukia.github.io/posts/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://marzukia.github.io/tags/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/asp.net-core/</loc>
+    <lastmod>2020-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/post/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</loc>
+    <lastmod>2020-06-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://marzukia.github.io/tags/xunit/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
