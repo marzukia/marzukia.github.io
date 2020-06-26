@@ -83,8 +83,8 @@
     <h1>Writing a Cellular Automata in Python</h1>
     <div class="post-content">
         <p>When I started learning and using Python 2 years ago, I had no real previous experience of coding under my belt. I had done some small projects in <code>HTML</code> and <code>PHP</code> a very longtime ago, but that experience was certainly no longer helpful.</p>
-<p>Over the last little while I&rsquo;ve solely focused on using <code>C#</code> for my side/fun projects which has meant I&rsquo;ve become a little rusty when it comes to <code>python</code>. I thought a fun coding exercise would be to do <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway&rsquo;s Game of Life</a>, a cellular automata.</p>
-<p>I have done this project in the past in both <code>python</code> and <code>TypeScript</code>. I wanted to see how my thought process has changed while coding in <code>python</code> given the fact I now think in ways other then the &lsquo;pythonic&rsquo; way.</p>
+<p>Over the last little while I&rsquo;ve solely focused on using <code>C#</code> for my side/fun projects which has meant I&rsquo;ve become a little rusty when it comes to <code>Python</code>. I thought a fun coding exercise would be to do <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway&rsquo;s Game of Life</a>, a cellular automata.</p>
+<p>I have done this project in the past in both <code>Python</code> and <code>TypeScript</code>. I wanted to see how my thought process has changed while coding in <code>Python</code> given the fact I now think in ways other then the &lsquo;Pythonic&rsquo; way.</p>
 <p>The rules of Conway&rsquo;s Game of Life are as follows:</p>
 <ol>
 <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
@@ -94,9 +94,9 @@
 </ol>
 <p>Here&rsquo;s the <a href="https://github.com/marzukia/cell-automata">completed code</a> in case you were interested.</p>
 <h2 id="wait-i-cant-do-that">Wait&hellip; I Can&rsquo;t Do That?</h2>
-<p>After spending so much time in <code>C#</code> and <code>TypeScript</code> I&rsquo;ve become very accustomed to my <code>types</code> and <code>interfaces</code> and I definitely wouldn&rsquo;t want to code without them. At time of writing, <code>python</code> presently only supports <a href="https://docs.python.org/3/library/typing.html">type hints</a> which was introduced in <a href="https://www.python.org/dev/peps/pep-0484/">PEP484</a> and last updated in <a href="https://www.python.org/dev/peps/pep-0591/">PEP591</a>. I have tried to use these type hints before on my other projects such as <a href="https://github.com/marzukia/sqlstate">sqlstate</a> but my general opinion of them is that they are woefully inadequate.</p>
+<p>After spending so much time in <code>C#</code> and <code>TypeScript</code> I&rsquo;ve become very accustomed to my <code>types</code> and <code>interfaces</code> and I definitely wouldn&rsquo;t want to code without them. At time of writing, <code>Python</code> presently only supports <a href="https://docs.python.org/3/library/typing.html">type hints</a> which was introduced in <a href="https://www.python.org/dev/peps/pep-0484/">PEP484</a> and last updated in <a href="https://www.python.org/dev/peps/pep-0591/">PEP591</a>. I have tried to use these type hints before on my other projects such as <a href="https://github.com/marzukia/sqlstate">sqlstate</a> but my general opinion of them is that they are woefully inadequate.</p>
 <p>At the moment, there is no way to explicitly type something and then enforce it. You can use methods such as <code>isinstance()</code> but this approach normally kicks up a fuss as soon as you try to pass it more complex types. For example, I wanted to do something as basic as <code>isinstance(tuple_var, Tuple[int, int])</code>&hellip; unfortunately <code>isinstance()</code> doesn&rsquo;t support &ldquo;Parametrized Tuples&rdquo;. I may very well be wrong here and there may be a way to do so, but as far as I can see it&rsquo;s not <em>currently</em> supported.</p>
-<p>For a language which has an ethos of &ldquo;Explicit over Implicit&rdquo; it&rsquo;s ironic that typing is not on the top of their list. There&rsquo;s probably an argument to be made regarding balancing the accessibility of the language versus strict typing but I think <code>python</code>, but I can&rsquo;t see myself using <code>python</code> as my go-to language without this feature.</p>
+<p>For a language which has an ethos of &ldquo;Explicit over Implicit&rdquo; it&rsquo;s ironic that typing is not on the top of their list. There&rsquo;s probably an argument to be made regarding balancing the accessibility of the language versus strict typing but I think <code>Python</code>, but I can&rsquo;t see myself using <code>Python</code> as my go-to language without this feature.</p>
 <p>With that being said, libraries such as <code>numpy</code> and <code>pandas</code> are still excellent. For data-heavy or data-centric analysis/work, I&rsquo;d still spin up a <code>jupyter</code> notebook and get exploring.</p>
 <p>With this complaint over, onwards with the code!</p>
 <h2 id="class-definitions">Class Definitions</h2>
@@ -258,7 +258,7 @@
         <span style="color:#111">cell</span><span style="color:#f92672">.</span><span style="color:#111">live_neighbours</span> <span style="color:#f92672">=</span> <span style="color:#111">count</span>
         <span style="color:#111">cell</span><span style="color:#f92672">.</span><span style="color:#111">state</span> <span style="color:#f92672">=</span> <span style="color:#111">calculate_state</span><span style="color:#111">(</span><span style="color:#111">cell</span><span style="color:#f92672">.</span><span style="color:#111">state</span><span style="color:#111">,</span> <span style="color:#111">count</span><span style="color:#111">)</span>
 </code></pre></div><p>The above code should be fairly explanatory. We get the <code>Cell.state</code> and count of <code>neighbours</code> which are alive, then pass that through a <code>calculate_state()</code> to update the <code>Cell.state</code>.</p>
-<p>Another little bug bear with <code>python</code> was the fact that I had to use a <code>dict</code> as there is no inbuilt way to <code>switch</code>.</p>
+<p>Another little bug bear with <code>Python</code> was the fact that I had to use a <code>dict</code> as there is no inbuilt way to <code>switch</code>.</p>
 <h2 id="rendering-the-grid">Rendering the Grid</h2>
 <p>I couldn&rsquo;t think of a better way to do this without using third party libraries. So&hellip; I just did a fairly hacky way to render the grid at each step.</p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00a8c8">def</span> <span style="color:#75af00">render_grid</span><span style="color:#111">(</span><span style="color:#111">self</span><span style="color:#111">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#111">None</span><span style="color:#111">:</span>
@@ -290,7 +290,7 @@
     <span style="color:#111">main</span><span style="color:#111">()</span>
 </code></pre></div><p>Run the program and watch it run!</p>
 <h2 id="closing-thoughts">Closing Thoughts</h2>
-<p>This was an interesting exercise for me. I hadn&rsquo;t really done much <code>python</code> coding in awhile and I&rsquo;m very surprised to see how poor of an experience I had coding in it. After using strongly typed languages, it plain felt wrong to use it for this type of thing.</p>
+<p>This was an interesting exercise for me. I hadn&rsquo;t really done much <code>Python</code> coding in awhile and I&rsquo;m very surprised to see how poor of an experience I had coding in it. After using strongly typed languages, it plain felt wrong to use it for this type of thing.</p>
 <p>I will probably try this in <code>C#</code> using <code>Unity</code> to do something cool with it.</p>
 
     </div>
