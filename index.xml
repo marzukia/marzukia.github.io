@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Writing a Cellular Automata in Python</title>
+      <link>https://marzukia.github.io/post/writing-a-cellular-automata-in-python/</link>
+      <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/writing-a-cellular-automata-in-python/</guid>
+      <description>When I started learning and using Python 2 years ago, I had no real previous experience of coding under my belt. I had done some small projects in HTML and PHP a very longtime ago, but that experience was certainly no longer helpful.</description>
+    </item>
+    
+    <item>
       <title>Creating a Genetic Algorithm to Recreate Images</title>
       <link>https://marzukia.github.io/post/creating-a-genetic-algorithm-to-recreate-images/</link>
       <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
