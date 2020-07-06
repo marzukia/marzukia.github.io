@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>React State Management with Redux (and More)</title>
+      <link>https://marzukia.github.io/post/react-state-management-with-redux-and-more/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/react-state-management-with-redux-and-more/</guid>
+      <description>ReactJS is an awesome library to use for frontends. It&amp;rsquo;s super fast to use when you want to get a really interactive and intuitive application up and running.
+ReactJS comes prepackaged with its own way to manage state locally within a component.</description>
+    </item>
+    
+    <item>
       <title>Writing a Cellular Automata in Python</title>
       <link>https://marzukia.github.io/post/writing-a-cellular-automata-in-python/</link>
       <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
