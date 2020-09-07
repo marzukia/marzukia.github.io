@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>COVID-19 on Andryo Marzuki</title>
+    <link>https://marzukia.github.io/tags/covid-19/</link>
+    <description>Recent content in COVID-19 on Andryo Marzuki</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 06 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://marzukia.github.io/tags/covid-19/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How Well Has New Zealand Handled COVID-19?</title>
+      <link>https://marzukia.github.io/post/how-well-has-new-zealand-handled-covid-19/</link>
+      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/how-well-has-new-zealand-handled-covid-19/</guid>
+      <description>At the beginning of March, I made the unfortunate decision of investing into two exchange-traded funds (ETFs) which were SmartShare&amp;rsquo;s FNZ (NZ Top 50) and USF (Fortune 500). It was unfortunate because the world decided to set itself on fire due to the COVID-19 pandemic.</description>
+    </item>
+    
+  </channel>
+</rss>
