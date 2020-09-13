@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 06 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mapping an Undocumented API Easily With Python</title>
+      <link>https://marzukia.github.io/post/mapping-an-undocumented-api-easily-with-python/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/mapping-an-undocumented-api-easily-with-python/</guid>
+      <description>I was working on an NBA related project the other week and I had decided I wanted to create my own API wrapper (for fun) as part of the project.</description>
+    </item>
     
     <item>
       <title>How Well Has New Zealand Handled COVID-19?</title>

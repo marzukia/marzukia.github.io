@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Mapping an Undocumented API Easily With Python</title>
+      <link>https://marzukia.github.io/post/mapping-an-undocumented-api-easily-with-python/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/mapping-an-undocumented-api-easily-with-python/</guid>
+      <description>I was working on an NBA related project the other week and I had decided I wanted to create my own API wrapper (for fun) as part of the project.</description>
+    </item>
+    
+    <item>
       <title>How Well Has New Zealand Handled COVID-19?</title>
       <link>https://marzukia.github.io/post/how-well-has-new-zealand-handled-covid-19/</link>
       <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
