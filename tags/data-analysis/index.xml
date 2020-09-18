@@ -6,10 +6,19 @@
     <description>Recent content in Data Analysis on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 06 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/tags/data-analysis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Diving Deeper Into New Zealand&#39;s Official Recession</title>
+      <link>https://marzukia.github.io/post/diving-deeper-into-new-zealands-official-recession/</link>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/diving-deeper-into-new-zealands-official-recession/</guid>
+      <description>New Zealand has officially entered into a recession after 11 years following two consecutive periods of negative GDP growth. This last time New Zealand was in a recession was in 2008 due to the global financial crisis.</description>
+    </item>
     
     <item>
       <title>How Well Has New Zealand Handled COVID-19?</title>

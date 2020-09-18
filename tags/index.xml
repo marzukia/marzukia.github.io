@@ -6,24 +6,15 @@
     <description>Recent content in Tags on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Python</title>
-      <link>https://marzukia.github.io/tags/python/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://marzukia.github.io/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>COVID-19</title>
       <link>https://marzukia.github.io/tags/covid-19/</link>
-      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://marzukia.github.io/tags/covid-19/</guid>
       <description></description>
@@ -32,9 +23,18 @@
     <item>
       <title>Data Analysis</title>
       <link>https://marzukia.github.io/tags/data-analysis/</link>
-      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://marzukia.github.io/tags/data-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://marzukia.github.io/tags/python/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/tags/python/</guid>
       <description></description>
     </item>
     
