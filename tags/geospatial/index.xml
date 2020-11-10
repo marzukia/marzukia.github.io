@@ -6,10 +6,19 @@
     <description>Recent content in Geospatial on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 21 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marzukia.github.io/tags/geospatial/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Making Graphics To Demonstrate Demographics</title>
+      <link>https://marzukia.github.io/post/making-graphics-to-demonstrate-demographics/</link>
+      <pubDate>Tue, 10 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/post/making-graphics-to-demonstrate-demographics/</guid>
+      <description>I was eating KFC one evening, and a thought popped in my head, I wonder if it would be possible to glean a business&amp;rsquo; target market by solely looking at data.</description>
+    </item>
     
     <item>
       <title>Breaking Down the Elections... Like a Sport?</title>
