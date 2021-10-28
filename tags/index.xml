@@ -2,170 +2,170 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Andryo Marzuki</title>
-    <link>https://marzukia.github.io/tags/</link>
+    <link>https://mrzk.io/tags/</link>
     <description>Recent content in Tags on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 28 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://marzukia.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DIY</title>
-      <link>https://marzukia.github.io/tags/diy/</link>
+      <link>https://mrzk.io/tags/diy/</link>
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/diy/</guid>
+      <guid>https://mrzk.io/tags/diy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Mechanical Keyboard</title>
-      <link>https://marzukia.github.io/tags/mechanical-keyboard/</link>
+      <link>https://mrzk.io/tags/mechanical-keyboard/</link>
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/mechanical-keyboard/</guid>
+      <guid>https://mrzk.io/tags/mechanical-keyboard/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Analysis</title>
-      <link>https://marzukia.github.io/tags/data-analysis/</link>
+      <link>https://mrzk.io/tags/data-analysis/</link>
       <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/data-analysis/</guid>
+      <guid>https://mrzk.io/tags/data-analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Geospatial</title>
-      <link>https://marzukia.github.io/tags/geospatial/</link>
+      <link>https://mrzk.io/tags/geospatial/</link>
       <pubDate>Tue, 10 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/geospatial/</guid>
+      <guid>https://mrzk.io/tags/geospatial/</guid>
       <description></description>
     </item>
     
     <item>
       <title>COVID-19</title>
-      <link>https://marzukia.github.io/tags/covid-19/</link>
+      <link>https://mrzk.io/tags/covid-19/</link>
       <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/covid-19/</guid>
+      <guid>https://mrzk.io/tags/covid-19/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>https://marzukia.github.io/tags/python/</link>
+      <link>https://mrzk.io/tags/python/</link>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/python/</guid>
+      <guid>https://mrzk.io/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ReactJS</title>
-      <link>https://marzukia.github.io/tags/reactjs/</link>
+      <link>https://mrzk.io/tags/reactjs/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/reactjs/</guid>
+      <guid>https://mrzk.io/tags/reactjs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Redux</title>
-      <link>https://marzukia.github.io/tags/redux/</link>
+      <link>https://mrzk.io/tags/redux/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/redux/</guid>
+      <guid>https://mrzk.io/tags/redux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TypeScript</title>
-      <link>https://marzukia.github.io/tags/typescript/</link>
+      <link>https://mrzk.io/tags/typescript/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/typescript/</guid>
+      <guid>https://mrzk.io/tags/typescript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CSharp</title>
-      <link>https://marzukia.github.io/tags/csharp/</link>
+      <link>https://mrzk.io/tags/csharp/</link>
       <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/csharp/</guid>
+      <guid>https://mrzk.io/tags/csharp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Genetic Algorithm</title>
-      <link>https://marzukia.github.io/tags/genetic-algorithm/</link>
+      <link>https://mrzk.io/tags/genetic-algorithm/</link>
       <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/genetic-algorithm/</guid>
+      <guid>https://mrzk.io/tags/genetic-algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ASP.NET Core</title>
-      <link>https://marzukia.github.io/tags/asp.net-core/</link>
+      <link>https://mrzk.io/tags/asp.net-core/</link>
       <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/asp.net-core/</guid>
+      <guid>https://mrzk.io/tags/asp.net-core/</guid>
       <description></description>
     </item>
     
     <item>
       <title>xUnit</title>
-      <link>https://marzukia.github.io/tags/xunit/</link>
+      <link>https://mrzk.io/tags/xunit/</link>
       <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/xunit/</guid>
+      <guid>https://mrzk.io/tags/xunit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Authentication</title>
-      <link>https://marzukia.github.io/tags/authentication/</link>
+      <link>https://mrzk.io/tags/authentication/</link>
       <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/authentication/</guid>
+      <guid>https://mrzk.io/tags/authentication/</guid>
       <description></description>
     </item>
     
     <item>
       <title>JWT</title>
-      <link>https://marzukia.github.io/tags/jwt/</link>
+      <link>https://mrzk.io/tags/jwt/</link>
       <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/jwt/</guid>
+      <guid>https://mrzk.io/tags/jwt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Fedora</title>
-      <link>https://marzukia.github.io/tags/fedora/</link>
+      <link>https://mrzk.io/tags/fedora/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/fedora/</guid>
+      <guid>https://mrzk.io/tags/fedora/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux Gaming</title>
-      <link>https://marzukia.github.io/tags/linux-gaming/</link>
+      <link>https://mrzk.io/tags/linux-gaming/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/linux-gaming/</guid>
+      <guid>https://mrzk.io/tags/linux-gaming/</guid>
       <description></description>
     </item>
     
     <item>
       <title>VFIO</title>
-      <link>https://marzukia.github.io/tags/vfio/</link>
+      <link>https://mrzk.io/tags/vfio/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/tags/vfio/</guid>
+      <guid>https://mrzk.io/tags/vfio/</guid>
       <description></description>
     </item>
     

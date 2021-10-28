@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Genetic Algorithm on Andryo Marzuki</title>
-    <link>https://marzukia.github.io/tags/genetic-algorithm/</link>
+    <link>https://mrzk.io/tags/genetic-algorithm/</link>
     <description>Recent content in Genetic Algorithm on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://marzukia.github.io/tags/genetic-algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/genetic-algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Creating a Genetic Algorithm to Recreate Images</title>
-      <link>https://marzukia.github.io/genetic-algorithim-cs/</link>
+      <link>https://mrzk.io/genetic-algorithim-cs/</link>
       <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/genetic-algorithim-cs/</guid>
+      <guid>https://mrzk.io/genetic-algorithim-cs/</guid>
       <description>Have you ever heard of a genetic algorithm?
 In the context of sexual reproduction, an offspring inherits half of it&amp;rsquo;s mother&amp;rsquo;s genes and half of it&amp;rsquo;s father&amp;rsquo;s genes. The inheritance of genes occurs completely randomly, the offspring&amp;rsquo;s genes are a random mixture of it&amp;rsquo;s two parents.</description>
     </item>

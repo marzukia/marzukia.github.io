@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fedora on Andryo Marzuki</title>
-    <link>https://marzukia.github.io/tags/fedora/</link>
+    <link>https://mrzk.io/tags/fedora/</link>
     <description>Recent content in Fedora on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://marzukia.github.io/tags/fedora/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/fedora/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fedora 32 and GPU Passthrough (VFIO)</title>
-      <link>https://marzukia.github.io/fedora32-vfio/</link>
+      <link>https://mrzk.io/fedora32-vfio/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/fedora32-vfio/</guid>
+      <guid>https://mrzk.io/fedora32-vfio/</guid>
       <description>I&amp;rsquo;ve used Fedora 32 as my main OS for about two years. Overall, it has been a very pleasant experience and has made things such as developing much easier than it would&amp;rsquo;ve been on Windows.</description>
     </item>
     
