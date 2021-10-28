@@ -3,8 +3,38 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://marzukia.github.io/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/diy/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/mechanical-keyboard/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/first-custom-keyboard/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/tags/</loc>
+    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marzukia.github.io/collectable-video-games-market-manipulation/</loc>
+    <lastmod>2021-09-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://marzukia.github.io/tags/data-analysis/</loc>
-    <lastmod>2020-11-10T00:00:00+00:00</lastmod>
+    <lastmod>2021-09-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -13,22 +43,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/making-graphics-to-demonstrate-demographics/</loc>
+    <loc>https://marzukia.github.io/demographic-analysis-census/</loc>
     <lastmod>2020-11-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/posts/</loc>
-    <lastmod>2020-11-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://marzukia.github.io/tags/</loc>
-    <lastmod>2020-11-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://marzukia.github.io/post/breaking-down-the-elections...-like-a-sport/</loc>
+    <loc>https://marzukia.github.io/election-results-advanced-analytics/</loc>
     <lastmod>2020-10-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,12 +58,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/diving-deeper-into-new-zealands-official-recession/</loc>
+    <loc>https://marzukia.github.io/nz-negative-growth-unbiased-analysis/</loc>
     <lastmod>2020-09-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/mapping-an-undocumented-api-easily-with-python/</loc>
+    <loc>https://marzukia.github.io/mapping-an-undocumented-api/</loc>
     <lastmod>2020-09-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -53,12 +73,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/how-well-has-new-zealand-handled-covid-19/</loc>
+    <loc>https://marzukia.github.io/nz-usa-covid19/</loc>
     <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/react-state-management-with-redux-and-more/</loc>
+    <loc>https://marzukia.github.io/state-react-redux/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -78,12 +98,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/writing-a-cellular-automata-in-python/</loc>
+    <loc>https://marzukia.github.io/cellular-automata-python/</loc>
     <lastmod>2020-06-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/creating-a-genetic-algorithm-to-recreate-images/</loc>
+    <loc>https://marzukia.github.io/genetic-algorithim-cs/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -103,7 +123,7 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</loc>
+    <loc>https://marzukia.github.io/mocking-dbcontext-tests-aspnet/</loc>
     <lastmod>2020-06-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -113,12 +133,12 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/using-fetch-over-axios-in-reactjs-applications/</loc>
+    <loc>https://marzukia.github.io/frontend-resuable-api/</loc>
     <lastmod>2020-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/asp.net-core-web-api-jwt-implementation/</loc>
+    <loc>https://marzukia.github.io/aspnet-jwt-webapi/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -138,7 +158,7 @@
   </url>
   
   <url>
-    <loc>https://marzukia.github.io/post/fedora-32-and-gpu-passthrough-vfio/</loc>
+    <loc>https://marzukia.github.io/fedora32-vfio/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
   
@@ -150,16 +170,6 @@
   <url>
     <loc>https://marzukia.github.io/tags/vfio/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://marzukia.github.io/</loc>
-    <lastmod>2020-06-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://marzukia.github.io/about/</loc>
-    <lastmod>2020-06-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>

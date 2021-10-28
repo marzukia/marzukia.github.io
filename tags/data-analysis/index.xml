@@ -6,44 +6,49 @@
     <description>Recent content in Data Analysis on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 10 Nov 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://marzukia.github.io/tags/data-analysis/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 11 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://marzukia.github.io/tags/data-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Collectable Video Games &amp; Market Manipulation</title>
+      <link>https://marzukia.github.io/collectable-video-games-market-manipulation/</link>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://marzukia.github.io/collectable-video-games-market-manipulation/</guid>
+      <description>It&amp;rsquo;s not often that three of my interests mash intersect together, in this case, my love of video games, data and technology. So you can imagine my excitement when I discovered a scandal in the making currently brewing in the collectable gaming world.</description>
+    </item>
     
     <item>
       <title>Making Graphics To Demonstrate Demographics</title>
-      <link>https://marzukia.github.io/post/making-graphics-to-demonstrate-demographics/</link>
+      <link>https://marzukia.github.io/demographic-analysis-census/</link>
       <pubDate>Tue, 10 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/post/making-graphics-to-demonstrate-demographics/</guid>
+      <guid>https://marzukia.github.io/demographic-analysis-census/</guid>
       <description>The idea for this post came to me recently; the question that popped into my head was - all businesses have a target market, but how obvious is their target market?</description>
     </item>
     
     <item>
       <title>Breaking Down the Elections... Like a Sport?</title>
-      <link>https://marzukia.github.io/post/breaking-down-the-elections...-like-a-sport/</link>
+      <link>https://marzukia.github.io/election-results-advanced-analytics/</link>
       <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/post/breaking-down-the-elections...-like-a-sport/</guid>
+      <guid>https://marzukia.github.io/election-results-advanced-analytics/</guid>
       <description>I&amp;rsquo;ll be the first to admit that I&amp;rsquo;m not the greatest fan of politics, in a typical scenario I&amp;rsquo;d avoid talking about it like the plague. However, as the elections have come and gone, it&amp;rsquo;d be sacrilege for me to pretend the goldmine of electoral data now available did not exist.</description>
     </item>
     
     <item>
       <title>Diving Deeper Into New Zealand&#39;s Official Recession</title>
-      <link>https://marzukia.github.io/post/diving-deeper-into-new-zealands-official-recession/</link>
+      <link>https://marzukia.github.io/nz-negative-growth-unbiased-analysis/</link>
       <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/post/diving-deeper-into-new-zealands-official-recession/</guid>
+      <guid>https://marzukia.github.io/nz-negative-growth-unbiased-analysis/</guid>
       <description>New Zealand has officially entered into a recession after 11 years following two consecutive periods of negative GDP growth. This last time New Zealand was in a recession was in 2008 due to the global financial crisis.</description>
     </item>
     
     <item>
       <title>How Well Has New Zealand Handled COVID-19?</title>
-      <link>https://marzukia.github.io/post/how-well-has-new-zealand-handled-covid-19/</link>
+      <link>https://marzukia.github.io/nz-usa-covid19/</link>
       <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/post/how-well-has-new-zealand-handled-covid-19/</guid>
+      <guid>https://marzukia.github.io/nz-usa-covid19/</guid>
       <description>At the beginning of March, I made the unfortunate decision of investing into two exchange-traded funds (ETFs) which were SmartShare&amp;rsquo;s FNZ (NZ Top 50) and USF (Fortune 500). It was unfortunate because the world decided to set itself on fire due to the COVID-19 pandemic.</description>
     </item>
     

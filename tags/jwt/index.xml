@@ -6,17 +6,13 @@
     <description>Recent content in JWT on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://marzukia.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://marzukia.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ASP.NET Core Web API JWT Implementation</title>
-      <link>https://marzukia.github.io/post/asp.net-core-web-api-jwt-implementation/</link>
+      <link>https://marzukia.github.io/aspnet-jwt-webapi/</link>
       <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/post/asp.net-core-web-api-jwt-implementation/</guid>
+      <guid>https://marzukia.github.io/aspnet-jwt-webapi/</guid>
       <description>I&amp;rsquo;ve recently made the jump from using Django to ASP.NET Core as my primary choice when developing web applications. This was initially due to me branching into using C## for things like Unity, and later realizing how much better ASP.</description>
     </item>
     

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Andryo Marzuki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Guide to setting up VFIO on Fedora 32 to game on a Windows 10 virtual machine" />
+
+    <meta property="og:title" content="Fedora 32 and GPU Passthrough (VFIO)" />
+    <meta property="og:description" content="Guide to setting up VFIO on Fedora 32 to game on a Windows 10 virtual machine" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://marzukia.github.io/fedora32-vfio/" />
+    <meta itemprop="name" content="Fedora 32 and GPU Passthrough (VFIO)">
+    <meta itemprop="description" content="Guide to setting up VFIO on Fedora 32 to game on a Windows 10 virtual machine">
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Fedora 32 and GPU Passthrough (VFIO)"/>
+    <meta name="twitter:description" content="Guide to setting up VFIO on Fedora 32 to game on a Windows 10 virtual machine"/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+
+    
+    <link rel="stylesheet" href="https://marzukia.github.io/scss/style.min.86e4dcee1da74f607993e9490dccd0411048b13cd16182357fae10a6e68e50e0.css" >
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170171726-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-170171726-1');
+    </script>
+</head>
+<body><header>
+    <a href='https://marzukia.github.io/'><h1 class="site-title">Andryo Marzuki</h1></a>
+    <center>
+
+
+
+
+<a
+  href="https://instagram.com/andryo"
+  target="_blank"
+  class="social-link"
+  title="Instagram link"
+  rel="noopener"
+  aria-label="follow on Instagram——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14.667 12c0 1.473-1.194 2.667-2.667 2.667-1.473 0-2.667-1.193-2.667-2.667 0-1.473 1.194-2.667 2.667-2.667 1.473 0 2.667 1.194 2.667 2.667zm3.846-3.232c.038.843.046 1.096.046 3.232s-.008 2.389-.046 3.233c-.1 2.15-1.109 3.181-3.279 3.279-.844.038-1.097.047-3.234.047-2.136 0-2.39-.008-3.232-.046-2.174-.099-3.181-1.132-3.279-3.279-.039-.845-.048-1.098-.048-3.234s.009-2.389.047-3.232c.099-2.152 1.109-3.181 3.279-3.279.844-.039 1.097-.047 3.233-.047s2.39.008 3.233.046c2.168.099 3.18 1.128 3.28 3.28zm-2.405 3.232c0-2.269-1.84-4.108-4.108-4.108-2.269 0-4.108 1.839-4.108 4.108 0 2.269 1.84 4.108 4.108 4.108 2.269 0 4.108-1.839 4.108-4.108zm1.122-4.27c0-.53-.43-.96-.96-.96s-.96.43-.96.96.43.96.96.96c.531 0 .96-.43.96-.96zm6.77-7.73v24h-24v-24h24zm-4 12c0-2.172-.009-2.445-.048-3.298-.131-2.902-1.745-4.52-4.653-4.653-.854-.04-1.126-.049-3.299-.049s-2.444.009-3.298.048c-2.906.133-4.52 1.745-4.654 4.653-.039.854-.048 1.127-.048 3.299 0 2.173.009 2.445.048 3.298.134 2.906 1.746 4.521 4.654 4.654.854.039 1.125.048 3.298.048s2.445-.009 3.299-.048c2.902-.133 4.522-1.745 4.653-4.654.039-.853.048-1.125.048-3.298z"/></svg>
+</a>
+
+
+
+<a
+  href="https://linkedin.com/in/andryomarzuki"
+  target="_blank"
+  class="social-link"
+  title="LinkedIn link"
+  rel="noopener"
+  aria-label="follow on LinkedIn——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm8 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.397-2.586 7-2.777 7 2.476v6.759z"/></svg>
+</a>
+
+
+<a
+  href="https://github.com/marzukia"
+  target="_blank"
+  class="social-link"
+  title="Github link"
+  rel="noopener"
+  aria-label="follow on Github——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm14.534 19.59c-.406.078-.534-.171-.534-.384v-2.195c0-.747-.262-1.233-.55-1.481 1.782-.198 3.654-.875 3.654-3.947 0-.874-.311-1.588-.824-2.147.083-.202.357-1.016-.079-2.117 0 0-.671-.215-2.198.82-.639-.18-1.323-.267-2.003-.271-.68.003-1.364.091-2.003.269-1.528-1.035-2.2-.82-2.2-.82-.434 1.102-.16 1.915-.077 2.118-.512.56-.824 1.273-.824 2.147 0 3.064 1.867 3.751 3.645 3.954-.229.2-.436.552-.508 1.07-.457.204-1.614.557-2.328-.666 0 0-.423-.768-1.227-.825 0 0-.78-.01-.055.487 0 0 .525.246.889 1.17 0 0 .463 1.428 2.688.944v1.489c0 .211-.129.459-.528.385-3.18-1.057-5.472-4.056-5.472-7.59 0-4.419 3.582-8 8-8s8 3.581 8 8c0 3.533-2.289 6.531-5.466 7.59z"/></svg>
+</a>
+
+
+
+
+</center>
+</header>
+<div class="post">
+    <h1>Fedora 32 and GPU Passthrough (VFIO)</h1>
+    <div class="post-content">
+        <p>I&rsquo;ve used Fedora 32 as my main OS for about two years. Overall, it has been a very pleasant experience and has made things such as developing much easier than it would&rsquo;ve been on Windows.</p>
+<p>However&hellip; gaming on Linux is frankly a pain in the ass. No matter the state of Vulkan, Proton, Wine, etc, you&rsquo;ll always find Windows games which will flat out not work. More recently, I found that Escape From Tarkov did not work at all on Linux due to Easy Anticheat.</p>
+<p>This has meant that I&rsquo;ve had to do one of my most hated things in the world&hellip; dual booting. When I dual boot I tend to lose access to all the services I have set up on my main computer such as Plex and Jupyterhub, my NGINX routing, and lastly stuff I use to develop such as Jenkins.</p>
+<p>Fortunately, a friend of mine reminded me about GPU passthrough, also known as VFIO. This is a process of allowing a VM to have complete control over a PCIe component such as a GPU. If done right, this means you could spin up a Windows VM which has the full power of a physical graphics card whilst never leaving your main OS.</p>
+<p>I&rsquo;ve written this post as I&rsquo;ve recently gone through the process of setting up a VM with GPU Passthrough recently and spent a lot of time trying to get it working. If I can save someone else an hour of their life trying to troubleshoot a particular issue I&rsquo;ll consider this post a success.</p>
+<h2 id="my-setup">My Setup</h2>
+<p>In order to do GPU pass-through, you&rsquo;ll need to have two graphics cards. A single GPU pass-through is &lsquo;jank&rsquo; requiring you to terminate your xorg session in order to switch between Windows and Fedora.</p>
+<p>For the purposes of doing GPU passthrough, I purchased the above <a href="https://www.pbtech.co.nz/product/VGASAP9552/Sapphire-Pulse-Radeon-RX550-2G-GDDR5-Graphics-Card">AMD Radeon RX550</a> for about $100 NZD. Since I only use two monitors - a primary 32'' 1440p monitor and secondary vertical 22'' 1080p monitor, I didn&rsquo;t need anything particularly overpowered for my host card.</p>
+<p>In some other threads I read that having identical GPUs causes issues with the VFIO process. Conversely, I&rsquo;ve seen people successfully complete this such as the write up found <a href="https://pastebin.com/5tuvWTMH">here</a>.</p>
+<p>Your set up will be different, so your mileage may vary. Some instructions will have to be adjusted, however my set up is as follows:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">- Fedora 32 (Kernel 5.6.10-300.fc32.x86_64)
+- ASROCK X399M Taichi
+- AMD Ryzen Threadripper 2920X
+- NVIDIA GTX 1080
+- AMD Radeon RX550
+- 32GB DDR4 RAM
+- Storage
+    - 512GB SSD
+    - 256GB SSD
+    - 2TB HD
+</code></pre></div><p>For my Windows VM, I used a dedicated SSD as its storage volume, and mounted it raw rather than using a virtual disk. This is to improve the performance of the VM.</p>
+<h2 id="but-how">But&hellip; How?</h2>
+<p>My key reference while doing this setup was the following <a href="https://forum.level1techs.com/t/vfio-in-2019-fedora-workstation-general-guide-though-branch-draft/145106">BansheeHero&rsquo;s excellent guide</a>. Whilst the post itself is not complete, and good chunks of it are cut paste from a different thread, it outlines the general steps required to accomplish the setup.</p>
+<p>However&hellip; there were some important steps in this guide that weren&rsquo;t made clear which resulted  in me wasting a material amount of time. In this post I will try make these key steps clearer.</p>
+<h3 id="iommu-and-you">IOMMU &hellip;and You</h3>
+<p>IOMMU stands for &lsquo;Input-output memory management unit&rsquo;, it&rsquo;s a feature which allows your VMs to take advantage of your computer&rsquo;s hardware. To accomplish the GPU pass-through this will need to be enabled.</p>
+<h4 id="setting-iommu-in-your-bios">Setting IOMMU in your BIOS</h4>
+<p>Before proceeding to the next steps, you need to ensure that IOMMU has been &lsquo;Enabled&rsquo; in your BIOS. It&rsquo;s best to explicitly override this value if it has been set to &lsquo;Automatic&rsquo; to ensure your computer does what is asked of it.</p>
+<p>In my case, my setting was set to &lsquo;Automatic&rsquo;.</p>
+<h4 id="checking-your-iommu-groups">Checking your IOMMU Groups</h4>
+<p>The next step is to run the following bash script to ensure that your IOMMU groups have been setup correctly.</p>
+<p>Your GPU and its audio controller need to be isolated in its own IOMMU group. This also applies to any other PCIe devices you&rsquo;d like to pass-through to the VM including USB ports and soundcards.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">for</span> d in /sys/kernel/iommu_groups/*/devices/*<span style="color:#111">;</span> <span style="color:#00a8c8">do</span>
+  <span style="color:#111">n</span><span style="color:#f92672">=</span><span style="color:#d88200">${</span><span style="color:#111">d</span><span style="color:#111">#*/iommu_groups/*</span><span style="color:#d88200">}</span><span style="color:#111">;</span> <span style="color:#111">n</span><span style="color:#f92672">=</span><span style="color:#d88200">${</span><span style="color:#111">n</span><span style="color:#111">%%/*</span><span style="color:#d88200">}</span>
+  <span style="color:#111">printf</span> <span style="color:#d88200">&#39;IOMMU Group %s &#39;</span> <span style="color:#d88200">&#34;</span><span style="color:#111">$n</span><span style="color:#d88200">&#34;</span>
+  lspci -nns <span style="color:#d88200">&#34;</span><span style="color:#d88200">${</span><span style="color:#111">d</span><span style="color:#111">##*/</span><span style="color:#d88200">}</span><span style="color:#d88200">&#34;</span>
+<span style="color:#00a8c8">done</span>
+</code></pre></div><p>On running this command, you&rsquo;ll want to look for your GPU and ensure it&rsquo;s there. In my case I see the following:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">IOMMU Group 29 41:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP104 [GeForce GTX 1080] [10de:1b80] (rev a1)
+IOMMU Group 29 41:00.1 Audio device [0403]: NVIDIA Corporation GP104 High Definition Audio Controller [10de:10f0] (rev a1)
+</code></pre></div><p>In this case, my PCIe devices have the ids <code>41:00.0</code> and <code>41:00.1</code>. They are grouped together and isolated in Group 29.</p>
+<h3 id="installing-the-virtualisation-package">Installing the Virtualisation Package</h3>
+<p>You&rsquo;ll need the packages from the following command:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install @virtualization
+</code></pre></div><p>My user is in wheel so not much further group configuration was necessary. If you don&rsquo;t have your user in there you&rsquo;ll need to do further configuration.</p>
+<h3 id="modifying-your-grub">Modifying your GRUB</h3>
+<p>You&rsquo;ll need to add some paramaters to your GRUB configuration. You can access the file doing the following command:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/sysconfig/grub
+</code></pre></div><p>Add <code>amd_iommu=on rd.driver.pre=vfio-pci</code> to <code>GRUB_CMDLINE_LINUX</code>, if you have an Intel chip you&rsquo;ll need to use <code>intel_iommu=on</code>.</p>
+<p><strong>Note</strong>: I&rsquo;ve not gone through this process on an Intel machine so I am not 100% sure if there are any other tweaks that need to be done for the rest of the tutorial.</p>
+<h3 id="rebuilding-initramfs">Rebuilding initramfs</h3>
+<p>In order to allow VFIO to happen, we need to adjust the boot process to ensure that the VFIO drivers are loaded and bound to the relevant PCIe devices rather than the normal ones.</p>
+<h4 id="getting-the-device-ids">Getting the Device IDs</h4>
+<p>In my case, I wanted to specifically pass-through my NVIDIA GTX1080. I can find the specific devices by running the following command:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">lspci -vnn <span style="color:#111">|</span> grep NVIDIA
+</code></pre></div><p>This provides me the following output:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">41:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP104 [GeForce GTX 1080] [10de:1b80] (rev a1) (prog-if 00 [VGA controller])
+41:00.1 Audio device [0403]: NVIDIA Corporation GP104 High Definition Audio Controller [10de:10f0] (rev a1)
+</code></pre></div><p>For each device I am interested in it&rsquo;s device ID (<code>10de:10f0</code>, <code>10de:1b80</code>). We need this information as this is how we&rsquo;ll inform our bootloader which devices need to be reserved.</p>
+<h4 id="modifying-modprobe">Modifying Modprobe</h4>
+<p>We need to tell Modprobe which devices we want to reserve for VFIO. In order to do this, we run the following command:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#111">echo</span> <span style="color:#d88200">&#34;options vfio-pci ids=10de:1b80,10de:10f0&#34;</span> &gt; /etc/modprobe.d/vfio.conf
+</code></pre></div><h4 id="rebuilding-initramfs-1">Rebuilding initramfs</h4>
+<p>Execute the following commands to instruct dracut to load the vfio drivers:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dracut --add-drivers <span style="color:#d88200">&#34;vfio vfio-pci vfio_iommu_type1&#34;</span> --force
+</code></pre></div><p>Once this has been completed, we can force a rebuild of initramfs image by executing the following command:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dracut -fv
+</code></pre></div><h4 id="pre-reboot-check-in">Pre-reboot Check-in</h4>
+<p>Before we reboot, we want to make sure all the things we did above has been affected. When you run the following command:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">lsinitrd <span style="color:#111">|</span> grep vfio
+</code></pre></div><p>You should see the following:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">-rw-r--r--   1 root     root           41 Mar 17 04:13 etc/modprobe.d/vfio.conf
+drwxr-xr-x   3 root     root            0 Mar 17 04:13 usr/lib/modules/5.6.10-300.fc32.x86_64/kernel/drivers/vfio
+drwxr-xr-x   2 root     root            0 Mar 17 04:13 usr/lib/modulesKernel driver in use: vfio-pci/5.6.10-300.fc32.x86_64/kernel/drivers/vfio/pci
+-rw-r--r--   1 root     root        25068 Mar 17 04:13 usr/lib/modules/5.6.10-300.fc32.x86_64/kernel/drivers/vfio/pci/vfio-pci.ko.xz
+-rw-r--r--   1 root     root        13368 Mar 17 04:13 usr/lib/modules/5.6.10-300.fc32.x86_64/kernel/drivers/vfio/vfio_iommu_type1.ko.xz
+-rw-r--r--   1 root     root        12320 Mar 17 04:13 usr/lib/modules/5.6.10-300.fc32.x86_64/kernel/drivers/vfio/vfio.ko.xz
+-rw-r--r--   1 root     root         3212 Mar 17 04:13 usr/lib/modules/5.6.10-300.fc32.x86_64/kernel/drivers/vfio/vfio_virqfd.ko.xz
+</code></pre></div><p>If everything is good at this point, you now need to reboot.</p>
+<h4 id="post-reboot-check-in">Post-reboot Check-in</h4>
+<p>We now need to ensure that the PCIe devices we specified for VFIO have been correctly reserved. If we run:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">lspci -nnv
+</code></pre></div><p>We see that our NVIDIA GTX 1080 shows the following:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">41:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP104 [GeForce GTX 1080] [10de:1b80] (rev a1) (prog-if 00 [VGA controller])
+	Subsystem: eVga.com. Corp. Device [3842:6183]
+	Flags: bus master, fast devsel, latency 0, IRQ 101, NUMA node 1
+	Memory at be000000 (32-bit, non-prefetchable) [size=16M]
+	Memory at 80000000 (64-bit, prefetchable) [size=256M]
+	Memory at 90000000 (64-bit, prefetchable) [size=32M]
+	I/O ports at 4000 [size=128]
+	Expansion ROM at bf000000 [disabled] [size=512K]
+	Capabilities: [60] Power Management version 3
+	Capabilities: [68] MSI: Enable- Count=1/1 Maskable- 64bit+
+	Capabilities: [78] Express Legacy Endpoint, MSI 00
+	Capabilities: [100] Virtual Channel
+	Capabilities: [128] Power Budgeting &lt;?&gt;
+	Capabilities: [420] Advanced Error Reporting
+	Capabilities: [600] Vendor Specific Information: ID=0001 Rev=1 Len=024 &lt;?&gt;
+	Capabilities: [900] Secondary PCI Express
+	Kernel driver in use: vfio-pci
+	Kernel modules: nouveau
+
+41:00.1 Audio device [0403]: NVIDIA Corporation GP104 High Definition Audio Controller [10de:10f0] (rev a1)
+	Subsystem: eVga.com. Corp. Device [3842:6183]
+	Flags: bus master, fast devsel, latency 0, IRQ 102, NUMA node 1
+	Memory at bf080000 (32-bit, non-prefetchable) [size=16K]
+	Capabilities: [60] Power Management version 3
+	Capabilities: [68] MSI: Enable- Count=1/1 Maskable- 64bit+
+	Capabilities: [78] Express Endpoint, MSI 00
+	Capabilities: [100] Advanced Error Reporting
+	Kernel driver in use: vfio-pci
+	Kernel modules: snd_hda_intel
+</code></pre></div><p>The thing we&rsquo;re looking for is <code>Kernel driver in use: vfio-pci</code>. If you see this, you&rsquo;ve successfully reserved the PCIe deviced for use by the VM.</p>
+<h3 id="setting-up-your-virtual-machine">Setting up your Virtual Machine</h3>
+<h4 id="before-you-start">Before you Start</h4>
+<p>The first thing you should check is your QEMU version. You can do this by doing the following:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">qemu-kvm --version
+</code></pre></div><p>This guide assumes you have a QEMU version of 4.2 or greater. There are implications of using earlier versions of QEMU which I will not be covering or addressing in this post.</p>
+<h4 id="setting-up-your-vm">Setting up your VM</h4>
+<p>Open up virt-manager and create a new Virtual Machine. You can get a copy of the Windows 10 ISO <a href="https://www.microsoft.com/en-us/software-download/windows10ISO">here</a>.</p>
+<p>Once virt-manager is open, do the following steps:</p>
+<ol>
+<li>Create a new VM and use the Windows 10 ISO you&rsquo;ve just downloaded.</li>
+<li>Specify how much memory and CPU you&rsquo;d like to allocate your VM. For my particular set up I&rsquo;ve used 16GB RAM and 8 CPUs.</li>
+<li>When choosing storage, tick &lsquo;Select or create custom storage&rsquo; and type to path to your target drive. In this case it was my blank SSD <code>/dev/sdc1/</code>.</li>
+<li>On the next step, tick &lsquo;Customize configuration before install&rsquo;.</li>
+</ol>
+<p>At this point you&rsquo;ll be brought to a configuration screen, ensure the following things are set:</p>
+<ol>
+<li>Chipset is selected as &lsquo;Q35&rsquo;</li>
+<li>Firmware is set to UEFI/OVMF</li>
+<li>Add your GPU and its audio controller by clicking &lsquo;Add Hardware&rsquo; and selecting Host PCI Device</li>
+</ol>
+<p>Once the above are set, we&rsquo;re ready to start. Hit apply and let Windows 10 install.</p>
+<p><strong>Note</strong>: We&rsquo;ll need to tweak CPU settings and topology but we&rsquo;ll get to that in the optimisation section.</p>
+<h4 id="hiding-the-hypervisor">Hiding the Hypervisor</h4>
+<p>There&rsquo;s a fair few tweaks we need to do in order to get the VM to work with our NVIDIA card. For whatever reason, NVIDIA does not allow their drivers to be used inside emulations. Luckily for us, we can hide the fact that our VM is a emulation by modifying our virtual machine&rsquo;s settings.</p>
+<p>Open up your VM with the following command, make sure you change the VM to the appropriate name:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#111">EDITOR</span><span style="color:#f92672">=</span>vim virsh edit win10
+</code></pre></div><p>You need to edit your VM configuration to include the following elements:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;domain</span> <span style="color:#75af00">type=</span><span style="color:#d88200">&#39;kvm&#39;</span> <span style="color:#75af00">xmlns:qemu=</span><span style="color:#d88200">&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;</span><span style="color:#f92672">&gt;</span>
+    ...
+        <span style="color:#f92672">&lt;features&gt;</span>
+            ...
+            <span style="color:#f92672">&lt;kvm&gt;</span>
+                <span style="color:#f92672">&lt;hidden</span> <span style="color:#75af00">state=</span><span style="color:#d88200">&#39;on&#39;</span><span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;/kvm&gt;</span>
+            ...
+            <span style="color:#f92672">&lt;hyperv&gt;</span>
+                ...
+                <span style="color:#f92672">&lt;vendor_id</span> <span style="color:#75af00">state=</span><span style="color:#d88200">&#39;on&#39;</span> <span style="color:#75af00">value=</span><span style="color:#d88200">&#39;whatever&#39;</span><span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;/hyperv&gt;</span>
+            ...
+        <span style="color:#f92672">&lt;/features&gt;</span>
+    ...
+        <span style="color:#f92672">&lt;qemu:commandline&gt;</span>
+            <span style="color:#f92672">&lt;qemu:arg</span> <span style="color:#75af00">value=</span><span style="color:#d88200">&#39;-cpu&#39;</span><span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;qemu:arg</span> <span style="color:#75af00">value=</span><span style="color:#d88200">&#39;host,hv_time,kvm=off,hv_vendor_id=null&#39;</span><span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;/qemu:commandline&gt;</span>
+<span style="color:#f92672">&lt;/domain&gt;</span>
+</code></pre></div><p>By changing the above we&rsquo;ve accomplished the following things:</p>
+<ol>
+<li>We&rsquo;ve spoofed a <code>vendor_id</code></li>
+<li>We&rsquo;ve told QEMU to hide the fact we&rsquo;re in an emulation</li>
+<li>We&rsquo;ve passed through some QEMU commands to make doubly sure NVIDIA can&rsquo;t detect we&rsquo;re in an emulation.</li>
+</ol>
+<p>Step 3 might be a bit of a duplication, but this is what caused my VM to finally work.</p>
+<h4 id="installing-nvidia-drivers">Installing NVIDIA Drivers</h4>
+<p>You can now install NVIDIA drivers, if all went well above you will not see a &lsquo;Error 43&rsquo; when you open Device Manager.</p>
+<h4 id="installing-barrier">Installing Barrier</h4>
+<p>Once you disable Spice you won&rsquo;t be able to use your keyboard without passing through a USB port or doing a RDP.</p>
+<p>At this point you should install Barrier or something similar. You can find the GitHub repo <a href="https://github.com/debauchee/barrier">here</a>. Barrier is a fork of Synergy - it&rsquo;s awesome. Syngery has terrible support for Fedora.</p>
+<p><strong>Note</strong>: This a future note for future you, when you try to play games later you may find that your mouse gets locked at the center of the screens and madly spins/rotates - to fix this you&rsquo;ll need to change your Barrier server settings to the following:</p>
+<ol>
+<li>Emulate relative mouse movements</li>
+<li>Set a hot key to enable screen lock</li>
+</ol>
+<h4 id="disabling-spice">Disabling Spice</h4>
+<p>Once you&rsquo;re happy with your Barrier set up, it&rsquo;s time to remove Spice.</p>
+<p>Shutdown your VM and remove all the Spice components.</p>
+<h4 id="cable-time">Cable Time</h4>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#111">EDITOR</span><span style="color:#f92672">=</span>vim virsh edit win10
+</code></pre></div><p>Plug your monitor into your VM&rsquo;s allocated GPU and start up your VM. You should now see everything work bueno.</p>
+<p>At this point, you will now have a functioning VM with GPU pass-through. However&hellip; there&rsquo;s one more things you need to do before your VM will be ready to play games&hellip;</p>
+<h3 id="cpu-pinning--topology">CPU Pinning &amp; Topology</h3>
+<p>Virt-manager&rsquo;s default allocation of vCPUs is subpar and is not great. In order to get acceptable performance from the virtual machine we need to ensure we allocate</p>
+<h3 id="tuning-your-virtual-machine-sane-cpus-in-the-configuration">Tuning your Virtual Machine sane CPUs in the configuration.</h3>
+<p>In my case, doing this configuration doubled the benchmarks of my virtual machines CPU.</p>
+<h4 id="understanding-your-cores">Understanding your Cores</h4>
+<p>I use <code>lstopo</code> in this section. If you have something else you prefer to use, you can use that too.</p>
+<p>In my setup, you can see that cores 6/18 to 11/23 are closer to my GPU <code>PCI 41:00.0</code>. Now that I know which cores to use, I can explicitly allocate them in my virtual machine&rsquo;s configuration.</p>
+<img src="https://marzukia.github.io/images/cpu_topology.png" width="100%" alt="lstopo" />
+<h4 id="modifying-your-settings">Modifying your Settings</h4>
+<p>Using the following command again:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#111">EDITOR</span><span style="color:#f92672">=</span>vim virsh edit win10
+</code></pre></div><p>Edit your settings to explicitly declare which CPU sets should be used, in my case this is my configuration:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#f92672">&lt;vcpu</span> <span style="color:#75af00">placement=</span><span style="color:#d88200">&#39;static&#39;</span><span style="color:#f92672">&gt;</span>8<span style="color:#f92672">&lt;/vcpu&gt;</span>
+  <span style="color:#f92672">&lt;iothreads&gt;</span>2<span style="color:#f92672">&lt;/iothreads&gt;</span>
+  <span style="color:#f92672">&lt;cputune&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;0&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;6&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;1&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;18&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;2&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;7&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;3&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;19&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;4&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;8&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;5&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;20&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;6&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;9&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;vcpupin</span> <span style="color:#75af00">vcpu=</span><span style="color:#d88200">&#39;7&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;21&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;emulatorpin</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;0-1&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;iothreadpin</span> <span style="color:#75af00">iothread=</span><span style="color:#d88200">&#39;1&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;0-1&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;iothreadpin</span> <span style="color:#75af00">iothread=</span><span style="color:#d88200">&#39;2&#39;</span> <span style="color:#75af00">cpuset=</span><span style="color:#d88200">&#39;2-3&#39;</span><span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;/cputune&gt;</span>
+</code></pre></div><h4 id="modifying-your-topology">Modifying your Topology</h4>
+<p>You can either use the GUI or edit the virtual machine&rsquo;s configuration via virsh for this part.</p>
+<p>You want to ensure that the topology of your vCPUs are sensible, in my scenario I specified a topology of 1 socket, 4 cores, 2 threads for a total of 8 vCPUs.</p>
+<p>If you&rsquo;re using virsh, you want to amend your settings as follows:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;cpu</span> <span style="color:#75af00">mode=</span><span style="color:#d88200">&#34;host-model&#34;</span> <span style="color:#75af00">check=</span><span style="color:#d88200">&#34;partial&#34;</span><span style="color:#f92672">&gt;</span>
+	<span style="color:#f92672">&lt;topology</span> <span style="color:#75af00">sockets=</span><span style="color:#d88200">&#34;1&#34;</span> <span style="color:#75af00">dies=</span><span style="color:#d88200">&#34;1&#34;</span> <span style="color:#75af00">cores=</span><span style="color:#d88200">&#34;4&#34;</span> <span style="color:#75af00">threads=</span><span style="color:#d88200">&#34;2&#34;</span><span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/cpu&gt;</span>
+</code></pre></div><h2 id="closing-thoughts">Closing Thoughts</h2>
+<p>It&rsquo;s a bit of a chore to set up VFIO, but I am very happy with my VM. I&rsquo;ve been able to remove a lot of &lsquo;hacky&rsquo; applications which were installed on my Fedora install such as Citrix Receiver and install it on the VM.</p>
+<p>Games have run smoothly without a noticeable drop in performance.</p>
+<p>I didn&rsquo;t cover off audio in this post, for the reason that I was able to route it physically with an AUX cable straight to my speakers. The advantage of doing this was that I had less audio latency.</p>
+<p>If you aren&rsquo;t able to do a similar set up, I recommend you read <a href="https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF#Passing_VM_audio_to_host_via_PulseAudio">this article</a> which describes the process of routing audio through pulseaudio.</p>
+<p>Alternatively, you can use <a href="https://github.com/duncanthrax/scream">scream</a>. I haven&rsquo;t messed around with this library but I&rsquo;ve heard there are latency issues.</p>
+<p>Lastly&hellip; I hope the article was useful and good luck!</p>
+
+    </div>
+</div>
+<footer>
+    © 2021, Andryo Marzuki
+</footer>
+</body>
+</html>

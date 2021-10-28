@@ -6,26 +6,22 @@
     <description>Recent content in Python on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://marzukia.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://marzukia.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mapping an Undocumented API Easily With Python</title>
-      <link>https://marzukia.github.io/post/mapping-an-undocumented-api-easily-with-python/</link>
+      <link>https://marzukia.github.io/mapping-an-undocumented-api/</link>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/post/mapping-an-undocumented-api-easily-with-python/</guid>
+      <guid>https://marzukia.github.io/mapping-an-undocumented-api/</guid>
       <description>I was working on an NBA related project the other week and I had decided I wanted to create my own API wrapper (for fun) as part of the project.</description>
     </item>
     
     <item>
       <title>Writing a Cellular Automata in Python</title>
-      <link>https://marzukia.github.io/post/writing-a-cellular-automata-in-python/</link>
+      <link>https://marzukia.github.io/cellular-automata-python/</link>
       <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://marzukia.github.io/post/writing-a-cellular-automata-in-python/</guid>
+      <guid>https://marzukia.github.io/cellular-automata-python/</guid>
       <description>When I started learning and using Python 2 years ago, I had no real previous experience of coding under my belt. I had done some small projects in HTML and PHP a very longtime ago, but that experience was certainly no longer helpful.</description>
     </item>
     
