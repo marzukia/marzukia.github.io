@@ -29,7 +29,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://mrzk.io/favicon-16x16.png">
 
     
-    <link rel="stylesheet" href="https://mrzk.io/scss/style.min.a87d5680c5e2636f34cc093ceff8d65e219546e61b8787fbd27028f76e6555c0.css">
+    <link rel="stylesheet" href="https://mrzk.io/scss/style.min.cef0f44bd5072a471ff03507e531f2f2ef093f0cae3e5bbf359c4daf886fb5d0.css">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170171726-1"></script>
     <script>
@@ -264,7 +264,12 @@
 <p>It&rsquo;s tough to compete with the almost no-overhead static pages type blog, especially when paired with something like GitHub pages which makes the process almost braindead.</p>
 <p>In my case, when I want to make changes to the blog, I execute a simple shell script:</p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>hugo
+</span><span style="color:#75715e"></span><span style="color:#111">shopt</span> -s extglob
+<span style="color:#111">cd</span> marzukia.github.io/
+git checkout master
+rm -rv !<span style="color:#f92672">(</span><span style="color:#d88200">&#34;CNAME&#34;</span><span style="color:#111">|</span><span style="color:#d88200">&#34;.git/&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#111">cd</span> ..
+hugo
 <span style="color:#111">cd</span> marzukia.github.io/
 git add .
 git commit -m <span style="color:#d88200">&#39;deploy changes&#39;</span>
