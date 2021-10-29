@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/genetic-algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Creating a Genetic Algorithm to Recreate Images</title>
-      <link>https://mrzk.io/genetic-algorithim-cs/</link>
+      <link>https://mrzk.io/posts/creating-a-genetic-algorithm-to-recreate-images/</link>
       <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mrzk.io/genetic-algorithim-cs/</guid>
+      <guid>https://mrzk.io/posts/creating-a-genetic-algorithm-to-recreate-images/</guid>
       <description>Have you ever heard of a genetic algorithm?
 In the context of sexual reproduction, an offspring inherits half of it&amp;rsquo;s mother&amp;rsquo;s genes and half of it&amp;rsquo;s father&amp;rsquo;s genes. The inheritance of genes occurs completely randomly, the offspring&amp;rsquo;s genes are a random mixture of it&amp;rsquo;s two parents.</description>
     </item>

@@ -9,29 +9,29 @@
     <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Making a React Blog (and Why It Sucks)</title>
-      <link>https://mrzk.io/react-blog-and-regret/</link>
+      <link>https://mrzk.io/posts/making-a-react-blog-and-why-it-sucks/</link>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://mrzk.io/react-blog-and-regret/</guid>
+      <guid>https://mrzk.io/posts/making-a-react-blog-and-why-it-sucks/</guid>
       <description>A couple of months ago, I thought it would be a fun project to create my own CMS/blog to replace the static pages (Hugo) blog I currently had deployed on my GitHub Pages.</description>
     </item>
     
     <item>
       <title>React State Management With Redux (and More)</title>
-      <link>https://mrzk.io/state-react-redux/</link>
+      <link>https://mrzk.io/posts/react-state-management-with-redux-and-more/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mrzk.io/state-react-redux/</guid>
+      <guid>https://mrzk.io/posts/react-state-management-with-redux-and-more/</guid>
       <description>ReactJS is an awesome library to use for frontends. It&amp;rsquo;s super fast to use when you want to get a really interactive and intuitive application up and running.
 ReactJS comes prepackaged with its own way to manage state locally within a component.</description>
     </item>
     
     <item>
       <title>Using Fetch over Axios in ReactJS Applications</title>
-      <link>https://mrzk.io/frontend-resuable-api/</link>
+      <link>https://mrzk.io/posts/using-fetch-over-axios-in-reactjs-applications/</link>
       <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mrzk.io/frontend-resuable-api/</guid>
+      <guid>https://mrzk.io/posts/using-fetch-over-axios-in-reactjs-applications/</guid>
       <description>For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&#39; Fetch. My rationale for making this switch was:
  Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.</description>
     </item>
