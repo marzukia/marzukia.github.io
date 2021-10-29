@@ -6,7 +6,16 @@
     <description>Recent content in TypeScript on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Making a React Blog (and Why It Sucks)</title>
+      <link>https://mrzk.io/react-blog-and-regret/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mrzk.io/react-blog-and-regret/</guid>
+      <description>A couple of months ago, I thought it would be a fun project to create my own CMS/blog to replace the static pages (Hugo) blog I currently had deployed on my GitHub Pages.</description>
+    </item>
+    
     <item>
       <title>React State Management With Redux (and More)</title>
       <link>https://mrzk.io/state-react-redux/</link>

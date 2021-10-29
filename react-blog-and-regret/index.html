@@ -176,6 +176,17 @@
 
 
 
+<a
+  href="https://twitter.com/mrzkio"
+  target="_blank"
+  class="social-link"
+  title="Twitter link"
+  rel="noopener"
+  aria-label="follow on Twitter——Opens in a new window"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm18.862 9.237c.208 4.617-3.235 9.765-9.33 9.765-1.854 0-3.579-.543-5.032-1.475 1.742.205 3.48-.278 4.86-1.359-1.437-.027-2.649-.976-3.066-2.28.515.098 1.021.069 1.482-.056-1.579-.317-2.668-1.739-2.633-3.26.442.246.949.394 1.486.411-1.461-.977-1.875-2.907-1.016-4.383 1.619 1.986 4.038 3.293 6.766 3.43-.479-2.053 1.079-4.03 3.198-4.03.944 0 1.797.398 2.396 1.037.748-.147 1.451-.42 2.085-.796-.245.767-.766 1.41-1.443 1.816.664-.08 1.297-.256 1.885-.517-.44.656-.997 1.234-1.638 1.697z"/></svg>
+</a>
+
 
 <a
   href="https://instagram.com/andryo"
@@ -222,6 +233,7 @@
     <h1>Making a React Blog (and Why It Sucks)</h1>
     <div class="post-content">
         <p>A couple of months ago, I thought it would be a fun project to create my own CMS/blog to replace the static pages (Hugo) blog I currently had deployed on my GitHub Pages. My primary motivator for doing this was my perceived lack of flexibility of Hugo, which was the lack of flexibility outside of written content. The biggest strength of a static pages blog is that it&rsquo;s all pre-rendered; your website will load lightning-quick and give you great SEO; however, it becomes a massive chore when you attempt to integrate external projects.</p>
+<p>I let it run for a couple of months before I decided the other day that I&rsquo;d had enough and reverted to my Hugo blog.</p>
 <h2 id="the-challenge">The Challenge</h2>
 <p>I went with a Django (with DRF) backend, React (with RTK) frontend, and PostgreSQL for this particular project - this combination is probably my project favourite stack. With a little bit of tweaking, you can get a project up and running in no time at all. While I love this project stack, this experience has taught me a valuable lesson. There is no such thing as a one-size-fits-all solution.</p>
 <h3 id="architecture">Architecture</h3>
@@ -238,8 +250,54 @@
 <li>NGINX routes through the appropriate reverse proxy, and the user receives the rendered page.</li>
 </ol>
 <p>If it looks overly complicated, that&rsquo;s because it is. In hindsight, I may have over-engineered this, but I couldn&rsquo;t develop another way to make this reliably work. If someone smarter than me has an easier way to achieve what I was trying to do, please reach out to me and let me know.</p>
-<p>When I checked the website on Google to see how it performed, it performed awfully. In general, the pages loaded far too slowly, and this was because there was too backwards and forwards occurring behind the scenes.</p>
-<h3 id="server-side-rendering-code">Server-Side Rendering Code</h3>
+<p>When I checked the website on Google to see how it performed, it performed awfully. Too many things were happening behind the scenes, which resulted in sluggish performance. It&rsquo;s just not comparable to a static page where all the content is ready to go.</p>
+<h2 id="other-issues">Other Issues</h2>
+<p>Beyond performance, there are other costs to doing this approach, making the whole thing even more unappealing. Depending on your stance and preferences, you may consider me unreasonable here, but hear me out.</p>
+<h3 id="deployment-overhead">Deployment Overhead</h3>
+<p>Naturally, having a Django/React application was more resource-intensive in regards to deployment. I self-host my applications, so the cost, in this case, was not monetary. Instead, it was the administrative overhead of deploying this project. In this case, we have even more overhead than a standard Django/React application as we need to worry about the SSR element of the project.</p>
+<p>It&rsquo;s tough to compete with the almost no-overhead static pages type blog, especially when paired with something like GitHub pages which makes the process almost braindead.</p>
+<p>In my case, when I want to make changes to the blog, I execute a simple shell script:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>hugo
+<span style="color:#111">cd</span> marzukia.github.io/
+git add .
+git commit -m <span style="color:#d88200">&#39;deploy changes&#39;</span>
+git push
+<span style="color:#111">cd</span> ..
+<span style="color:#111">cd</span> themes/salt
+git add .
+git commit -m <span style="color:#d88200">&#39;deploy changes&#39;</span>
+git push
+<span style="color:#111">cd</span> ../..
+git add .
+git commit -m <span style="color:#d88200">&#39;new post or changes&#39;</span>
+git push
+</code></pre></div><p>As soon as I execute the script, it&rsquo;ll run Hugo to build the static pages, recursively go into each submodule I have associated with the project, push changes, and we&rsquo;re good to go. While in general, I would not consider the deployment overhead a factor, given the alternative is so easy, it becomes a pretty material consideration.</p>
+<h3 id="ongoing-development--maintenance">Ongoing Development &amp; Maintenance</h3>
+<p>Why start a project if you aren&rsquo;t going to maintain it? Having an application that has a backend, frontend and database will, of course, require more love and attention than a static page which is just HTML and CSS. This complaint seems like a stupid thing to whinge about, but given the purpose of my blog, I couldn&rsquo;t justify it.</p>
+<p>My blog serves two purposes for me:</p>
+<ol>
+<li>The blog acts as a diary of sorts to help me crystalise my thoughts and retrospectively review things I&rsquo;ve done.</li>
+<li>The blog acts as a tool to help me build and maintain a social media presence in the industry.</li>
+</ol>
+<p>Ultimately, it came back to &ldquo;this is not worth it&rdquo; for me.</p>
+<h2 id="why-do-it">Why Do It?</h2>
+<p>I&rsquo;ve been fairly negative in this article, but I did allude to having reasons for doing this in the first place.</p>
+<h3 id="dynamic-pages--data">Dynamic Pages &amp; Data</h3>
+<p>I absolutely love creating exciting data visualisations and tools. One significant benefit of building the project in Django/React meant that I had a much more sophisticated toolset to work with in terms of the content I could produce. The tool that I had packaged with the release of my React blog was a game-price finder that analysed scraped data from Wata Games/Heritage Auctions.</p>
+<blockquote>
+<p><strong>Note</strong>: This tool will be down at the time of writing, but I&rsquo;ll look at rebuilding it without the blog component. Also, you can find the aforementioned article <a href="https://mrzk.io/collectable-video-games-market-manipulation/">here</a>.</p>
+</blockquote>
+<p>I will make standalone applications in the future rather than trying to have it all unified as a single experience.</p>
+<h3 id="good-practice--self-reflection">Good Practice &amp; Self Reflection</h3>
+<p>I recently discovered RTK Query this year, and I love it. I haven&rsquo;t had much time to explore the full capabilities, so I thought this project would be great practice.</p>
+<p>Another huge thing for me was the opportunity to self-reflect on the progress I&rsquo;ve made as a developer. Every time I do a Python, TypeScript, or C# project, I use it as a way to see how my overall code quality has improved. Ultimately, this blog rework was a bit of a pointless exercise. The project itself may not be valuable, but the lessons learned are valuable and immediately apply to my personal and professional work.</p>
+<p>It&rsquo;s also never a bad thing to have too much code in your GitHub. There&rsquo;s no doubt in the future, and I may run into a problem that will require a solution that I&rsquo;ve already come up with.</p>
+<h2 id="closing-thoughts">Closing Thoughts</h2>
+<p>I don&rsquo;t know where I was going with this blog post - but if you&rsquo;ve managed to make it this far, I hope it was at least somewhat interesting. If you were considering making a React blog and I&rsquo;ve successfully stopped you, I will take that as a win.</p>
+<p>In conclusion, don&rsquo;t bother trying to make React blog, it sucks, and it&rsquo;s painful to do. I&rsquo;m open to changing my mind here, but for now, this will be my position.</p>
+<h2 id="server-side-rendering-code">Server-Side Rendering Code</h2>
+<p>If you stumble across this page sometime in the future and you want to know how I set up my SSR, I&rsquo;ve placed the code snippet below.</p>
 <p>I&rsquo;m going to add a disclaimer here that I do not have much familiarity with NodeJS, nor do I work in plain JavaScript very often. There will be a certain level of &ldquo;jank&rdquo; that I won&rsquo;t be able to hide in the following code snippet.</p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#00a8c8">import</span> <span style="color:#75af00">express</span> <span style="color:#75af00">from</span> <span style="color:#d88200">&#39;express&#39;</span><span style="color:#111">;</span>
 <span style="color:#00a8c8">import</span> <span style="color:#75af00">path</span> <span style="color:#75af00">from</span> <span style="color:#d88200">&#39;path&#39;</span><span style="color:#111">;</span>

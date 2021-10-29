@@ -4,7 +4,27 @@
   
   <url>
     <loc>https://mrzk.io/</loc>
-    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
+    <lastmod>2021-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mrzk.io/react-blog-and-regret/</loc>
+    <lastmod>2021-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mrzk.io/tags/react/</loc>
+    <lastmod>2021-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mrzk.io/tags/</loc>
+    <lastmod>2021-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mrzk.io/tags/typescript/</loc>
+    <lastmod>2021-10-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -19,11 +39,6 @@
   
   <url>
     <loc>https://mrzk.io/first-custom-keyboard/</loc>
-    <lastmod>2021-10-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mrzk.io/tags/</loc>
     <lastmod>2021-10-28T00:00:00+00:00</lastmod>
   </url>
   
@@ -89,11 +104,6 @@
   
   <url>
     <loc>https://mrzk.io/tags/redux/</loc>
-    <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mrzk.io/tags/typescript/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
   </url>
   
