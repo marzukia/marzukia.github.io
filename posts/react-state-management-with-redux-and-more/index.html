@@ -259,7 +259,7 @@
 <p>Luckily, this is easily achievable by using <code>combineReducers()</code> to combine our reducers and a <code>RootState</code> to map out our relevant states.</p>
 <h3 id="folder-structure">Folder Structure</h3>
 <p>I normally create a <code>store</code> folder in my application root to contain all its various sub-stores.</p>
-<pre><code>store/
+<pre tabindex="0"><code>store/
     users/
         index.ts
         actions.ts
@@ -278,48 +278,48 @@
 <li>Failure</li>
 </ol>
 <p>With this in mind, we start by defining our types as such:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/types.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;AUTHENTICATE_REQUEST&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;AUTHENTICATE_RESPONSE&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;AUTHENTICATE_FAILED&#39;</span><span style="color:#111">;</span>
-</code></pre></div><p>Next, we need to define the corresponding action types which will specify which type to use, and what payload should be expected.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/types.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">AuthenticateRequestAction</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">typeof</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">;</span>
-    <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
-        <span style="color:#75af00">username</span>: <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
-        <span style="color:#75af00">password</span>: <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">AuthenticateResponseAction</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">typeof</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">;</span>
-    <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
-        <span style="color:#75af00">user</span>: <span style="color:#00a8c8">User</span><span style="color:#111">;</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">AuthenticateFailedAction</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">typeof</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">;</span>
-    <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
-        <span style="color:#75af00">error</span>: <span style="color:#00a8c8">Error</span><span style="color:#111">;</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-</code></pre></div><p>Lastly, you&rsquo;ll need to export your store&rsquo;s action types by doing something like below:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/types.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">type</span> <span style="color:#75af00">UserAction</span> <span style="color:#f92672">=</span> <span style="color:#75af00">AuthenticateRequestAction</span> <span style="color:#f92672">|</span> <span style="color:#75af00">AuthenticateResponseAction</span> <span style="color:#f92672">|</span> <span style="color:#75af00">AuthenticateFailedAction</span><span style="color:#111">;</span>
-</code></pre></div><h3 id="state">State</h3>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/state.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">UserState</span> <span style="color:#111">{</span>
-    <span style="color:#75af00">data</span>: <span style="color:#00a8c8">User</span><span style="color:#111">;</span>
-    <span style="color:#75af00">loading</span>: <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span>
-    <span style="color:#75af00">error?</span>: <span style="color:#00a8c8">Error</span><span style="color:#111">;</span>
-<span style="color:#111">};</span>
-</code></pre></div><p>Our <code>UserState</code> will be encompassed by our <code>RootState</code> which is discussed further down this article.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/types.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;AUTHENTICATE_REQUEST&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;AUTHENTICATE_RESPONSE&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;AUTHENTICATE_FAILED&#39;</span><span style="color:#111">;</span>
+</span></span></code></pre></div><p>Next, we need to define the corresponding action types which will specify which type to use, and what payload should be expected.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/types.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">AuthenticateRequestAction</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">typeof</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">username</span>: <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">password</span>: <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">AuthenticateResponseAction</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">typeof</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">user</span>: <span style="color:#00a8c8">User</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">AuthenticateFailedAction</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">typeof</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">error</span>: <span style="color:#00a8c8">Error</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span></code></pre></div><p>Lastly, you&rsquo;ll need to export your store&rsquo;s action types by doing something like below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/types.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">type</span> <span style="color:#75af00">UserAction</span> <span style="color:#f92672">=</span> <span style="color:#75af00">AuthenticateRequestAction</span> <span style="color:#f92672">|</span> <span style="color:#75af00">AuthenticateResponseAction</span> <span style="color:#f92672">|</span> <span style="color:#75af00">AuthenticateFailedAction</span><span style="color:#111">;</span>
+</span></span></code></pre></div><h3 id="state">State</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/state.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">UserState</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">data</span>: <span style="color:#00a8c8">User</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">loading</span>: <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">error?</span>: <span style="color:#00a8c8">Error</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span></code></pre></div><p>Our <code>UserState</code> will be encompassed by our <code>RootState</code> which is discussed further down this article.</p>
 <p>The above interface is very simple:</p>
 <ol>
 <li>I have a <code>data</code> object which will capture the API response.</li>
@@ -338,200 +338,200 @@
 <li>A new state is returned from the reducer which has been adjusted based on the action.</li>
 </ol>
 <p>Below is a working example of how we would define our reducer and state reducer.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/reducers.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">import</span> <span style="color:#75af00">produce</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;immer&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">Reducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span>
-    <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">,</span>
-    <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">,</span>
-    <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">,</span>
-<span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./types&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">UserState</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./state&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">UserAction</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./types&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">initialState</span>: <span style="color:#00a8c8">UserState</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span>
-    <span style="color:#75af00">data</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
-        <span style="color:#75af00">id</span><span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">9999</span><span style="color:#111">,</span>
-        <span style="color:#75af00">username</span><span style="color:#f92672">:</span> <span style="color:#d88200">&#39;&#39;</span>
-    <span style="color:#111">},</span>
-    <span style="color:#75af00">loading</span>: <span style="color:#00a8c8">false</span><span style="color:#111">,</span>
-    <span style="color:#75af00">error</span>: <span style="color:#00a8c8">undefined</span><span style="color:#111">,</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">userReducer</span>: <span style="color:#00a8c8">Reducer</span><span style="color:#111">&lt;</span><span style="color:#f92672">UserState</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">UserAction</span><span style="color:#111">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">,</span> <span style="color:#75af00">action</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">let</span> <span style="color:#75af00">userState</span>: <span style="color:#00a8c8">UserState</span> <span style="color:#f92672">=</span> <span style="color:#75af00">state</span> <span style="color:#f92672">||</span> <span style="color:#75af00">initialState</span><span style="color:#111">;</span>
-    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
-        <span style="color:#111">...</span><span style="color:#75af00">userState</span><span style="color:#111">,</span>
-        <span style="color:#111">...</span><span style="color:#75af00">userStateReducer</span><span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">,</span> <span style="color:#75af00">action</span><span style="color:#111">)</span>
-    <span style="color:#111">};</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">userStateReducer</span> <span style="color:#f92672">=</span> <span style="color:#75af00">produce</span><span style="color:#111">((</span>
-    <span style="color:#75af00">draftState</span>: <span style="color:#00a8c8">UserState</span><span style="color:#111">,</span>
-    <span style="color:#75af00">action</span>: <span style="color:#00a8c8">UserAction</span>
-    <span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-        <span style="color:#00a8c8">switch</span> <span style="color:#111">(</span><span style="color:#75af00">action</span><span style="color:#111">.</span><span style="color:#00a8c8">type</span><span style="color:#111">)</span> <span style="color:#111">{</span>
-            <span style="color:#00a8c8">case</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span>:
-                <span style="color:#00a8c8">draftState.loading</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">;</span>
-                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
-            <span style="color:#00a8c8">case</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span>:
-                <span style="color:#00a8c8">draftState.loading</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
-                <span style="color:#75af00">draftState</span><span style="color:#111">.</span><span style="color:#75af00">data</span> <span style="color:#f92672">=</span> <span style="color:#75af00">action</span><span style="color:#111">.</span><span style="color:#75af00">payload</span><span style="color:#111">.</span><span style="color:#75af00">user</span><span style="color:#111">;</span>
-                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
-            <span style="color:#00a8c8">case</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span>:
-                <span style="color:#00a8c8">draftState.loading</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
-                <span style="color:#75af00">draftState</span><span style="color:#111">.</span><span style="color:#75af00">error</span> <span style="color:#f92672">=</span> <span style="color:#75af00">action</span><span style="color:#111">.</span><span style="color:#75af00">payload</span><span style="color:#111">.</span><span style="color:#75af00">error</span><span style="color:#111">;</span>
-                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
-            <span style="color:#00a8c8">default</span><span style="color:#f92672">:</span>
-                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
-    <span style="color:#111">};</span>
-<span style="color:#111">});</span>
-</code></pre></div><h3 id="actions">Actions</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/reducers.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#75af00">produce</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;immer&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">Reducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./types&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">UserState</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./state&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">UserAction</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./types&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">initialState</span>: <span style="color:#00a8c8">UserState</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">data</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">id</span><span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">9999</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">username</span><span style="color:#f92672">:</span> <span style="color:#d88200">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">},</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">loading</span>: <span style="color:#00a8c8">false</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">error</span>: <span style="color:#00a8c8">undefined</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">userReducer</span>: <span style="color:#00a8c8">Reducer</span><span style="color:#111">&lt;</span><span style="color:#f92672">UserState</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">UserAction</span><span style="color:#111">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">,</span> <span style="color:#75af00">action</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">let</span> <span style="color:#75af00">userState</span>: <span style="color:#00a8c8">UserState</span> <span style="color:#f92672">=</span> <span style="color:#75af00">state</span> <span style="color:#f92672">||</span> <span style="color:#75af00">initialState</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">...</span><span style="color:#75af00">userState</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">...</span><span style="color:#75af00">userStateReducer</span><span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">,</span> <span style="color:#75af00">action</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">userStateReducer</span> <span style="color:#f92672">=</span> <span style="color:#75af00">produce</span><span style="color:#111">((</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">draftState</span>: <span style="color:#00a8c8">UserState</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">action</span>: <span style="color:#00a8c8">UserAction</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">switch</span> <span style="color:#111">(</span><span style="color:#75af00">action</span><span style="color:#111">.</span><span style="color:#00a8c8">type</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">case</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">draftState.loading</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">case</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">draftState.loading</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75af00">draftState</span><span style="color:#111">.</span><span style="color:#75af00">data</span> <span style="color:#f92672">=</span> <span style="color:#75af00">action</span><span style="color:#111">.</span><span style="color:#75af00">payload</span><span style="color:#111">.</span><span style="color:#75af00">user</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">case</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">draftState.loading</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75af00">draftState</span><span style="color:#111">.</span><span style="color:#75af00">error</span> <span style="color:#f92672">=</span> <span style="color:#75af00">action</span><span style="color:#111">.</span><span style="color:#75af00">payload</span><span style="color:#111">.</span><span style="color:#75af00">error</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><h3 id="actions">Actions</h3>
 <p>In the previous section we talk about dispatching a public action from our application to trigger our reducer.</p>
 <p>Since we&rsquo;re using <code>Thunk</code>, we need to define the appropriate types for our public actions.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/types.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">ThunkAction</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-thunk&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">Action</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">type</span> <span style="color:#75af00">AppThunk</span><span style="color:#111">&lt;</span><span style="color:#f92672">A</span> <span style="color:#75af00">extends</span> <span style="color:#75af00">Action </span><span style="color:#f92672">=</span> <span style="color:#75af00">Action</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">E </span><span style="color:#f92672">=</span> <span style="color:#75af00">null</span><span style="color:#111">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#75af00">ThunkAction</span><span style="color:#111">&lt;</span><span style="color:#f92672">void</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">RootState</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">A</span><span style="color:#111">&gt;;</span>
-</code></pre></div><p>Once the above is created, our actions can be really simply defined. Below is a working example of how this is done:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/actions.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span>
-    <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">,</span>
-    <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">,</span>
-    <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">,</span>
-    <span style="color:#75af00">AuthenticateRequestAction</span><span style="color:#111">,</span>
-    <span style="color:#75af00">AuthenticateResponseAction</span><span style="color:#111">,</span>
-    <span style="color:#75af00">AuthenticateFailedAction</span><span style="color:#111">,</span>
-<span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./types&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">User</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../../types&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">AppThunk</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../types&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">api</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../../api&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticateRequest</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">username</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">password</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AuthenticateRequestAction</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
-        <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">,</span>
-        <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
-            <span style="color:#75af00">username</span><span style="color:#111">,</span>
-            <span style="color:#75af00">password</span>
-        <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticateResponse</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">user</span>: <span style="color:#00a8c8">User</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AuthenticateResponseAction</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
-        <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">,</span>
-        <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
-            <span style="color:#75af00">user</span>
-        <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticateFailed</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">error</span>: <span style="color:#00a8c8">Error</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AuthenticateFailedAction</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
-        <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">,</span>
-        <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
-            <span style="color:#75af00">error</span>
-        <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticate</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">username</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">password</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AppThunk</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">async</span> <span style="color:#75af00">dispatch</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-    <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">authenticateRequest</span><span style="color:#111">(</span><span style="color:#75af00">username</span><span style="color:#111">,</span> <span style="color:#75af00">password</span><span style="color:#111">));</span>
-    <span style="color:#00a8c8">try</span> <span style="color:#111">{</span>
-        <span style="color:#00a8c8">let</span> <span style="color:#75af00">result</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">await</span> <span style="color:#75af00">api</span><span style="color:#111">.</span><span style="color:#75af00">authenticate</span><span style="color:#111">(</span><span style="color:#75af00">username</span><span style="color:#111">,</span> <span style="color:#75af00">password</span><span style="color:#111">);</span>
-        <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">authenticateResponse</span><span style="color:#111">(</span><span style="color:#75af00">result</span><span style="color:#111">));</span>
-    <span style="color:#111">}</span> <span style="color:#00a8c8">catch</span> <span style="color:#111">(</span><span style="color:#75af00">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
-        <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">authenticateFailed</span><span style="color:#111">(</span><span style="color:#75af00">error</span><span style="color:#111">));</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-</code></pre></div><p>In above, we would dispatch <code>authenticate(username, password)</code> which would then dispatch the other functions containing the relevant type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/types.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">ThunkAction</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-thunk&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">Action</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">type</span> <span style="color:#75af00">AppThunk</span><span style="color:#111">&lt;</span><span style="color:#f92672">A</span> <span style="color:#75af00">extends</span> <span style="color:#75af00">Action </span><span style="color:#f92672">=</span> <span style="color:#75af00">Action</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">E </span><span style="color:#f92672">=</span> <span style="color:#75af00">null</span><span style="color:#111">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#75af00">ThunkAction</span><span style="color:#111">&lt;</span><span style="color:#f92672">void</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">RootState</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#75af00">A</span><span style="color:#111">&gt;;</span>
+</span></span></code></pre></div><p>Once the above is created, our actions can be really simply defined. Below is a working example of how this is done:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/actions.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AuthenticateRequestAction</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AuthenticateResponseAction</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">AuthenticateFailedAction</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./types&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">User</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../../types&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">AppThunk</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../types&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">api</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../../api&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticateRequest</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">username</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">password</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AuthenticateRequestAction</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#75af00">AUTHENTICATE_REQUEST</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75af00">username</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75af00">password</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticateResponse</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">user</span>: <span style="color:#00a8c8">User</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AuthenticateResponseAction</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#75af00">AUTHENTICATE_RESPONSE</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75af00">user</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticateFailed</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">error</span>: <span style="color:#00a8c8">Error</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AuthenticateFailedAction</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#75af00">AUTHENTICATE_FAILED</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">payload</span><span style="color:#f92672">:</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75af00">error</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">authenticate</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">username</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">password</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">AppThunk</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">async</span> <span style="color:#75af00">dispatch</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">authenticateRequest</span><span style="color:#111">(</span><span style="color:#75af00">username</span><span style="color:#111">,</span> <span style="color:#75af00">password</span><span style="color:#111">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">try</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">let</span> <span style="color:#75af00">result</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">await</span> <span style="color:#75af00">api</span><span style="color:#111">.</span><span style="color:#75af00">authenticate</span><span style="color:#111">(</span><span style="color:#75af00">username</span><span style="color:#111">,</span> <span style="color:#75af00">password</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">authenticateResponse</span><span style="color:#111">(</span><span style="color:#75af00">result</span><span style="color:#111">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span> <span style="color:#00a8c8">catch</span> <span style="color:#111">(</span><span style="color:#75af00">error</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">authenticateFailed</span><span style="color:#111">(</span><span style="color:#75af00">error</span><span style="color:#111">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span></code></pre></div><p>In above, we would dispatch <code>authenticate(username, password)</code> which would then dispatch the other functions containing the relevant type.</p>
 <h3 id="selectors">Selectors</h3>
 <p>Lastly, in order to access our values we need to define selectors which will point to somewhere in our state.</p>
 <p>This will mean that the state value used in multiple parts of our application will be simultaneously updated when our state is changed.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/selectors.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">getUser</span> <span style="color:#f92672">=</span> <span style="color:#75af00">createSelector</span><span style="color:#111">(</span>
-    <span style="color:#75af00">userState</span><span style="color:#111">,</span>
-    <span style="color:#111">(</span><span style="color:#75af00">state</span>: <span style="color:#00a8c8">UserState</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-        <span style="color:#00a8c8">return</span> <span style="color:#75af00">state</span><span style="color:#111">.</span><span style="color:#75af00">data</span><span style="color:#111">;</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">);</span>
-</code></pre></div><h2 id="putting-it-all-together">Putting It All Together</h2>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/selectors.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">getUser</span> <span style="color:#f92672">=</span> <span style="color:#75af00">createSelector</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">userState</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">(</span><span style="color:#75af00">state</span>: <span style="color:#00a8c8">UserState</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">return</span> <span style="color:#75af00">state</span><span style="color:#111">.</span><span style="color:#75af00">data</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">);</span>
+</span></span></code></pre></div><h2 id="putting-it-all-together">Putting It All Together</h2>
 <p>Now that we&rsquo;ve got our sub-store&rsquo;s individual components put together, we need to make it easy to access.</p>
 <p>First we can group and export our actions, selectors and reducers as follows:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/users/index.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">import</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">as</span> <span style="color:#75af00">userActions</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./actions&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">as</span> <span style="color:#75af00">userSelectors</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./selectors&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">userReducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./reducers&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#111">{</span> <span style="color:#75af00">userActions</span><span style="color:#111">,</span> <span style="color:#75af00">userReducer</span><span style="color:#111">,</span> <span style="color:#75af00">userSelectors</span> <span style="color:#111">};</span>
-</code></pre></div><p>Now, when we want to access our actions, reducers or selectors we can import <code>userActions</code>, etc.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/users/index.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">as</span> <span style="color:#75af00">userActions</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./actions&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">as</span> <span style="color:#75af00">userSelectors</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./selectors&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">userReducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./reducers&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#111">{</span> <span style="color:#75af00">userActions</span><span style="color:#111">,</span> <span style="color:#75af00">userReducer</span><span style="color:#111">,</span> <span style="color:#75af00">userSelectors</span> <span style="color:#111">};</span>
+</span></span></code></pre></div><p>Now, when we want to access our actions, reducers or selectors we can import <code>userActions</code>, etc.</p>
 <p>We need to define a <code>RootState</code> which will include all our sub-states. This is defined simply as:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/state.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">RootState</span> <span style="color:#111">{</span>
-    <span style="color:#75af00">user</span>: <span style="color:#00a8c8">UserState</span><span style="color:#111">;</span>
-<span style="color:#111">}</span>
-</code></pre></div><p>Lastly, we need an <code>index.ts</code> which will create our store itself.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/state.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">RootState</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">user</span>: <span style="color:#00a8c8">UserState</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>Lastly, we need an <code>index.ts</code> which will create our store itself.</p>
 <p>The below code sample shows how we can persist our state, aswell as apply our <code>Thunk</code> middleware.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// store/index.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#00a8c8">import</span> <span style="color:#75af00">thunk</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-thunk&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">createStore</span><span style="color:#111">,</span> <span style="color:#75af00">applyMiddleware</span><span style="color:#111">,</span> <span style="color:#75af00">combineReducers</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">persistStore</span><span style="color:#111">,</span> <span style="color:#75af00">persistReducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-persist&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#75af00">storage</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-persist/lib/storage&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">userReducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./user&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">const</span> <span style="color:#75af00">reducer</span> <span style="color:#f92672">=</span> <span style="color:#75af00">combineReducers</span><span style="color:#111">({</span>
-    <span style="color:#75af00">user</span>: <span style="color:#00a8c8">userReducer</span><span style="color:#111">,</span>
-<span style="color:#111">});</span>
-
-<span style="color:#00a8c8">const</span> <span style="color:#75af00">persistConfig</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span> <span style="color:#75af00">key</span><span style="color:#f92672">:</span> <span style="color:#d88200">&#39;root&#39;</span><span style="color:#111">,</span> <span style="color:#75af00">storage</span><span style="color:#111">,</span> <span style="color:#111">};</span>
-<span style="color:#00a8c8">const</span> <span style="color:#75af00">persistedReducer</span> <span style="color:#f92672">=</span> <span style="color:#75af00">persistReducer</span><span style="color:#111">(</span><span style="color:#75af00">persistConfig</span><span style="color:#111">,</span> <span style="color:#75af00">reducer</span><span style="color:#111">);</span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">store</span> <span style="color:#f92672">=</span> <span style="color:#75af00">createStore</span><span style="color:#111">(</span><span style="color:#75af00">persistedReducer</span><span style="color:#111">,</span> <span style="color:#75af00">applyMiddleware</span><span style="color:#111">(</span><span style="color:#75af00">thunk</span><span style="color:#111">));</span>
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">persistor</span> <span style="color:#f92672">=</span> <span style="color:#75af00">persistStore</span><span style="color:#111">(</span><span style="color:#75af00">store</span><span style="color:#111">);</span>
-</code></pre></div><p>The below is an example of how you can access the store&rsquo;s value using the selector and actions you set up above.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#00a8c8">import</span> <span style="color:#75af00">React</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;react&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">useSelector</span><span style="color:#111">,</span> <span style="color:#75af00">useDispatch</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;react-redux&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">userSelectors</span><span style="color:#111">,</span> <span style="color:#75af00">userActions</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../store/user&#39;</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">RootState</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../store/types&#39;</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">const</span> <span style="color:#75af00">selector</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">state</span>: <span style="color:#00a8c8">RootState</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
-        <span style="color:#75af00">user</span>: <span style="color:#00a8c8">userSelectors.getUser</span><span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">)</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">};</span>
-
-<span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">ExampleComponent</span> <span style="color:#f92672">=</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-    <span style="color:#00a8c8">const</span> <span style="color:#75af00">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#75af00">useDispatch</span><span style="color:#111">();</span>
-
-    <span style="color:#00a8c8">const</span> <span style="color:#111">{</span> <span style="color:#75af00">user</span> <span style="color:#111">}</span> <span style="color:#f92672">=</span> <span style="color:#75af00">useSelector</span><span style="color:#111">((</span><span style="color:#75af00">state</span>: <span style="color:#00a8c8">RootState</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#75af00">selector</span><span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">));</span>
-
-    <span style="color:#75af00">useEffect</span><span style="color:#111">(()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
-        <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">userActions</span><span style="color:#111">.</span><span style="color:#75af00">fetchUser</span><span style="color:#111">());</span>
-    <span style="color:#111">},</span> <span style="color:#111">[</span><span style="color:#75af00">dispatch</span><span style="color:#111">]);</span>
-
-    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">user</span><span style="color:#111">);</span>
-
-    <span style="color:#00a8c8">return</span> <span style="color:#111">&lt;</span><span style="color:#f92672">div</span><span style="color:#111">&gt;;</span>
-<span style="color:#111">};</span>
-</code></pre></div><h2 id="closing-thoughts">Closing Thoughts</h2>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// store/index.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#75af00">thunk</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-thunk&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">createStore</span><span style="color:#111">,</span> <span style="color:#75af00">applyMiddleware</span><span style="color:#111">,</span> <span style="color:#75af00">combineReducers</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">persistStore</span><span style="color:#111">,</span> <span style="color:#75af00">persistReducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-persist&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#75af00">storage</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;redux-persist/lib/storage&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">userReducer</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;./user&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">reducer</span> <span style="color:#f92672">=</span> <span style="color:#75af00">combineReducers</span><span style="color:#111">({</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">user</span>: <span style="color:#00a8c8">userReducer</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">persistConfig</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span> <span style="color:#75af00">key</span><span style="color:#f92672">:</span> <span style="color:#d88200">&#39;root&#39;</span><span style="color:#111">,</span> <span style="color:#75af00">storage</span><span style="color:#111">,</span> <span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">persistedReducer</span> <span style="color:#f92672">=</span> <span style="color:#75af00">persistReducer</span><span style="color:#111">(</span><span style="color:#75af00">persistConfig</span><span style="color:#111">,</span> <span style="color:#75af00">reducer</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">store</span> <span style="color:#f92672">=</span> <span style="color:#75af00">createStore</span><span style="color:#111">(</span><span style="color:#75af00">persistedReducer</span><span style="color:#111">,</span> <span style="color:#75af00">applyMiddleware</span><span style="color:#111">(</span><span style="color:#75af00">thunk</span><span style="color:#111">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">persistor</span> <span style="color:#f92672">=</span> <span style="color:#75af00">persistStore</span><span style="color:#111">(</span><span style="color:#75af00">store</span><span style="color:#111">);</span>
+</span></span></code></pre></div><p>The below is an example of how you can access the store&rsquo;s value using the selector and actions you set up above.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#75af00">React</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;react&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">useSelector</span><span style="color:#111">,</span> <span style="color:#75af00">useDispatch</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;react-redux&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">userSelectors</span><span style="color:#111">,</span> <span style="color:#75af00">userActions</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../store/user&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#111">{</span> <span style="color:#75af00">RootState</span> <span style="color:#111">}</span> <span style="color:#00a8c8">from</span> <span style="color:#d88200">&#39;../store/types&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">selector</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">state</span>: <span style="color:#00a8c8">RootState</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">user</span>: <span style="color:#00a8c8">userSelectors.getUser</span><span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">export</span> <span style="color:#00a8c8">const</span> <span style="color:#75af00">ExampleComponent</span> <span style="color:#f92672">=</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">const</span> <span style="color:#75af00">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#75af00">useDispatch</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">const</span> <span style="color:#111">{</span> <span style="color:#75af00">user</span> <span style="color:#111">}</span> <span style="color:#f92672">=</span> <span style="color:#75af00">useSelector</span><span style="color:#111">((</span><span style="color:#75af00">state</span>: <span style="color:#00a8c8">RootState</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#75af00">selector</span><span style="color:#111">(</span><span style="color:#75af00">state</span><span style="color:#111">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">useEffect</span><span style="color:#111">(()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">dispatch</span><span style="color:#111">(</span><span style="color:#75af00">userActions</span><span style="color:#111">.</span><span style="color:#75af00">fetchUser</span><span style="color:#111">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">},</span> <span style="color:#111">[</span><span style="color:#75af00">dispatch</span><span style="color:#111">]);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">user</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">&lt;</span><span style="color:#f92672">div</span><span style="color:#111">&gt;;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">};</span>
+</span></span></code></pre></div><h2 id="closing-thoughts">Closing Thoughts</h2>
 <p>Once you&rsquo;ve set this all up, you&rsquo;ll have a very clear and explicit way of interacting with your state. In general, debugging issues related to the state is much easier while working with an immutable state.</p>
 <p>Of course, the code overhead of implementing the above means that you&rsquo;ll need to balance it based on the complexity of your application.</p>
 <p>If you have a really simple CRUD API and all you need to do is represent that data, you may not need a fully fledged state system.</p>

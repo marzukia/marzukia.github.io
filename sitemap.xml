@@ -1,194 +1,124 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://mrzk.io/</loc>
-    <lastmod>2021-10-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2022-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mrzk.io/posts/a-fond-good-riddance-to-cryptocurrency/</loc>
+    <lastmod>2022-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mrzk.io/tags/cryptocurrency/</loc>
+    <lastmod>2022-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mrzk.io/tags/</loc>
+    <lastmod>2022-12-06T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mrzk.io/tags/covid-19/</loc>
     <lastmod>2021-10-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/data-analysis/</loc>
     <lastmod>2021-10-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mrzk.io/tags/</loc>
-    <lastmod>2021-10-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/vaccinations-matter-aka-why-anti-vaxxers-should-really-reconsider/</loc>
     <lastmod>2021-10-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/making-a-react-blog-and-why-you-shouldnt-they-suck/</loc>
     <lastmod>2021-10-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/react/</loc>
     <lastmod>2021-10-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/typescript/</loc>
     <lastmod>2021-10-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/diy/</loc>
     <lastmod>2021-10-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/mechanical-keyboard/</loc>
     <lastmod>2021-10-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/my-first-custom-keyboard-learnings-advice-to-newbies/</loc>
     <lastmod>2021-10-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/collectable-video-games-market-manipulation/</loc>
     <lastmod>2021-09-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/geospatial/</loc>
     <lastmod>2020-11-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/making-graphics-to-demonstrate-demographics/</loc>
     <lastmod>2020-11-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/breaking-down-the-elections...-like-a-sport/</loc>
     <lastmod>2020-10-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/diving-deeper-into-new-zealands-official-recession/</loc>
     <lastmod>2020-09-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/mapping-an-undocumented-api-easily-with-python/</loc>
     <lastmod>2020-09-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/python/</loc>
     <lastmod>2020-09-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/how-well-has-new-zealand-handled-covid-19/</loc>
     <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/react-state-management-with-redux-and-more/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/reactjs/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/redux/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/writing-a-cellular-automata-in-python/</loc>
     <lastmod>2020-06-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/creating-a-genetic-algorithm-to-recreate-images/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/csharp/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/genetic-algorithm/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/asp.net-core/</loc>
     <lastmod>2020-06-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/mocking-dbcontext-in-asp.net-core-for-xunit-tests/</loc>
     <lastmod>2020-06-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/xunit/</loc>
     <lastmod>2020-06-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/using-fetch-over-axios-in-reactjs-applications/</loc>
     <lastmod>2020-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/asp.net-core-web-api-jwt-implementation/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/authentication/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/jwt/</loc>
     <lastmod>2020-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/fedora/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/posts/fedora-32-and-gpu-passthrough-vfio/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/linux-gaming/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/tags/vfio/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mrzk.io/categories/</loc>
   </url>
-  
 </urlset>

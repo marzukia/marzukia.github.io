@@ -314,18 +314,18 @@
 <p>In regards to lubing and tuning the stabilisers, I&rsquo;d recommend <a href="https://www.youtube.com/watch?v=usNx1_d0HbQ">this great video</a>.</p>
 <h2 id="flashing-qmk-onto-gmmk-pro-on-linux">Flashing QMK onto GMMK Pro on Linux</h2>
 <p>There isn’t many guides on how to use QMK with Linux so I thought I’d do a quick write up on how to do it.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip3 install qmk
-qmk setup
-</code></pre></div><p>Set up will create a folder at <code>~/qmk_firmware</code>.  This will download all required dependencies and other things that qmk needs.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /home/andryo/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/ <span style="color:#75715e">## reboot after this</span>
-qmk config user.keyboard<span style="color:#f92672">=</span>gmmk/pro/ansi
-qmk new-keymap
-vim ~/qmk_firmware/keyboards/gmmk/pro/ansi/keymaps/&lt;name&gt;/keymap.c
-</code></pre></div><p>At this point, you’ll see something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip3 install qmk
+</span></span><span style="display:flex;"><span>qmk setup
+</span></span></code></pre></div><p>Set up will create a folder at <code>~/qmk_firmware</code>.  This will download all required dependencies and other things that qmk needs.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo cp /home/andryo/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/ <span style="color:#75715e">## reboot after this</span>
+</span></span><span style="display:flex;"><span>qmk config user.keyboard<span style="color:#f92672">=</span>gmmk/pro/ansi
+</span></span><span style="display:flex;"><span>qmk new-keymap
+</span></span><span style="display:flex;"><span>vim ~/qmk_firmware/keyboards/gmmk/pro/ansi/keymaps/&lt;name&gt;/keymap.c
+</span></span></code></pre></div><p>At this point, you’ll see something like this:</p>
 <p><img src="https://mrzk.io/images/keyboard/79.png" alt=""></p>
 <p>Once you’ve modified your keybinds to your preference, load the keyboard into bootloader mode and then run the following:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">qmk flash
-</code></pre></div><h2 id="closing-thoughts">Closing Thoughts</h2>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>qmk flash
+</span></span></code></pre></div><h2 id="closing-thoughts">Closing Thoughts</h2>
 <p>That’s all the salient thoughts I had jotted down in regards to my first custom keyboard build. Overall, I really enjoyed it and can’t wait to do it again. My wife wants a custom keyboard now so I have the excuse to build another fairly soon.</p>
 <p>I hope for those who stumble across this post, I hope the information provided has been useful.</p>
 <p>Good luck!</p>

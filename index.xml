@@ -6,7 +6,16 @@
     <description>Recent content on Andryo Marzuki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sat, 30 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Fond &#39;Good Riddance&#39; to Cryptocurrency</title>
+      <link>https://mrzk.io/posts/a-fond-good-riddance-to-cryptocurrency/</link>
+      <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mrzk.io/posts/a-fond-good-riddance-to-cryptocurrency/</guid>
+      <description>Zero Sum Game The catastrophic unravelling of cryptocurrency over the last year has been a sight to behold over the previous year. The perfect storm of FOMO, greed, a deafening lack of regulation and continuous and constant predatory behaviour (and people) has taken a novel concept into a &amp;rsquo;too big to fail&amp;rsquo; zero-sum game which is now starting to fail.</description>
+    </item>
+    
     <item>
       <title>Vaccinations Matter (aka Why Anti-Vaxxers Should Really Reconsider)</title>
       <link>https://mrzk.io/posts/vaccinations-matter-aka-why-anti-vaxxers-should-really-reconsider/</link>
@@ -133,8 +142,8 @@ In the context of sexual reproduction, an offspring inherits half of it&amp;rsqu
       <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mrzk.io/posts/using-fetch-over-axios-in-reactjs-applications/</guid>
-      <description>For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&#39; Fetch. My rationale for making this switch was:
- Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.</description>
+      <description>For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&amp;rsquo; Fetch. My rationale for making this switch was:
+Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.</description>
     </item>
     
     <item>

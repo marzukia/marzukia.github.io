@@ -273,44 +273,44 @@
 <li>Generate a <code>byte[]</code> salt</li>
 <li>And then hash the password using this salt, providing us a hashed password.</li>
 </ol>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Security.Cryptography</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Cryptography.KeyDerivation</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Helpers</span>
-<span style="color:#111">{</span>
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">IPasswordHasher</span>
-    <span style="color:#111">{</span>
-        <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">GenerateSalt</span><span style="color:#111">();</span>
-        <span style="color:#00a8c8">string</span> <span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">salt</span><span style="color:#111">);</span>
-    <span style="color:#111">}</span>
-
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">PasswordHasher</span> <span style="color:#111">:</span> <span style="color:#111">IPasswordHasher</span>
-    <span style="color:#111">{</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">GenerateSalt</span><span style="color:#111">()</span>
-        <span style="color:#111">{</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">salt</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[</span><span style="color:#ae81ff">128</span> <span style="color:#111">/</span> <span style="color:#ae81ff">8</span><span style="color:#111">];</span>
-            <span style="color:#00a8c8">using</span> <span style="color:#111">(</span><span style="color:#00a8c8">var</span> <span style="color:#111">rng</span> <span style="color:#111">=</span> <span style="color:#111">RNGCryptoServiceProvider</span><span style="color:#111">.</span><span style="color:#111">Create</span><span style="color:#111">())</span>
-            <span style="color:#111">{</span>
-                <span style="color:#111">rng</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#111">salt</span><span style="color:#111">);</span>
-            <span style="color:#111">}</span>
-            <span style="color:#00a8c8">return</span> <span style="color:#111">salt</span><span style="color:#111">;</span>
-        <span style="color:#111">}</span>
-
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">salt</span><span style="color:#111">)</span>
-        <span style="color:#111">{</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">KeyDerivation</span><span style="color:#111">.</span><span style="color:#111">Pbkdf2</span><span style="color:#111">(</span>
-                <span style="color:#111">password</span><span style="color:#111">:</span> <span style="color:#111">password</span><span style="color:#111">,</span>
-                <span style="color:#111">salt</span><span style="color:#111">:</span> <span style="color:#111">salt</span><span style="color:#111">,</span>
-                <span style="color:#111">prf</span><span style="color:#111">:</span> <span style="color:#111">KeyDerivationPrf</span><span style="color:#111">.</span><span style="color:#111">HMACSHA1</span><span style="color:#111">,</span>
-                <span style="color:#111">iterationCount</span><span style="color:#111">:</span> <span style="color:#ae81ff">10000</span><span style="color:#111">,</span>
-                <span style="color:#111">numBytesRequested</span><span style="color:#111">:</span> <span style="color:#ae81ff">258</span> <span style="color:#111">/</span> <span style="color:#ae81ff">8</span>
-            <span style="color:#111">);</span>
-            <span style="color:#00a8c8">return</span> <span style="color:#111">Convert</span><span style="color:#111">.</span><span style="color:#111">ToBase64String</span><span style="color:#111">(</span><span style="color:#111">hashedPassword</span><span style="color:#111">);</span>
-        <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">}</span>
-</code></pre></div><p>In the example above we take advantage of ASP.NET Core&rsquo;s cryptographic library and use their <code>Pbkdf2</code> key derivation function and the <code>HMACSHA1</code> algorithm to hash our password using the salt we generate with our <code>GenerateSalt()</code> function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Security.Cryptography</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Cryptography.KeyDerivation</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Helpers</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">IPasswordHasher</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">GenerateSalt</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">string</span> <span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">salt</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">PasswordHasher</span> <span style="color:#111">:</span> <span style="color:#111">IPasswordHasher</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">GenerateSalt</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">salt</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[</span><span style="color:#ae81ff">128</span> <span style="color:#111">/</span> <span style="color:#ae81ff">8</span><span style="color:#111">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">using</span> <span style="color:#111">(</span><span style="color:#00a8c8">var</span> <span style="color:#111">rng</span> <span style="color:#111">=</span> <span style="color:#111">RNGCryptoServiceProvider</span><span style="color:#111">.</span><span style="color:#111">Create</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">rng</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#111">salt</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#111">salt</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">salt</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">KeyDerivation</span><span style="color:#111">.</span><span style="color:#111">Pbkdf2</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">password</span><span style="color:#111">:</span> <span style="color:#111">password</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">salt</span><span style="color:#111">:</span> <span style="color:#111">salt</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">prf</span><span style="color:#111">:</span> <span style="color:#111">KeyDerivationPrf</span><span style="color:#111">.</span><span style="color:#111">HMACSHA1</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">iterationCount</span><span style="color:#111">:</span> <span style="color:#ae81ff">10000</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">numBytesRequested</span><span style="color:#111">:</span> <span style="color:#ae81ff">258</span> <span style="color:#111">/</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#111">Convert</span><span style="color:#111">.</span><span style="color:#111">ToBase64String</span><span style="color:#111">(</span><span style="color:#111">hashedPassword</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>In the example above we take advantage of ASP.NET Core&rsquo;s cryptographic library and use their <code>Pbkdf2</code> key derivation function and the <code>HMACSHA1</code> algorithm to hash our password using the salt we generate with our <code>GenerateSalt()</code> function.</p>
 <h3 id="user">User</h3>
 <p>I consider this definition my &lsquo;base&rsquo; <code>User</code> model. I will normally extend this model as needed by creating another model such as <code>ApplicationUser</code> which inherits from <code>User</code>.</p>
 <p>The data we want to capture is as follows:</p>
@@ -321,36 +321,36 @@
 <li><code>string</code> Token</li>
 </ol>
 <p>Our model definition is as follows:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">System.ComponentModel.DataAnnotations</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.ComponentModel.DataAnnotations.Schema</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Text.Json.Serialization</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Models</span>
-<span style="color:#111">{</span>
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">User</span>
-    <span style="color:#111">{</span>
-<span style="color:#75af00">        [Key]</span>
-<span style="color:#75af00">        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">long</span> <span style="color:#111">Id</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Username</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-<span style="color:#75af00">
-</span><span style="color:#75af00">        [JsonIgnore]</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Password</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-<span style="color:#75af00">
-</span><span style="color:#75af00">        [JsonIgnore]</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">Salt</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Token</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UserDTO</span>
-    <span style="color:#111">{</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Username</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Password</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">}</span>
-</code></pre></div><p>In the above example we&rsquo;ve explicitly declared <code>Password</code> to be ignored during serialization. This is good practice to ensure that this data is never unintentionally accessible.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.ComponentModel.DataAnnotations</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.ComponentModel.DataAnnotations.Schema</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Text.Json.Serialization</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Models</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">User</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">        [Key]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">long</span> <span style="color:#111">Id</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Username</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">
+</span></span></span><span style="display:flex;"><span><span style="color:#75af00">        [JsonIgnore]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Password</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">
+</span></span></span><span style="display:flex;"><span><span style="color:#75af00">        [JsonIgnore]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">byte</span><span style="color:#111">[]</span> <span style="color:#111">Salt</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Token</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UserDTO</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Username</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">string</span> <span style="color:#111">Password</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>In the above example we&rsquo;ve explicitly declared <code>Password</code> to be ignored during serialization. This is good practice to ensure that this data is never unintentionally accessible.</p>
 <p>We&rsquo;ll create a Data Transfer Object (DTO) as our temporary model when doing things such as authenticating or registering the user. You&rsquo;ll see how this works in the <code>UsersController</code> section.</p>
 <h3 id="userservice">UserService</h3>
 <p>Our <code>UserService</code> will handle all the operations related to our <code>User</code> actions.</p>
@@ -367,241 +367,241 @@
 <li>Upon successful generation of the above, a new <code>User</code> is created.</li>
 </ol>
 <p>This is defined as follows:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.IdentityModel.Tokens.Jwt</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Security.Claims</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Text</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Threading.Tasks</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.Extensions.Options</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.IdentityModel.Tokens</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.EntityFrameworkCore</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Models</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Helpers</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Services</span>
-<span style="color:#111">{</span>
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">interface</span> <span style="color:#111">IUserService</span>
-    <span style="color:#111">{</span>
-        <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">);</span>
-        <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">);</span>
-    <span style="color:#111">}</span>
-
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UserService</span><span style="color:#111">:</span> <span style="color:#111">IUserService</span>
-    <span style="color:#111">{</span>
-        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">;</span>
-
-        <span style="color:#00a8c8">public</span> <span style="color:#111">UserService</span><span style="color:#111">(</span><span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">context</span><span style="color:#111">)</span>
-        <span style="color:#111">{</span>
-            <span style="color:#ae81ff">_</span><span style="color:#111">context</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">;</span>
-        <span style="color:#111">}</span>
-
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">)</span>
-        <span style="color:#111">{</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">hasher</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">PasswordHasher</span><span style="color:#111">();</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FirstOrDefaultAsync</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
-                <span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">Username</span> <span style="color:#111">==</span> <span style="color:#111">username</span>
-            <span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
-                <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
-
-            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Salt</span><span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Password</span> <span style="color:#111">==</span> <span style="color:#111">hashedPassword</span><span style="color:#111">)</span>
-            <span style="color:#111">{</span>
-                <span style="color:#00a8c8">var</span> <span style="color:#111">tokenHandler</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">JwtSecurityTokenHandler</span><span style="color:#111">();</span>
-                <span style="color:#00a8c8">var</span> <span style="color:#111">key</span> <span style="color:#111">=</span> <span style="color:#111">Encoding</span><span style="color:#111">.</span><span style="color:#111">ASCII</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#d88200">&#34;SECRETCODESTRING&#34;</span><span style="color:#111">);</span>
-                <span style="color:#00a8c8">var</span> <span style="color:#111">tokenDescriptor</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SecurityTokenDescriptor</span>
-                <span style="color:#111">{</span>
-                    <span style="color:#111">Subject</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">ClaimsIdentity</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#111">Claim</span><span style="color:#111">[]</span>
-                    <span style="color:#111">{</span>
-                        <span style="color:#00a8c8">new</span> <span style="color:#111">Claim</span><span style="color:#111">(</span><span style="color:#111">ClaimTypes</span><span style="color:#111">.</span><span style="color:#111">Name</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Id</span><span style="color:#111">.</span><span style="color:#111">ToString</span><span style="color:#111">())</span>
-                    <span style="color:#111">}),</span>
-                    <span style="color:#111">Expires</span> <span style="color:#111">=</span> <span style="color:#111">DateTime</span><span style="color:#111">.</span><span style="color:#111">UtcNow</span><span style="color:#111">.</span><span style="color:#111">AddDays</span><span style="color:#111">(</span><span style="color:#ae81ff">7</span><span style="color:#111">),</span>
-                    <span style="color:#111">SigningCredentials</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SigningCredentials</span><span style="color:#111">(</span>
-                        <span style="color:#00a8c8">new</span> <span style="color:#111">SymmetricSecurityKey</span><span style="color:#111">(</span><span style="color:#111">key</span><span style="color:#111">),</span>
-                        <span style="color:#111">SecurityAlgorithms</span><span style="color:#111">.</span><span style="color:#111">HmacSha256Signature</span>
-                    <span style="color:#111">)</span>
-                <span style="color:#111">};</span>
-                <span style="color:#00a8c8">var</span> <span style="color:#111">token</span> <span style="color:#111">=</span> <span style="color:#111">tokenHandler</span><span style="color:#111">.</span><span style="color:#111">CreateToken</span><span style="color:#111">(</span><span style="color:#111">tokenDescriptor</span><span style="color:#111">);</span>
-                <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Token</span> <span style="color:#111">=</span> <span style="color:#111">tokenHandler</span><span style="color:#111">.</span><span style="color:#111">WriteToken</span><span style="color:#111">(</span><span style="color:#111">token</span><span style="color:#111">);</span>
-                <span style="color:#00a8c8">await</span> <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">SaveChangesAsync</span><span style="color:#111">();</span>
-            <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
-                <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
-            <span style="color:#111">}</span>
-
-            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
-        <span style="color:#111">}</span>
-
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">)</span>
-        <span style="color:#111">{</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">validUser</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FirstOrDefaultAsync</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
-                <span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">Username</span> <span style="color:#111">==</span> <span style="color:#111">username</span>
-            <span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">validUser</span> <span style="color:#111">!=</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
-                <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
-
-            <span style="color:#00a8c8">var</span> <span style="color:#111">hasher</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">PasswordHasher</span><span style="color:#111">();</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">salt</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">GenerateSalt</span><span style="color:#111">();</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#111">salt</span><span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">ApplicationUser</span>
-            <span style="color:#111">{</span>
-                <span style="color:#111">Username</span> <span style="color:#111">=</span> <span style="color:#111">username</span><span style="color:#111">,</span>
-                <span style="color:#111">Password</span> <span style="color:#111">=</span> <span style="color:#111">hashedPassword</span><span style="color:#111">,</span>
-                <span style="color:#111">Salt</span> <span style="color:#111">=</span> <span style="color:#111">salt</span>
-            <span style="color:#111">};</span>
-
-            <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">Add</span><span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">await</span> <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">SaveChangesAsync</span><span style="color:#111">();</span>
-
-            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
-        <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">}</span>
-</code></pre></div><h3 id="userscontroller">UsersController</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.IdentityModel.Tokens.Jwt</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Security.Claims</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Text</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Threading.Tasks</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.Extensions.Options</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.IdentityModel.Tokens</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.EntityFrameworkCore</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Models</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Helpers</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Services</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">IUserService</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UserService</span><span style="color:#111">:</span> <span style="color:#111">IUserService</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">_context</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#111">UserService</span><span style="color:#111">(</span><span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">context</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">_context</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">hasher</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">PasswordHasher</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FirstOrDefaultAsync</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">Username</span> <span style="color:#111">==</span> <span style="color:#111">username</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Salt</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Password</span> <span style="color:#111">==</span> <span style="color:#111">hashedPassword</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">var</span> <span style="color:#111">tokenHandler</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">JwtSecurityTokenHandler</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">var</span> <span style="color:#111">key</span> <span style="color:#111">=</span> <span style="color:#111">Encoding</span><span style="color:#111">.</span><span style="color:#111">ASCII</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#d88200">&#34;SECRETCODESTRING&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">var</span> <span style="color:#111">tokenDescriptor</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SecurityTokenDescriptor</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#111">Subject</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">ClaimsIdentity</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#111">Claim</span><span style="color:#111">[]</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#00a8c8">new</span> <span style="color:#111">Claim</span><span style="color:#111">(</span><span style="color:#111">ClaimTypes</span><span style="color:#111">.</span><span style="color:#111">Name</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Id</span><span style="color:#111">.</span><span style="color:#111">ToString</span><span style="color:#111">())</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#111">}),</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#111">Expires</span> <span style="color:#111">=</span> <span style="color:#111">DateTime</span><span style="color:#111">.</span><span style="color:#111">UtcNow</span><span style="color:#111">.</span><span style="color:#111">AddDays</span><span style="color:#111">(</span><span style="color:#ae81ff">7</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#111">SigningCredentials</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SigningCredentials</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#00a8c8">new</span> <span style="color:#111">SymmetricSecurityKey</span><span style="color:#111">(</span><span style="color:#111">key</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#111">SecurityAlgorithms</span><span style="color:#111">.</span><span style="color:#111">HmacSha256Signature</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">var</span> <span style="color:#111">token</span> <span style="color:#111">=</span> <span style="color:#111">tokenHandler</span><span style="color:#111">.</span><span style="color:#111">CreateToken</span><span style="color:#111">(</span><span style="color:#111">tokenDescriptor</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Token</span> <span style="color:#111">=</span> <span style="color:#111">tokenHandler</span><span style="color:#111">.</span><span style="color:#111">WriteToken</span><span style="color:#111">(</span><span style="color:#111">token</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">SaveChangesAsync</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;</span> <span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#00a8c8">string</span> <span style="color:#111">username</span><span style="color:#111">,</span> <span style="color:#00a8c8">string</span> <span style="color:#111">password</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">validUser</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FirstOrDefaultAsync</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">Username</span> <span style="color:#111">==</span> <span style="color:#111">username</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">validUser</span> <span style="color:#111">!=</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">null</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">hasher</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">PasswordHasher</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">salt</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">GenerateSalt</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">hashedPassword</span> <span style="color:#111">=</span> <span style="color:#111">hasher</span><span style="color:#111">.</span><span style="color:#111">HashPassword</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">,</span> <span style="color:#111">salt</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">ApplicationUser</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">Username</span> <span style="color:#111">=</span> <span style="color:#111">username</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">Password</span> <span style="color:#111">=</span> <span style="color:#111">hashedPassword</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">Salt</span> <span style="color:#111">=</span> <span style="color:#111">salt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">Add</span><span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">SaveChangesAsync</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h3 id="userscontroller">UsersController</h3>
 <p>The majority of this code example in this section should hopefully be self explanatory.</p>
 <p>The <code>[HttpGet(&quot;info&quot;)]</code> route demonstrates how to get the <code>User</code> in the controller by using the JWT claim.</p>
 <p>The <code>[HttpPost(&quot;authenticate&quot;)]</code> has a working example on how to set the JWT cookie as a HttpOnly cookie.</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Mvc</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Authorization</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.EntityFrameworkCore</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.Net.Http.Headers</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Net.Http</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Collections.Generic</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">System.Threading.Tasks</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Services</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Models</span><span style="color:#111">;</span>
-<span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Helpers</span><span style="color:#111">;</span>
-
-<span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Controllers</span>
-<span style="color:#111">{</span>
-<span style="color:#75af00">    [Authorize]</span>
-<span style="color:#75af00">    [Route(&#34;api/users&#34;)]</span>
-<span style="color:#75af00">    [ApiController]</span>
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UsersController</span> <span style="color:#111">:</span> <span style="color:#111">ControllerBase</span>
-    <span style="color:#111">{</span>
-        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">;</span>
-
-        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">IUserService</span> <span style="color:#ae81ff">_</span><span style="color:#111">userService</span><span style="color:#111">;</span>
-        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">IUserTools</span> <span style="color:#ae81ff">_</span><span style="color:#111">userTools</span><span style="color:#111">;</span>
-
-        <span style="color:#00a8c8">public</span> <span style="color:#111">UsersController</span><span style="color:#111">(</span><span style="color:#111">IUserService</span> <span style="color:#111">userService</span><span style="color:#111">,</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">context</span><span style="color:#111">)</span>
-        <span style="color:#111">{</span>
-            <span style="color:#ae81ff">_</span><span style="color:#111">userService</span> <span style="color:#111">=</span> <span style="color:#111">userService</span><span style="color:#111">;</span>
-            <span style="color:#ae81ff">_</span><span style="color:#111">context</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">;</span>
-            <span style="color:#ae81ff">_</span><span style="color:#111">userTools</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">UserTools</span><span style="color:#111">();</span>
-        <span style="color:#111">}</span>
-<span style="color:#75af00">
-</span><span style="color:#75af00">        [HttpGet(&#34;info&#34;)]</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">GetUser</span><span style="color:#111">()</span>
-        <span style="color:#111">{</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">claimsIdentity</span> <span style="color:#111">=</span> <span style="color:#00a8c8">this</span><span style="color:#111">.</span><span style="color:#111">User</span><span style="color:#111">.</span><span style="color:#111">Identity</span> <span style="color:#00a8c8">as</span> <span style="color:#111">ClaimsIdentity</span><span style="color:#111">;</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">userId</span> <span style="color:#111">=</span> <span style="color:#111">claimsIdentity</span><span style="color:#111">.</span><span style="color:#111">FindFirst</span><span style="color:#111">(</span><span style="color:#111">ClaimTypes</span><span style="color:#111">.</span><span style="color:#111">Name</span><span style="color:#111">)?.</span><span style="color:#111">Value</span><span style="color:#111">;</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#ae81ff">_</span><span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FindAsync</span><span style="color:#111">(</span><span style="color:#00a8c8">long</span><span style="color:#111">.</span><span style="color:#111">Parse</span><span style="color:#111">(</span><span style="color:#111">userId</span><span style="color:#111">));</span>
-
-            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
-                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">();</span>
-
-            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
-        <span style="color:#111">}</span>
-<span style="color:#75af00">
-</span><span style="color:#75af00">        [AllowAnonymous]</span>
-<span style="color:#75af00">        [HttpPost(&#34;authenticate&#34;)]</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">([</span><span style="color:#111">FromBody</span><span style="color:#111">]</span><span style="color:#111">UserDTO</span> <span style="color:#111">model</span><span style="color:#111">)</span>
-        <span style="color:#111">{</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#ae81ff">_</span><span style="color:#111">userService</span><span style="color:#111">.</span><span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Username</span><span style="color:#111">,</span> <span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Password</span><span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
-            <span style="color:#111">{</span>
-                <span style="color:#00a8c8">var</span> <span style="color:#111">errorMessage</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">{</span><span style="color:#111">message</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;Username or password is incorrect&#34;</span><span style="color:#111">};</span>
-                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">(</span><span style="color:#111">errorMessage</span><span style="color:#111">);</span>
-            <span style="color:#111">}</span>
-
-            <span style="color:#00a8c8">var</span> <span style="color:#111">cookieOptions</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">CookieOptions</span>
-            <span style="color:#111">{</span>
-                <span style="color:#111">Path</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;/&#34;</span><span style="color:#111">,</span>
-                <span style="color:#111">Expires</span> <span style="color:#111">=</span> <span style="color:#111">DateTimeOffset</span><span style="color:#111">.</span><span style="color:#111">UtcNow</span><span style="color:#111">.</span><span style="color:#111">AddDays</span><span style="color:#111">(</span><span style="color:#ae81ff">7</span><span style="color:#111">),</span>
-                <span style="color:#111">IsEssential</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
-                <span style="color:#111">HttpOnly</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
-                <span style="color:#111">Secure</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span>
-            <span style="color:#111">};</span>
-
-            <span style="color:#111">Response</span><span style="color:#111">.</span><span style="color:#111">Cookies</span><span style="color:#111">.</span><span style="color:#111">Append</span><span style="color:#111">(</span><span style="color:#d88200">&#34;JWT&#34;</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Token</span><span style="color:#111">,</span> <span style="color:#111">cookieOptions</span><span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">return</span> <span style="color:#111">Ok</span><span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">);</span>
-        <span style="color:#111">}</span>
-<span style="color:#75af00">
-</span><span style="color:#75af00">        [AllowAnonymous]</span>
-<span style="color:#75af00">        [HttpPost(&#34;register&#34;)]</span>
-        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">RegisterUser</span><span style="color:#111">(</span><span style="color:#111">UserDTO</span> <span style="color:#111">model</span><span style="color:#111">)</span>
-        <span style="color:#111">{</span>
-            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#ae81ff">_</span><span style="color:#111">userService</span><span style="color:#111">.</span><span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Username</span><span style="color:#111">,</span> <span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Password</span><span style="color:#111">);</span>
-
-            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
-                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#111">{</span><span style="color:#111">message</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;Username already exists&#34;</span><span style="color:#111">});</span>
-
-            <span style="color:#00a8c8">return</span> <span style="color:#111">CreatedAtAction</span><span style="color:#111">(</span><span style="color:#d88200">&#34;GetUser&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">new</span> <span style="color:#111">{</span> <span style="color:#111">id</span> <span style="color:#111">=</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Id</span> <span style="color:#111">},</span> <span style="color:#111">user</span><span style="color:#111">);</span>
-        <span style="color:#111">}</span>
-    <span style="color:#111">}</span>
-<span style="color:#111">}</span>
-</code></pre></div><h2 id="implementing-our-components">Implementing our Components</h2>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Mvc</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.AspNetCore.Authorization</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.EntityFrameworkCore</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">Microsoft.Net.Http.Headers</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Net.Http</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Collections.Generic</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">System.Threading.Tasks</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Services</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Models</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">using</span> <span style="color:#111">JwtAuthExample.Helpers</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">namespace</span> <span style="color:#111">JwtAuthExample.Controllers</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">    [Authorize]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">    [Route(&#34;api/users&#34;)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">    [ApiController]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">UsersController</span> <span style="color:#111">:</span> <span style="color:#111">ControllerBase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">_context</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">IUserService</span> <span style="color:#111">_userService</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">readonly</span> <span style="color:#111">IUserTools</span> <span style="color:#111">_userTools</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#111">UsersController</span><span style="color:#111">(</span><span style="color:#111">IUserService</span> <span style="color:#111">userService</span><span style="color:#111">,</span> <span style="color:#111">JwtAuthExampleContext</span> <span style="color:#111">context</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">_userService</span> <span style="color:#111">=</span> <span style="color:#111">userService</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">_context</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">_userTools</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">UserTools</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">
+</span></span></span><span style="display:flex;"><span><span style="color:#75af00">        [HttpGet(&#34;info&#34;)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">GetUser</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">claimsIdentity</span> <span style="color:#111">=</span> <span style="color:#00a8c8">this</span><span style="color:#111">.</span><span style="color:#111">User</span><span style="color:#111">.</span><span style="color:#111">Identity</span> <span style="color:#00a8c8">as</span> <span style="color:#111">ClaimsIdentity</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">userId</span> <span style="color:#111">=</span> <span style="color:#111">claimsIdentity</span><span style="color:#111">.</span><span style="color:#111">FindFirst</span><span style="color:#111">(</span><span style="color:#111">ClaimTypes</span><span style="color:#111">.</span><span style="color:#111">Name</span><span style="color:#111">)?.</span><span style="color:#111">Value</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_context</span><span style="color:#111">.</span><span style="color:#111">Users</span><span style="color:#111">.</span><span style="color:#111">FindAsync</span><span style="color:#111">(</span><span style="color:#00a8c8">long</span><span style="color:#111">.</span><span style="color:#111">Parse</span><span style="color:#111">(</span><span style="color:#111">userId</span><span style="color:#111">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#111">user</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">
+</span></span></span><span style="display:flex;"><span><span style="color:#75af00">        [AllowAnonymous]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">        [HttpPost(&#34;authenticate&#34;)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">Authenticate</span><span style="color:#111">([</span><span style="color:#111">FromBody</span><span style="color:#111">]</span><span style="color:#111">UserDTO</span> <span style="color:#111">model</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_userService</span><span style="color:#111">.</span><span style="color:#111">Authenticate</span><span style="color:#111">(</span><span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Username</span><span style="color:#111">,</span> <span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Password</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">var</span> <span style="color:#111">errorMessage</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">{</span><span style="color:#111">message</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;Username or password is incorrect&#34;</span><span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">(</span><span style="color:#111">errorMessage</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">cookieOptions</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">CookieOptions</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">Path</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;/&#34;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">Expires</span> <span style="color:#111">=</span> <span style="color:#111">DateTimeOffset</span><span style="color:#111">.</span><span style="color:#111">UtcNow</span><span style="color:#111">.</span><span style="color:#111">AddDays</span><span style="color:#111">(</span><span style="color:#ae81ff">7</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">IsEssential</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">HttpOnly</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">Secure</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">Response</span><span style="color:#111">.</span><span style="color:#111">Cookies</span><span style="color:#111">.</span><span style="color:#111">Append</span><span style="color:#111">(</span><span style="color:#d88200">&#34;JWT&#34;</span><span style="color:#111">,</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Token</span><span style="color:#111">,</span> <span style="color:#111">cookieOptions</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#111">Ok</span><span style="color:#111">(</span><span style="color:#111">user</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">
+</span></span></span><span style="display:flex;"><span><span style="color:#75af00">        [AllowAnonymous]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">        [HttpPost(&#34;register&#34;)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">async</span> <span style="color:#111">Task</span><span style="color:#111">&lt;</span><span style="color:#111">ActionResult</span><span style="color:#111">&lt;</span><span style="color:#111">User</span><span style="color:#111">&gt;&gt;</span> <span style="color:#111">RegisterUser</span><span style="color:#111">(</span><span style="color:#111">UserDTO</span> <span style="color:#111">model</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">var</span> <span style="color:#111">user</span> <span style="color:#111">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">_userService</span><span style="color:#111">.</span><span style="color:#111">Register</span><span style="color:#111">(</span><span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Username</span><span style="color:#111">,</span> <span style="color:#111">model</span><span style="color:#111">.</span><span style="color:#111">Password</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">user</span> <span style="color:#111">==</span> <span style="color:#00a8c8">null</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#00a8c8">return</span> <span style="color:#111">BadRequest</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#111">{</span><span style="color:#111">message</span> <span style="color:#111">=</span> <span style="color:#d88200">&#34;Username already exists&#34;</span><span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">return</span> <span style="color:#111">CreatedAtAction</span><span style="color:#111">(</span><span style="color:#d88200">&#34;GetUser&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">new</span> <span style="color:#111">{</span> <span style="color:#111">id</span> <span style="color:#111">=</span> <span style="color:#111">user</span><span style="color:#111">.</span><span style="color:#111">Id</span> <span style="color:#111">},</span> <span style="color:#111">user</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="implementing-our-components">Implementing our Components</h2>
 <h3 id="adjusting-your-dbcontext">Adjusting your DbContext</h3>
 <p>In your <code>DbContext</code> you&rsquo;ll need to add the following:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">public</span> <span style="color:#00a8c8">virtual</span> <span style="color:#111">DbSet</span><span style="color:#111">&lt;</span><span style="color:#111">ApplicationUser</span><span style="color:#111">&gt;</span> <span style="color:#111">Users</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
-</code></pre></div><p>Once you&rsquo;ve done this, make sure you migrate and affect your changes by doing the following:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet ef migrations add  AddUserModel -v
-dotnet ef database update -v
-</code></pre></div><h3 id="adding-jwtbearer">Adding JwtBearer</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#00a8c8">public</span> <span style="color:#00a8c8">virtual</span> <span style="color:#111">DbSet</span><span style="color:#111">&lt;</span><span style="color:#111">ApplicationUser</span><span style="color:#111">&gt;</span> <span style="color:#111">Users</span> <span style="color:#111">{</span> <span style="color:#00a8c8">get</span><span style="color:#111">;</span> <span style="color:#00a8c8">set</span><span style="color:#111">;</span> <span style="color:#111">}</span>
+</span></span></code></pre></div><p>Once you&rsquo;ve done this, make sure you migrate and affect your changes by doing the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dotnet ef migrations add  AddUserModel -v
+</span></span><span style="display:flex;"><span>dotnet ef database update -v
+</span></span></code></pre></div><h3 id="adding-jwtbearer">Adding JwtBearer</h3>
 <p>You&rsquo;ll need to install the <code>JwtBearer</code> package by running the following command:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
-</code></pre></div><p>We need to tell our application to use <code>JwtBearer</code> as it&rsquo;s authentication mechanism.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+</span></span></code></pre></div><p>We need to tell our application to use <code>JwtBearer</code> as it&rsquo;s authentication mechanism.</p>
 <p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#00a8c8">var</span> <span style="color:#111">key</span> <span style="color:#111">=</span> <span style="color:#111">Encoding</span><span style="color:#111">.</span><span style="color:#111">ASCII</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#d88200">&#34;SECRETCODESTRING&#34;</span><span style="color:#111">);</span>
-<span style="color:#111">services</span><span style="color:#111">.</span><span style="color:#111">AddAuthentication</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
-<span style="color:#111">{</span>
-	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">DefaultAuthenticateScheme</span> <span style="color:#111">=</span> <span style="color:#111">JwtBearerDefaults</span><span style="color:#111">.</span><span style="color:#111">AuthenticationScheme</span><span style="color:#111">;</span>
-	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">DefaultChallengeScheme</span> <span style="color:#111">=</span> <span style="color:#111">JwtBearerDefaults</span><span style="color:#111">.</span><span style="color:#111">AuthenticationScheme</span><span style="color:#111">;</span>
-<span style="color:#111">})</span>
-<span style="color:#111">.</span><span style="color:#111">AddJwtBearer</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
-<span style="color:#111">{</span>
-	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">RequireHttpsMetadata</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
-	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">SaveToken</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">;</span>
-	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">TokenValidationParameters</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">TokenValidationParameters</span>
-	<span style="color:#111">{</span>
-		<span style="color:#111">ValidateIssuerSigningKey</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
-		<span style="color:#111">IssuerSigningKey</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SymmetricSecurityKey</span><span style="color:#111">(</span><span style="color:#111">key</span><span style="color:#111">),</span>
-		<span style="color:#111">ValidateIssuer</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">,</span>
-		<span style="color:#111">ValidateAudience</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span>
-	<span style="color:#111">};</span>
-<span style="color:#111">});</span>
-</code></pre></div><h3 id="adding-userservice">Adding UserService</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#00a8c8">var</span> <span style="color:#111">key</span> <span style="color:#111">=</span> <span style="color:#111">Encoding</span><span style="color:#111">.</span><span style="color:#111">ASCII</span><span style="color:#111">.</span><span style="color:#111">GetBytes</span><span style="color:#111">(</span><span style="color:#d88200">&#34;SECRETCODESTRING&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">services</span><span style="color:#111">.</span><span style="color:#111">AddAuthentication</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">DefaultAuthenticateScheme</span> <span style="color:#111">=</span> <span style="color:#111">JwtBearerDefaults</span><span style="color:#111">.</span><span style="color:#111">AuthenticationScheme</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">DefaultChallengeScheme</span> <span style="color:#111">=</span> <span style="color:#111">JwtBearerDefaults</span><span style="color:#111">.</span><span style="color:#111">AuthenticationScheme</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">})</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">.</span><span style="color:#111">AddJwtBearer</span><span style="color:#111">(</span><span style="color:#111">x</span> <span style="color:#111">=&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">RequireHttpsMetadata</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">SaveToken</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">x</span><span style="color:#111">.</span><span style="color:#111">TokenValidationParameters</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">TokenValidationParameters</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">ValidateIssuerSigningKey</span> <span style="color:#111">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">IssuerSigningKey</span> <span style="color:#111">=</span> <span style="color:#00a8c8">new</span> <span style="color:#111">SymmetricSecurityKey</span><span style="color:#111">(</span><span style="color:#111">key</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">ValidateIssuer</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#111">ValidateAudience</span> <span style="color:#111">=</span> <span style="color:#00a8c8">false</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">};</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><h3 id="adding-userservice">Adding UserService</h3>
 <p>We need to inject our <code>UserService</code> and it&rsquo;s interface <code>IUserService</code> into <code>Startup</code>.</p>
 <p>Adjust your <code>ConfigureServices(IServiceCollection services)</code> to include the following:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#111">services</span><span style="color:#111">.</span><span style="color:#111">AddScoped</span><span style="color:#111">&lt;</span><span style="color:#111">IUserService</span><span style="color:#111">,</span> <span style="color:#111">UserService</span><span style="color:#111">&gt;();</span>
-</code></pre></div><h3 id="adding-our-middleware-to-use-jwt-httponly-cookie">Adding our Middleware to use JWT HttpOnly Cookie</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#111">services</span><span style="color:#111">.</span><span style="color:#111">AddScoped</span><span style="color:#111">&lt;</span><span style="color:#111">IUserService</span><span style="color:#111">,</span> <span style="color:#111">UserService</span><span style="color:#111">&gt;();</span>
+</span></span></code></pre></div><h3 id="adding-our-middleware-to-use-jwt-httponly-cookie">Adding our Middleware to use JWT HttpOnly Cookie</h3>
 <p>It&rsquo;s really bad form to store our JWT in local storage. Where possible, we want to make use of HttpOnly cookies which are more secure. To make our controllers use the HttpOnly cookie we need to place a middleware in our <code>Startup</code>:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">Use</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">(</span><span style="color:#111">context</span><span style="color:#111">,</span> <span style="color:#111">next</span><span style="color:#111">)</span> <span style="color:#111">=&gt;</span>
-<span style="color:#111">{</span>
-    <span style="color:#00a8c8">var</span> <span style="color:#111">token</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Request</span><span style="color:#111">.</span><span style="color:#111">Cookies</span><span style="color:#111">[</span><span style="color:#d88200">&#34;JWT&#34;</span><span style="color:#111">];</span>
-
-    <span style="color:#00a8c8">if</span> <span style="color:#111">(!</span><span style="color:#00a8c8">string</span><span style="color:#111">.</span><span style="color:#111">IsNullOrEmpty</span><span style="color:#111">(</span><span style="color:#111">token</span><span style="color:#111">))</span>
-        <span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Request</span><span style="color:#111">.</span><span style="color:#111">Headers</span><span style="color:#111">.</span><span style="color:#111">Add</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Authorization&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;Bearer &#34;</span> <span style="color:#111">+</span> <span style="color:#111">token</span><span style="color:#111">);</span>
-
-    <span style="color:#00a8c8">await</span> <span style="color:#111">next</span><span style="color:#111">();</span>
-<span style="color:#111">});</span>
-</code></pre></div><h3 id="final-touches">Final Touches</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">Use</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">(</span><span style="color:#111">context</span><span style="color:#111">,</span> <span style="color:#111">next</span><span style="color:#111">)</span> <span style="color:#111">=&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">var</span> <span style="color:#111">token</span> <span style="color:#111">=</span> <span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Request</span><span style="color:#111">.</span><span style="color:#111">Cookies</span><span style="color:#111">[</span><span style="color:#d88200">&#34;JWT&#34;</span><span style="color:#111">];</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">if</span> <span style="color:#111">(!</span><span style="color:#00a8c8">string</span><span style="color:#111">.</span><span style="color:#111">IsNullOrEmpty</span><span style="color:#111">(</span><span style="color:#111">token</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">context</span><span style="color:#111">.</span><span style="color:#111">Request</span><span style="color:#111">.</span><span style="color:#111">Headers</span><span style="color:#111">.</span><span style="color:#111">Add</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Authorization&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;Bearer &#34;</span> <span style="color:#111">+</span> <span style="color:#111">token</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#111">next</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><h3 id="final-touches">Final Touches</h3>
 <p>Adjust your <code>Configure(IApplicationBuilder app, IWebHostEnvironment env)</code> with the following additions:</p>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">UseAuthentication</span><span style="color:#111">();</span>
-<span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">UseAuthorization</span><span style="color:#111">();</span>
-</code></pre></div><h3 id="requiring-authorization-for-your-controllers">Requiring Authorization for your Controllers</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">UseAuthentication</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">app</span><span style="color:#111">.</span><span style="color:#111">UseAuthorization</span><span style="color:#111">();</span>
+</span></span></code></pre></div><h3 id="requiring-authorization-for-your-controllers">Requiring Authorization for your Controllers</h3>
 <p>You can now specify <code>[Authorize]</code> at the top of your controller definitions to require a JWT token. If you want to allow anonymous access to a route, you can specify the <code>[AllowAnonymous]</code> decorator for the specific route.</p>
 <h2 id="closing-thoughts">Closing Thoughts</h2>
 <p>Implementing your own alternative to <code>Identity</code> is not overly cumbersome - it can be done quite quickly and effectively as above.</p>

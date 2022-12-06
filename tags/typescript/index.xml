@@ -32,8 +32,8 @@ ReactJS comes prepackaged with its own way to manage state locally within a comp
       <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mrzk.io/posts/using-fetch-over-axios-in-reactjs-applications/</guid>
-      <description>For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&#39; Fetch. My rationale for making this switch was:
- Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.</description>
+      <description>For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&amp;rsquo; Fetch. My rationale for making this switch was:
+Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.</description>
     </item>
     
   </channel>
