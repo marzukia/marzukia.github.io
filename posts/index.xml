@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Andryo Marzuki</title>
+    <link>https://mrzk.io/posts/</link>
+    <description>Recent content in Posts on Andryo Marzuki</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mrzk.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Fond &#39;Good Riddance&#39; to Cryptocurrency</title>
+      <link>https://mrzk.io/posts/good-riddance-cryptocurrency/</link>
+      <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/good-riddance-cryptocurrency/</guid>
+      <description>&lt;p&gt;The catastrophic unravelling of cryptocurrency over the last year has been a sight to behold over the previous year. The perfect storm of FOMO, greed, a deafening lack of regulation and continuous and constant predatory behaviour (and people) has taken a novel concept into a &amp;rsquo;too big to fail&amp;rsquo; zero-sum game which is now starting to fail.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Vaccinations Matter (aka Why Anti-Vaxxers Should Really Reconsider)</title>
+      <link>https://mrzk.io/posts/vaccinations-matter/</link>
+      <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/vaccinations-matter/</guid>
+      <description>&lt;p&gt;Few things frustrate me more than seeing anti-lockdown protestors, anti-vaxxers, or those who believe that vaccines somehow infringe upon their personal freedoms. The value of vaccination should be self-evident to anyone with even a shred of common sense.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Making a React Blog and Why You Shouldn&#39;t (They Suck)</title>
+      <link>https://mrzk.io/posts/react-blog-and-regret/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/react-blog-and-regret/</guid>
+      <description>&lt;p&gt;The biggest strength of a static pages blog is that it&amp;rsquo;s all pre-rendered; your website will load lightning-quick and give you great SEO; however, it becomes a massive chore when you attempt to integrate external projects.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>My First Custom Keyboard - Learnings &amp; Advice to Newbies</title>
+      <link>https://mrzk.io/posts/first-custom-keyboard/</link>
+      <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/first-custom-keyboard/</guid>
+      <description>&lt;p&gt;When Auckland went into lock-down in August 2021, I decided to get myself a custom keyboard after being suckered in by various videos by &lt;a href=&#34;https://www.youtube.com/channel/UCFtOX-21N1earf-K58C7HjQ&#34; target=&#34;_blank&#34; rel=&#34;noreferrer&#34;&gt;Glarses&lt;/a&gt; and &lt;a href=&#34;https://www.youtube.com/channel/UCXlDgfWY2JbsYEam2m68Hyw&#34; target=&#34;_blank&#34; rel=&#34;noreferrer&#34;&gt;Hipyo Tech&lt;/a&gt;. I spend so much time at my computer for work and personal projects I thought it&amp;rsquo;d be a worthwhile endeavour to make something I could enjoy 12+ hours a day.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Collectable Video Games &amp; Market Manipulation</title>
+      <link>https://mrzk.io/posts/collectable-video-games-market-manipulation/</link>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/collectable-video-games-market-manipulation/</guid>
+      <description>&lt;p&gt;It&amp;rsquo;s not often that three of my interests mash intersect together, in this case, my love of video games, data and technology. So you can imagine my excitement when I discovered a scandal in the making currently brewing in the collectable gaming world. Two significant players are colluding to inflate prices, causing a bubble rapidly.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Breaking Down the 2020 Elections</title>
+      <link>https://mrzk.io/posts/election-results-advanced-analytics/</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/election-results-advanced-analytics/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ll be the first to admit that I&amp;rsquo;m not the greatest fan of politics, in a typical scenario I&amp;rsquo;d avoid talking about it like the plague. However, as the elections have come and gone, it&amp;rsquo;d be sacrilege for me to pretend the goldmine of electoral data now available did not exist. In this case, my love for all things data outweighs my disdain for politics. So I thought, why not make it fun?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Diving Deeper Into New Zealand&#39;s Official Recession</title>
+      <link>https://mrzk.io/posts/nz-negative-growth-unbiased-analysis/</link>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/nz-negative-growth-unbiased-analysis/</guid>
+      <description>&lt;p&gt;New Zealand has officially entered into a recession after 11 years following two consecutive periods of negative GDP growth. This last time New Zealand was in a recession was in 2008 due to the global financial crisis. Given the current circumstances, it&amp;rsquo;s no surprise that this has occurred.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Mapping an Undocumented API Easily With Python</title>
+      <link>https://mrzk.io/posts/mapping-an-undocumented-api/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/mapping-an-undocumented-api/</guid>
+      <description>&lt;p&gt;I was working on an NBA related project the other week and I had decided I wanted to create my own API wrapper (for fun) as part of the project. The primary source of data I was looking to use was the &lt;a href=&#34;stats.nba.com&#34;&gt;stats.nba.com&lt;/a&gt; API, our biggest challenge in using this endpoint is the fact they do not want to use it.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How Well Has New Zealand Handled COVID-19?</title>
+      <link>https://mrzk.io/posts/nz-usa-covid19/</link>
+      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/nz-usa-covid19/</guid>
+      <description>&lt;p&gt;At the beginning of March, I made the unfortunate decision of investing into two exchange-traded funds (ETFs) which were SmartShare&amp;rsquo;s FNZ (NZ Top 50) and USF (Fortune 500). It was unfortunate because the world decided to set itself on fire due to the COVID-19 pandemic.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -4,26 +4,16 @@
     <title>Python on Andryo Marzuki</title>
     <link>https://mrzk.io/tags/python/</link>
     <description>Recent content in Python on Andryo Marzuki</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-US</language>
-    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mrzk.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mapping an Undocumented API Easily With Python</title>
-      <link>https://mrzk.io/posts/mapping-an-undocumented-api-easily-with-python/</link>
+      <link>https://mrzk.io/posts/mapping-an-undocumented-api/</link>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/posts/mapping-an-undocumented-api-easily-with-python/</guid>
-      <description>I was working on an NBA related project the other week and I had decided I wanted to create my own API wrapper (for fun) as part of the project.</description>
+      <guid>https://mrzk.io/posts/mapping-an-undocumented-api/</guid>
+      <description>&lt;p&gt;I was working on an NBA related project the other week and I had decided I wanted to create my own API wrapper (for fun) as part of the project. The primary source of data I was looking to use was the &lt;a href=&#34;stats.nba.com&#34;&gt;stats.nba.com&lt;/a&gt; API, our biggest challenge in using this endpoint is the fact they do not want to use it.&lt;/p&gt;</description>
     </item>
-    
-    <item>
-      <title>Writing a Cellular Automata in Python</title>
-      <link>https://mrzk.io/posts/writing-a-cellular-automata-in-python/</link>
-      <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/posts/writing-a-cellular-automata-in-python/</guid>
-      <description>When I started learning and using Python 2 years ago, I had no real previous experience of coding under my belt. I had done some small projects in HTML and PHP a very longtime ago, but that experience was certainly no longer helpful.</description>
-    </item>
-    
   </channel>
 </rss>

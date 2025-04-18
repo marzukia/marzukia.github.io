@@ -4,197 +4,72 @@
     <title>Tags on Andryo Marzuki</title>
     <link>https://mrzk.io/tags/</link>
     <description>Recent content in Tags on Andryo Marzuki</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-US</language>
-    <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mrzk.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cryptocurrency</title>
       <link>https://mrzk.io/tags/cryptocurrency/</link>
       <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/cryptocurrency/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>Opinion</title>
-      <link>https://mrzk.io/tags/opinion/</link>
-      <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/opinion/</guid>
-      <description></description>
-    </item>
-    
     <item>
       <title>COVID-19</title>
       <link>https://mrzk.io/tags/covid-19/</link>
       <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/covid-19/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Data Analysis</title>
       <link>https://mrzk.io/tags/data-analysis/</link>
       <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/data-analysis/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>React</title>
       <link>https://mrzk.io/tags/react/</link>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/react/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>TypeScript</title>
       <link>https://mrzk.io/tags/typescript/</link>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/typescript/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>DIY</title>
       <link>https://mrzk.io/tags/diy/</link>
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/diy/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Mechanical Keyboard</title>
       <link>https://mrzk.io/tags/mechanical-keyboard/</link>
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/mechanical-keyboard/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Geospatial</title>
       <link>https://mrzk.io/tags/geospatial/</link>
-      <pubDate>Tue, 10 Nov 2020 00:00:00 +0000</pubDate>
-      
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
       <guid>https://mrzk.io/tags/geospatial/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Python</title>
       <link>https://mrzk.io/tags/python/</link>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://mrzk.io/tags/python/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>ReactJS</title>
-      <link>https://mrzk.io/tags/reactjs/</link>
-      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/reactjs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Redux</title>
-      <link>https://mrzk.io/tags/redux/</link>
-      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/redux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CSharp</title>
-      <link>https://mrzk.io/tags/csharp/</link>
-      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/csharp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Genetic Algorithm</title>
-      <link>https://mrzk.io/tags/genetic-algorithm/</link>
-      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/genetic-algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ASP.NET Core</title>
-      <link>https://mrzk.io/tags/asp.net-core/</link>
-      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/asp.net-core/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>xUnit</title>
-      <link>https://mrzk.io/tags/xunit/</link>
-      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/xunit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Authentication</title>
-      <link>https://mrzk.io/tags/authentication/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/authentication/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JWT</title>
-      <link>https://mrzk.io/tags/jwt/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/jwt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Fedora</title>
-      <link>https://mrzk.io/tags/fedora/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/fedora/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux Gaming</title>
-      <link>https://mrzk.io/tags/linux-gaming/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/linux-gaming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>VFIO</title>
-      <link>https://mrzk.io/tags/vfio/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/tags/vfio/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>

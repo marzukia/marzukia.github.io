@@ -4,37 +4,16 @@
     <title>TypeScript on Andryo Marzuki</title>
     <link>https://mrzk.io/tags/typescript/</link>
     <description>Recent content in TypeScript on Andryo Marzuki</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-US</language>
-    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://mrzk.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mrzk.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Making a React Blog and Why You Shouldn&#39;t (They Suck)</title>
-      <link>https://mrzk.io/posts/making-a-react-blog-and-why-you-shouldnt-they-suck/</link>
+      <link>https://mrzk.io/posts/react-blog-and-regret/</link>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/posts/making-a-react-blog-and-why-you-shouldnt-they-suck/</guid>
-      <description>A couple of months ago, I thought it would be a fun project to create my own CMS/blog to replace the static pages (Hugo) blog I currently had deployed on my GitHub Pages.</description>
+      <guid>https://mrzk.io/posts/react-blog-and-regret/</guid>
+      <description>&lt;p&gt;The biggest strength of a static pages blog is that it&amp;rsquo;s all pre-rendered; your website will load lightning-quick and give you great SEO; however, it becomes a massive chore when you attempt to integrate external projects.&lt;/p&gt;</description>
     </item>
-    
-    <item>
-      <title>React State Management With Redux (and More)</title>
-      <link>https://mrzk.io/posts/react-state-management-with-redux-and-more/</link>
-      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/posts/react-state-management-with-redux-and-more/</guid>
-      <description>ReactJS is an awesome library to use for frontends. It&amp;rsquo;s super fast to use when you want to get a really interactive and intuitive application up and running.
-ReactJS comes prepackaged with its own way to manage state locally within a component.</description>
-    </item>
-    
-    <item>
-      <title>Using Fetch over Axios in ReactJS Applications</title>
-      <link>https://mrzk.io/posts/using-fetch-over-axios-in-reactjs-applications/</link>
-      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mrzk.io/posts/using-fetch-over-axios-in-reactjs-applications/</guid>
-      <description>For my last few projects I&amp;rsquo;ve made the switch from Axios to plain ol&amp;rsquo; Fetch. My rationale for making this switch was:
-Axios is a third party library. Where possible I would like to reduce usage of third party libraries; and Fetch is a perfectly capable library for the purposes of building my resuable API class with.</description>
-    </item>
-    
   </channel>
 </rss>

@@ -1,0 +1,851 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFFFF" />
+  
+  <title>Breaking Down the 2020 Elections &middot; Andryo Marzuki</title>
+    <meta name="title" content="Breaking Down the 2020 Elections &middot; Andryo Marzuki" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.8a082f81b27f3cb2ee528df0b0bdc39787034cf2cc34d4669fbc9977c929023c.js"
+    integrity="sha256-iggvgbJ/PLLuUo3wsL3Dl4cDTPLMNNRmn7yZd8kpAjw="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.3294f5a82d3f0fd6cf4321e243436df4ed0809fa32143c6e76a68f86ba0d1754.css"
+    integrity="sha256-MpT1qC0/D9bPQyHiQ0Nt9O0ICfoyFDxudqaPhroNF1Q="
+  />
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.657cb571a9dba2d256ea32b6b642035475ce1495cb1cb41f9d4551719724aade.js"
+      integrity="sha256-ZXy1canbotJW6jK2tkIDVHXOFJXLHLQfnUVRcZckqt4="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      I&#39;ll be the first to admit that I&#39;m not the greatest fan of politics, in a typical scenario I&#39;d avoid talking about it like the plague. However, as the elections have come and gone, it&#39;d be sacrilege for me to pretend the goldmine of electoral data now available did not exist. In this case, my love for all things data outweighs my disdain for politics.
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://mrzk.io/posts/election-results-advanced-analytics/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://mrzk.io/posts/election-results-advanced-analytics/">
+  <meta property="og:site_name" content="Andryo Marzuki">
+  <meta property="og:title" content="Breaking Down the 2020 Elections">
+  <meta property="og:description" content="I&#39;ll be the first to admit that I&#39;m not the greatest fan of politics, in a typical scenario I&#39;d avoid talking about it like the plague. However, as the elections have come and gone, it&#39;d be sacrilege for me to pretend the goldmine of electoral data now available did not exist. In this case, my love for all things data outweighs my disdain for politics.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-10-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-10-21T00:00:00+00:00">
+    <meta property="article:tag" content="Data Analysis">
+    <meta property="article:tag" content="Geospatial">
+    <meta property="og:image" content="https://mrzk.io/posts/election-results-advanced-analytics/cover.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://mrzk.io/posts/election-results-advanced-analytics/cover.png">
+  <meta name="twitter:title" content="Breaking Down the 2020 Elections">
+  <meta name="twitter:description" content="I&#39;ll be the first to admit that I&#39;m not the greatest fan of politics, in a typical scenario I&#39;d avoid talking about it like the plague. However, as the elections have come and gone, it&#39;d be sacrilege for me to pretend the goldmine of electoral data now available did not exist. In this case, my love for all things data outweighs my disdain for politics.">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Breaking Down the 2020 Elections",
+    "headline": "Breaking Down the 2020 Elections",
+    "description": "I\u0027ll be the first to admit that I\u0027m not the greatest fan of politics, in a typical scenario I\u0027d avoid talking about it like the plague. However, as the elections have come and gone, it\u0027d be sacrilege for me to pretend the goldmine of electoral data now available did not exist. In this case, my love for all things data outweighs my disdain for politics.",
+    "abstract": "\u003cp\u003eI\u0026rsquo;ll be the first to admit that I\u0026rsquo;m not the greatest fan of politics, in a typical scenario I\u0026rsquo;d avoid talking about it like the plague. However, as the elections have come and gone, it\u0026rsquo;d be sacrilege for me to pretend the goldmine of electoral data now available did not exist. In this case, my love for all things data outweighs my disdain for politics. So I thought, why not make it fun?\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/mrzk.io\/posts\/election-results-advanced-analytics\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Andryo Marzuki"
+    },
+    "copyrightYear": "2020",
+    "dateCreated": "2020-10-21T00:00:00\u002b00:00",
+    "datePublished": "2020-10-21T00:00:00\u002b00:00",
+    
+    "dateModified": "2020-10-21T00:00:00\u002b00:00",
+    
+    "keywords": ["Data Analysis","Geospatial"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1753"
+  }
+  </script>
+    
+    <script type="application/ld+json">
+    {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "https://mrzk.io/",
+       "name": "Andryo Marzuki",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://mrzk.io/posts/",
+       "name": "Posts",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "name": "Breaking Down the 2020 Elections",
+       "position": 3
+     }
+   ]
+ }
+  </script>
+
+  
+  <meta name="author" content="Andryo Marzuki" />
+  
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="flex flex-row items-center">
+      
+    <a href="/" class="mr-2">
+      
+      <img
+        src="/img/logo.png"
+        width="144"
+        height="25"
+        class="max-h-[10rem] max-w-[10rem] object-scale-down object-left
+        "
+        alt="Andryo Marzuki"
+      />
+    </a>
+
+    </div>
+    
+    
+      <ul class="flex list-none flex-col text-end sm:flex-row">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/posts/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Blog</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Topics</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="https://github.com/marzukia"
+                  title=""
+                  target="_blank"
+                  >
+                    <span
+                      class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                    ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="https://www.linkedin.com/in/andryomarzuki/"
+                  title=""
+                  target="_blank"
+                  >
+                    <span
+                      class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                    ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></span></a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                
+                
+                  <button
+                    id="search-button-1"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+          
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Breaking Down the 2020 Elections
+      </h1>
+      
+        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2020-10-21 00:00:00 &#43;0000 UTC">21 October 2020</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+        <div class="prose">
+          
+          
+          
+          
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mb-6 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="/posts/election-results-advanced-analytics/cover_hu_6c60466077f9e5aa.webp 330w,/posts/election-results-advanced-analytics/cover_hu_cd2e5485c8acd30.webp 660w
+            
+              ,/posts/election-results-advanced-analytics/cover_hu_33f0800db9a7018.webp 1024w
+            
+            
+              ,/posts/election-results-advanced-analytics/cover_hu_ee5b45a194f784b1.webp 1320w
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="1536"
+        height="1024"
+        class="mb-6 rounded-md"
+        
+        
+        
+          src="/posts/election-results-advanced-analytics/cover_hu_5879292ffdf24b53.png"
+          srcset="/posts/election-results-advanced-analytics/cover_hu_ff02c2f5eda2954.png 330w,/posts/election-results-advanced-analytics/cover_hu_5879292ffdf24b53.png 660w
+          
+            ,/posts/election-results-advanced-analytics/cover_hu_833d4ea97adc1835.png 1024w
+          
+          
+            ,/posts/election-results-advanced-analytics/cover_hu_88e1ccb3af6f8442.png 1320w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+          
+        </div>
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 lg:sticky lg:top-10 print:hidden">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div class="border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#donation-utilisation-efficiency">Donation Utilisation Efficiency</a></li>
+    <li><a href="#voter-age-demographics">Voter Age Demographics</a></li>
+    <li><a href="#voter-housing-demographics">Voter Housing Demographics</a></li>
+    <li><a href="#power-rankings">Power Rankings</a>
+      <ul>
+        <li><a href="#1-labour">1. Labour</a></li>
+        <li><a href="#2-national">2. National</a></li>
+        <li><a href="#3-greens">3. Greens</a></li>
+        <li><a href="#4-act">4. ACT</a></li>
+      </ul>
+    </li>
+    <li><a href="#methodology--assumptions">Methodology &amp; Assumptions</a>
+      <ul>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#assumptions--limitations">Assumptions &amp; Limitations</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <p>I&rsquo;ll be the first to admit that I&rsquo;m not the greatest fan of politics, in a typical scenario I&rsquo;d avoid talking about it like the plague. However, as the elections have come and gone, it&rsquo;d be sacrilege for me to pretend the goldmine of electoral data now available did not exist. In this case, my love for all things data outweighs my disdain for politics. So I thought, why not make it fun?</p>
+<p>In Basketball, there is a litany of metrics which can give a different perspective on how good a player is. There are standard metrics like Points per Game, or Assists per Game which give a pretty obvious indicator of a player&rsquo;s contribution to a game, and more detailed measurements such as &lsquo;Offensive Rating&rsquo; which are far more complex. For example, &lsquo;Offensive Rating&rsquo; attempts to paint an overall picture of how well a player plays offensively by not only his points contribution but things like how well he passes or how well he sets screens for a play.</p>
+<p>So in the theme of treating the elections like a sport, our &lsquo;plain jane&rsquo; metrics would be votes received and seats gained. What about our complex or advanced metrics? What can we do to get a better idea of the &lsquo;full picture&rsquo;?</p>
+<blockquote>
+<p><strong>Note</strong>: Please keep in mind that there are quite a few assumptions which have been made, as well as limitations of the data itself. For my methodology, approach and commentary on decisions around the underlying data, please see the end of this article.</p></blockquote>
+<h2 id="donation-utilisation-efficiency" class="relative group">Donation Utilisation Efficiency <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#donation-utilisation-efficiency" aria-label="Anchor">#</a></span></h2><p>Measures which explicitly look at the return on hard-earned dollars are the norm in almost every industry; it&rsquo;s natural to want to understand what you&rsquo;re getting out of spending your hard-earned dollar(s). For a political party, the equivalent of money going in would be donations received from the government and their private supporters.</p>
+<blockquote>
+<p><strong>Note</strong>: Political parties have to disclose what they receive in donations each year. Unfortunately, at the time of writing this data was not available for 2020. The figures discussed in this section are the sum of contributions received by each party in 2018 and 2019.</p></blockquote>
+<p>As a banker, I love my acronyms. Therefore I have devised a new one&rsquo; Donation Utilisation Efficiency&rsquo;, or DUE for short. DUE looks at the ratio of donations received per party, and the overall results achieved by the said party; this metric looks at both seats and votes acquired.</p>
+<p>This metric intends to do the following:</p>
+<ul>
+<li>Act as my proxy to quantify the overall &lsquo;brand power&rsquo; of each party (votes)</li>
+<li>Describe how effectively they&rsquo;ve translated party donations into actual power (seats)</li>
+</ul>
+<img src="votes_seats_party.png" width="100%" alt="votes_seats_party" />
+<p>The graph is a summary of the main parties, and how well they&rsquo;ve translated their donation funds into both votes and seats.</p>
+<h2 id="voter-age-demographics" class="relative group">Voter Age Demographics <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#voter-age-demographics" aria-label="Anchor">#</a></span></h2><p>Age plays a significant factor on who you would likely vote for; this is simply because your generation will dictate things like your phase in life, asset ownership or general financial security.</p>
+<img src="age_party.png" width="100%" alt="age_party" />
+<p>There wasn&rsquo;t much that I wasn&rsquo;t expecting when seeing the results, key take-aways being:</p>
+<ul>
+<li>The left-leaning parties (Green and Labour) have far greater representation for the younger generations (Gen X and Millenials).</li>
+<li>Conversely, the right-leaning parties, have far greater representation of the older generation.</li>
+</ul>
+<h2 id="voter-housing-demographics" class="relative group">Voter Housing Demographics <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#voter-housing-demographics" aria-label="Anchor">#</a></span></h2><p>The housing crisis in New Zealand is one of the most significant issues that New Zealand currently faces, so naturally, I wanted to make a graph on that too.</p>
+<img src="housing_party.png" width="100%" alt="housing_party" />
+<p>There are some interesting that instantly pop out to me when I view this data:</p>
+<ul>
+<li>Labor has a massive proportion of their voter base that do not own homes; I was incredibly surprised by this given that Labor&rsquo;s position on the matter is &lsquo;keep house prices as they are&rsquo;.</li>
+<li>The majority of National and ACT supports own their own homes, so it feels intuitive that the housing crisis would not be as front of mind as it would be for Green/Labour supporters.</li>
+</ul>
+<h2 id="power-rankings" class="relative group">Power Rankings <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#power-rankings" aria-label="Anchor">#</a></span></h2><p>In the next few sections, I&rsquo;ll attempt a &lsquo;power ranking&rsquo; of sorts of the four political parties noted.</p>
+<h3 id="1-labour" class="relative group">1. Labour <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#1-labour" aria-label="Anchor">#</a></span></h3><p>It&rsquo;s not an easy feat to have a single majority in an MMP government, but Labour has done it. Regardless of how you view Labour&rsquo;s policy, there&rsquo;s no denying that Jacinda Ardern has been an excellent crisis leader over the last three years handling the significant incidents like the Christchurch Mosque Shootings, White Island Eruption, and now the COVID-19 pandemic very well.</p>
+<p>I&rsquo;d say that Jacinda is more or less Labour at this point, and the DUE reflects that. The cost for Labour to influence voters and convert their relatively lesser resources into seats is significantly less than their competition.</p>
+<p>Labour has some significant challenges in their near future with some of the key ones being:</p>
+<ul>
+<li>Handling of the COVID19 recovery both economically and socially. Would be continued and prolonged lockdowns erode the public goodwill in the Labour&rsquo; brand&rsquo;?</li>
+<li>Opposition from both the right and left will likely cause additional pressure Labour did not experience in their last term.</li>
+<li>Actually dealing with the housing crisis. 80% of their voters do not own their own home; it&rsquo;s a severe no brainer to deal with this if they want to retain their voting base.</li>
+</ul>
+<p>Labour&rsquo;s position is more or less &lsquo;keep the status quo&rsquo; - maybe that&rsquo;s just what New Zealanders want?</p>
+<h3 id="2-national" class="relative group">2. National <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#2-national" aria-label="Anchor">#</a></span></h3><p>It couldn&rsquo;t have been easy to be the opposition to a party which had recently successfully contained a pandemic. The constant string of internal bickering, leaks and controversies also did not help.</p>
+<p>Their perfect storm of missteps and misfortune has predictable results:</p>
+<ul>
+<li>Right-leaning national supports fled in droves to the likes of ACT and New Conservative.</li>
+<li>In an attempt to recover these voters, National shifted further right in their policies around tax breaks, gun control, and border control causing their more centrist supporters to shift inwards towards Labour.</li>
+<li>This resulted in National seeing a massive decline losing 21 seats between elections, long-held seats such as Ilam were lost to Labour.</li>
+<li>Despite only receiving 26% of votes, National by far has the most significant amount of donations with nearly double the next highest party.</li>
+<li>Compared to their greatest rival, National&rsquo;s DUE was three times greater than Labour&rsquo;s indicating it was far more challenging for them to influence voters to vote for them or rather voters were already more inclined to vote for Labour over National.ye</li>
+</ul>
+<p>In summary, National did bad - but I didn&rsquo;t have to tell you that did I?</p>
+<h3 id="3-greens" class="relative group">3. Greens <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#3-greens" aria-label="Anchor">#</a></span></h3><p>I&rsquo;ve placed Greens ahead of ACT as I feel that Labour would be much more willing to deal with the Greens due to their closer ideologies.</p>
+<p>Greens see themselves with more seats this time around. However, they will likely no longer be part of the acting government for this electorate. Instead, I predict their role this time around will be as the opposition voice for the left.</p>
+<p>They&rsquo;ve had their share of missteps (ahem, James Shaw). Still, they&rsquo;ve also done some notable things such as negotiating the Cannabis Referendum as part of their confidence and supply agreement, and introduction of the Zero Carbon Bill.</p>
+<p>Anecdotally, I&rsquo;ve heard that Green supporters tend to be more socially conscious younger people with decent incomes. The donations received by Greens reflect this, receiving nearly as much as Labour with a tenth of their votes. However, this doesn&rsquo;t necessarily translate to an increase in votes or seats.</p>
+<p>Their DUE of $5.23 per vote makes sense too. The Greens more social leaning policies such as their Wealth Tax, or previously attempted Capital Gains Tax means that their voter base is a lot more defined rather than the more centrist parties such as National or Labor. It would cost them more to convince those voters who are to the right of them to vote for Green.</p>
+<p>Looking at the demographics of Green supporters, their base is overwhelmingly concentrated in the younger generations (Gen Z, Millenials) and are likely not to own their own home. I expect that Greens will be a significant voice in pushing for change around the housing crisis.</p>
+<h3 id="4-act" class="relative group">4. ACT <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#4-act" aria-label="Anchor">#</a></span></h3><p>Wow! ACT came back with a vengeance coming in with nine extra seats than they had the previous elections. I am genuinely quite impressed at how effectively ACT has been in stealing votes from National.</p>
+<p>Having only one seat in parliament last year, they managed to accomplish something significant - introducing the End of Life Choice Act.</p>
+<p>ACT has a similar scenario to the Greens where their dedicated voter base is already defined. However, unlike the Greens, the majority of their voters are older and own their own homes. Interestingly enough, this wealthier voter base did not translate to an increase in how much donations they received. But they did better than the likes of Greens who had double the amount of donations.</p>
+<p>Maybe it&rsquo;s easier to convince &lsquo;gun enthusiasts&rsquo; to vote for them where there is no other party who are realistically offering gun law repeals.</p>
+<p>I&rsquo;m interested to see how ACT&rsquo;s presence in our political environment will impact National in the long term. Will National continue to shift itself right to try to recapture these lost voters?</p>
+<h2 id="methodology--assumptions" class="relative group">Methodology &amp; Assumptions <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#methodology--assumptions" aria-label="Anchor">#</a></span></h2><p>All sources are openly available from Stats New Zealand. If you want to do something similar, I highly encourage you to do so.</p>
+<h3 id="methodology" class="relative group">Methodology <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#methodology" aria-label="Anchor">#</a></span></h3><ul>
+<li>Meshblocks geometries were geometrically unioned by it&rsquo;s &lsquo;Statistical Area 2&rsquo; (SA2) grouping.</li>
+<li>Preliminary voting locations were geolocated and then intersected with the prepared geometry above.</li>
+<li>Total votes were summed using party name, and SA2 area name.</li>
+<li>The top ten SA2 areas for each major party was chosen as a representative sample for its voter base. The metric chosen was the total amount of party votes as a percentage of total SA2 votes.</li>
+</ul>
+<img src="elections-map-gis.png" width="100%" alt="elections-map-gis" />
+<p>The above excerpt shows this visually:</p>
+<ul>
+<li>Red is the unioned meshblock geographies grouped by SA2 area</li>
+<li>Blue represents the underlying meshblocks</li>
+<li>Yellow represents the geolocated location of a voting station</li>
+</ul>
+<h3 id="assumptions--limitations" class="relative group">Assumptions &amp; Limitations <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#assumptions--limitations" aria-label="Anchor">#</a></span></h3><ul>
+<li>Preliminary votes have been used, this is subject to change as numbers are finalised.</li>
+<li>I&rsquo;ve excluded postal votes, as well as &rsquo;non-ordinary&rsquo; voting places such as rest homes or prisons. I excluded these as I was not able to locate these votes to an SA2 area accurately.</li>
+<li>I&rsquo;ve assumed that the voting stations represent the SA2 area which they overlap. Unfortunately, there are cases which SA2 areas do not entirely overlap Electorate areas, meaning some places would be split. To avoid any complications or misrepresentations which may arise from this, I opted to keep it simple.</li>
+</ul>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="635"
+        height="635"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Andryo Marzuki"
+        loading="lazy" decoding="async"
+        
+          src="/img/author.png"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Andryo Marzuki
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">I&rsquo;m Andryo — part-time climate risk lead, full-time overthinker. I spend my days turning obscure regulations and geospatial data into mildly functional platforms, and my nights wondering if I can automate myself out of a job. I’ve accidentally built a few award-nominated tools, which sounds more impressive than it felt at the time. This blog is where I document my finest procrastinations, half-baked insights, and the ongoing struggle to align ambition with a dangerously short attention span.</div>
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+      
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://mrzk.io/posts/election-results-advanced-analytics/&amp;resubmit=true&amp;title=Breaking%20Down%20the%202020%20Elections"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://mrzk.io/posts/election-results-advanced-analytics/&amp;title=Breaking%20Down%20the%202020%20Elections"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://mrzk.io/posts/election-results-advanced-analytics/&amp;subject=Breaking%20Down%20the%202020%20Elections"
+          title="Send via email"
+          aria-label="Send via email"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+      
+    
+  </section>
+
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/posts/nz-negative-growth-unbiased-analysis/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Diving Deeper Into New Zealand's Official Recession</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-09-17 00:00:00 &#43;0000 UTC">17 September 2020</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/posts/collectable-video-games-market-manipulation/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Collectable Video Games & Market Manipulation</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-09-11 00:00:00 &#43;0000 UTC">11 September 2021</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[-2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+      </main>
+      
+        <div
+          class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12"
+          id="to-top"
+          hidden="true"
+        >
+          <a
+            href="#the-top"
+            class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+          >
+            &uarr;
+          </a>
+        </div>
+      <footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            &copy;
+            2025
+            Andryo Marzuki
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+        <div
+          class="me-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        >
+          <button id="appearance-switcher-0" type="button" aria-label="appearance switcher">
+            <div
+              class="flex h-12 w-12 items-center justify-center dark:hidden"
+              title="Switch to dark appearance"
+            >
+              <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+            </div>
+            <div
+              class="hidden h-12 w-12 items-center justify-center dark:flex"
+              title="Switch to light appearance"
+            >
+              <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+            </div>
+          </button>
+        </div>
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://mrzk.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>
