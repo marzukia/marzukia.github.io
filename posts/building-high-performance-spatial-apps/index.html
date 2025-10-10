@@ -1,0 +1,1413 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFFFF" />
+  
+  <title>Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging &middot; Andryo Marzuki - Net Zero Productivity by 2050</title>
+    <meta name="title" content="Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging &middot; Andryo Marzuki - Net Zero Productivity by 2050" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.8a082f81b27f3cb2ee528df0b0bdc39787034cf2cc34d4669fbc9977c929023c.js"
+    integrity="sha256-iggvgbJ/PLLuUo3wsL3Dl4cDTPLMNNRmn7yZd8kpAjw="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.41c20fe16aa51bedd55b80b70b1a02146f3aa0a1794263ebe249470ccc54eb35.css"
+    integrity="sha256-QcIP4WqlG&#43;3VW4C3CxoCFG86oKF5QmPr4klHDMxU6zU="
+  />
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.657cb571a9dba2d256ea32b6b642035475ce1495cb1cb41f9d4551719724aade.js"
+      integrity="sha256-ZXy1canbotJW6jK2tkIDVHXOFJXLHLQfnUVRcZckqt4="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      Practical strategies to make GIS apps fast: spatial indexing, ST_Subdivide, partitioning, vector tiles (MVT), caching, and React MapLibre layering with Django/PostGIS.
+    "
+  />
+  <meta name="keywords" content="postgis performance, maplibre vector tiles, mvt tiles postgis, spatial indexing gist sp-gist, st_subdivide postgis, django gis, react maplibre, vector tiles caching, partitioned tables postgresql, gis query optimization" />
+  
+  
+  <link rel="canonical" href="https://mrzk.io/posts/building-high-performance-spatial-apps/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://mrzk.io/posts/building-high-performance-spatial-apps/">
+  <meta property="og:site_name" content="Andryo Marzuki - Net Zero Productivity by 2050">
+  <meta property="og:title" content="Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging">
+  <meta property="og:description" content="Practical strategies to make GIS apps fast: spatial indexing, ST_Subdivide, partitioning, vector tiles (MVT), caching, and React MapLibre layering with Django/PostGIS.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-09-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-09-28T00:00:00+00:00">
+    <meta property="article:tag" content="GIS">
+    <meta property="article:tag" content="PostGIS">
+    <meta property="article:tag" content="MapLibre">
+    <meta property="article:tag" content="Vector Tiles">
+    <meta property="article:tag" content="MVT">
+    <meta property="article:tag" content="Django">
+    <meta property="og:image" content="https://mrzk.io/posts/building-high-performance-spatial-apps/cover.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://mrzk.io/posts/building-high-performance-spatial-apps/cover.png">
+  <meta name="twitter:title" content="Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging">
+  <meta name="twitter:description" content="Practical strategies to make GIS apps fast: spatial indexing, ST_Subdivide, partitioning, vector tiles (MVT), caching, and React MapLibre layering with Django/PostGIS.">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging",
+    "headline": "Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging",
+    "description": "Practical strategies to make GIS apps fast: spatial indexing, ST_Subdivide, partitioning, vector tiles (MVT), caching, and React MapLibre layering with Django\/PostGIS.",
+    "abstract": "\u003cp\u003eIf you\u0026rsquo;ve read the title of the post and actually clicked this post I\u0026rsquo;m going to make an assumption that you are already someone who has technical knowledge in this domain, as such, this post will be quite technical and go into some of the most important things I\u0026rsquo;ve learnt over the last eight years.\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/mrzk.io\/posts\/building-high-performance-spatial-apps\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Andryo Marzuki"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-09-28T00:00:00\u002b00:00",
+    "datePublished": "2025-09-28T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-09-28T00:00:00\u002b00:00",
+    
+    "keywords": ["postgis performance","maplibre vector tiles","mvt tiles postgis","spatial indexing gist sp-gist","st_subdivide postgis","django gis","react maplibre","vector tiles caching","partitioned tables postgresql","gis query optimization"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "4166"
+  }
+  </script>
+    
+    <script type="application/ld+json">
+    {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "https://mrzk.io/",
+       "name": "Andryo Marzuki Net Zero Productivity by 2050",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://mrzk.io/posts/",
+       "name": "Posts",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "name": "Performant Spatial Apps With Post Gis 8 Years of Head‑ Banging",
+       "position": 3
+     }
+   ]
+ }
+  </script>
+
+  
+  <meta name="author" content="Andryo Marzuki" />
+  
+  
+  
+
+  
+  
+  
+  
+  <script
+    defer
+    type="text/javascript"
+    src="/js/mermaid.bundle.832624a553672a6ccda17159509c1ec6d0d691d57d975bab3ea0c67d4b5f45e838af68b83e8b06f78aa79c286b60388f54be6e274806fdbdc642a0019161d9e2.js"
+    integrity="sha512-gyYkpVNnKmzNoXFZUJwextDWkdV9l1urPqDGfUtfReg4r2i4PosG94qnnChrYDiPVL5uJ0gG/b3GQqABkWHZ4g=="
+  ></script>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+    <script
+      defer
+      src="https://us.umami.is/script.js"
+      data-website-id="598a7577-6be5-4c96-908b-82f9cc84d4ce"
+    ></script>
+  
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F52W3SZVZ4"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F52W3SZVZ4');
+        }
+      </script>
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+<script defer src="https://umami.marzuki.co/script.js" data-website-id="598a7577-6be5-4c96-908b-82f9cc84d4ce"></script>
+<meta property="og:image" content="/img/ogbanner.png">
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="flex flex-row items-center">
+      
+    <a href="/" class="mr-2">
+      
+      <img
+        src="/img/logo.png"
+        width="144"
+        height="25"
+        class="max-h-[10rem] max-w-[10rem] object-scale-down object-left
+        "
+        alt="Andryo Marzuki - Net Zero Productivity by 2050"
+      />
+    </a>
+
+    </div>
+    
+    
+      <ul class="flex list-none flex-col text-end sm:flex-row">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/posts/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Blog</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Topics</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="https://github.com/marzukia"
+                  title=""
+                  target="_blank"
+                  >
+                    <span
+                      class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                    ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="https://www.linkedin.com/in/andryomarzuki/"
+                  title=""
+                  target="_blank"
+                  >
+                    <span
+                      class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                    ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></span></a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="https://mrzk.io/index.xml"
+                  title=""
+                  target="_blank"
+                  >
+                    <span
+                      class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                    ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M0 64C0 46.3 14.3 32 32 32c229.8 0 416 186.2 416 416c0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96C14.3 96 0 81.7 0 64zM0 416a64 64 0 1 1 128 0A64 64 0 1 1 0 416zM32 160c159.1 0 288 128.9 288 288c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></span></span></a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                
+                
+                  <button
+                    id="search-button-1"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+          
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging
+      </h1>
+      
+        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-09-28 00:00:00 &#43;0000 UTC">28 September 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">20 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+        <div class="prose">
+          
+          
+          
+          
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mb-6 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="/posts/building-high-performance-spatial-apps/cover_hu_cc9b9a3eced5d049.webp 330w,/posts/building-high-performance-spatial-apps/cover_hu_ec9c3ec80fa7d783.webp 660w
+            
+              ,/posts/building-high-performance-spatial-apps/cover_hu_de6550b54c8ec9c.webp 1024w
+            
+            
+              ,/posts/building-high-performance-spatial-apps/cover_hu_1b77d4ab881fc027.webp 1320w
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="1536"
+        height="1024"
+        class="mb-6 rounded-md"
+        
+        
+        
+          src="/posts/building-high-performance-spatial-apps/cover_hu_4b0c6361cb64a0c5.png"
+          srcset="/posts/building-high-performance-spatial-apps/cover_hu_fb0df1a70af629f.png 330w,/posts/building-high-performance-spatial-apps/cover_hu_4b0c6361cb64a0c5.png 660w
+          
+            ,/posts/building-high-performance-spatial-apps/cover_hu_d1e51383879230de.png 1024w
+          
+          
+            ,/posts/building-high-performance-spatial-apps/cover_hu_c5dde7d78e7fdf8e.png 1320w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+          
+        </div>
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 lg:sticky lg:top-10 print:hidden">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div class="border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#spatial-indexing-strategy">Spatial Indexing Strategy</a></li>
+    <li><a href="#geometry-subdivision-for-performance">Geometry Subdivision for Performance</a>
+      <ul>
+        <li><a href="#implementation-approaches">Implementation Approaches</a></li>
+      </ul>
+    </li>
+    <li><a href="#table-partitioning-for-aggregatedlarge-datasets">Table Partitioning for Aggregated/Large Datasets</a></li>
+    <li><a href="#query-optimization-techniques">Query Optimization Techniques</a></li>
+    <li><a href="#vector-tiles-for-high-performance-mapping">Vector Tiles for High-Performance Mapping</a>
+      <ul>
+        <li><a href="#implementation-approaches-1">Implementation Approaches</a></li>
+      </ul>
+    </li>
+    <li><a href="#point-clustering-for-large-datasets">Point Clustering for Large Datasets</a></li>
+    <li><a href="#implementing-response-caching">Implementing Response Caching</a></li>
+    <li><a href="#forcing-react-maplibre-order">Forcing React MapLibre Order</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <p>If you&rsquo;ve read the title of the post and actually clicked this post I&rsquo;m going to make an assumption that you are already someone who has technical knowledge in this domain, as such, this post will be quite technical and go into some of the most important things I&rsquo;ve learnt over the last eight years.</p>
+<p>Modern spatial applications face unique challenges when dealing with large geospatial datasets, real-time mapping interfaces, and complex spatial queries. In other words, it can often be an <em>extreme</em> pain in the ass to get things working smoothly.  In retrospect, I&rsquo;ve spent an embarrassing amount of time wrestling with spatial web applications. What started as a small side-project turned into a career, and finally into what I can only describe as a love-hate relationship with anything involving coordinates and polygons.</p>
+<p>The most frustrating theme I encountered during this journey was just how opaque (or out of date) everything seemed to be. You&rsquo;d think after decades of people building mapping applications, there would be comprehensive guides on how to make them not perform like absolute rubbish. Instead, you get fragments of knowledge scattered across blog posts, Stack Overflow answers, and the occasional conference talk that leaves you with more questions than answers (or worse yet, <em>&ldquo;edit: nvm fixed it&rdquo;</em>).</p>
+<p>The spatial development community seems to have this unspoken agreement that everyone should figure things out the hard way. However, I&rsquo;ve never been one to gatekeep information, so this post will attempt to document everything I wish someone had told me when I first started building spatial applications that needed to handle more than a dozen points without bringing the browser to its knees.</p>
+<hr>
+<p><strong>Preamble</strong></p>
+<ul>
+<li>
+<p>My experience has been using PostGIS as my spatial database and various ORMs as my server, however, most of my examples will show Django examples when showing pseudo/boilerplate code.</p>
+</li>
+<li>
+<p>The database of your web application is incredibly important as it&rsquo;s what you&rsquo;ll want to use as the main backbone of any spatial functionality or activity. For example, if you have the ability to directly serve spatial tables already rendered as GeoJSON or MVT, you should do that. Whilst you can use your application layer to do some manipulation, it will be infinitely slower than leveraging your database.</p>
+</li>
+<li>
+<p>For all of the suggestions/tricks in this post, you&rsquo;ll need to do the mental calculus whether or not the benefits from introducing some of these tweaks is greater than the introduced complexity overhead.</p>
+</li>
+</ul>
+<hr>
+<h2 id="tldr" class="relative group">TL;DR <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#tldr" aria-label="Anchor">#</a></span></h2><ul>
+<li>Index properly: GiST for polygons/complex geometries, SP‑GiST for large clustered points. Use compound indexes when filtering by attributes + geometry.</li>
+<li>Optimize queries early: use bbox predicates first (<code>&amp;&amp;</code>), avoid unnecessary <code>ST_Transform</code> on indexed columns, and <code>EXPLAIN</code> regularly.</li>
+<li>Subdivide big geometries: <code>ST_Subdivide</code> during ETL to let the planner prune quickly; keep originals only if you need perfect visuals.</li>
+<li>Partition large tables: choose keys that match common filters so the planner prunes partitions; keep constraints and indexes tight.</li>
+<li>Serve MVT from PostGIS: generate tiles in the DB (<code>ST_AsMVTGeom</code>/<code>ST_AsMVT</code>), and cache aggressively.</li>
+<li>Frontend sanity: use MapLibre “overlay anchors” to control layer order; push heavy serialization to the client only when clustering demands it.</li>
+</ul>
+<h2 id="spatial-indexing-strategy" class="relative group">Spatial Indexing Strategy <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#spatial-indexing-strategy" aria-label="Anchor">#</a></span></h2><p>The foundation of any high-performance spatial application lies in proper spatial indexing. Like any index, spatial indexes are way for your database to effectively filter our large volumes of irrelevant rows, it does this by creating a bounding box over a geometry.</p>
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="https://postgis.net/workshops/postgis-intro/_images/bbox.png" alt="_images/bbox.png" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<p>PostGIS provides several indexing options, each suited for different use cases:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Standard GiST spatial index for general geometry queries
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_spatial_geom</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">spatial_table</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">GIST</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Compound indexes for filtered spatial queries
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_spatial_type_geom</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">spatial_table</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">GIST</span><span class="p">(</span><span class="n">category_id</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- SP-GiST for point data with natural clustering
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_points_spgist</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">point_table</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">SPGIST</span><span class="p">(</span><span class="k">location</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p><strong>Key Principles:</strong></p>
+<ul>
+<li>Use GiST indexes for polygons and complex geometries</li>
+<li>Consider SP-GiST for point datasets with natural clustering patterns</li>
+<li>Create compound indexes when filtering by attributes and geometry together</li>
+<li>Monitor index usage and rebuild when fragmentation occurs</li>
+</ul>
+<p><strong>Gotchas:</strong></p>
+<ul>
+<li>Don&rsquo;t assume that a simple geometry can be effectively indexed. If, for example, you have a very large square across the entire country, that index is essentially useless.</li>
+<li>Watch your projections, if you&rsquo;re using an <code>ST_Transform</code> in a query and the index of the geometry column has been done in the original projection, that spatial index will not be used.</li>
+</ul>
+<p><em><strong>When to use / Trade‑offs</strong>: Always index geometry columns used for spatial predicates; compound indexes help mixed filters but increase write cost and disk usage.</em></p>
+<h2 id="geometry-subdivision-for-performance" class="relative group">Geometry Subdivision for Performance <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#geometry-subdivision-for-performance" aria-label="Anchor">#</a></span></h2><p>Large and/or complex geometries can severely impact query performance. One of the most effective techniques I&rsquo;ve discovered is using PostGIS&rsquo;s <code>ST_Subdivide</code> function during your ETL process to break down unwieldy polygons into manageable chunks.</p>
+<p>However, it should be important that this is not something you should always do universally. Subdividing geometries adds additional complexity to your application, so when deciding whether or not to subdivide, I always do the mental calculus in determining whether the increased complexity is worth the performance increases.</p>
+<p>If you reduce this concept its simplest form, you can think of it like this - having a  large spatial index is essentially the same as having no index, subdivision enables the query engine to eliminate the majority of a large geometry.</p>
+<h3 id="implementation-approaches" class="relative group">Implementation Approaches <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#implementation-approaches" aria-label="Anchor">#</a></span></h3><p>Practically, I think implementation options of implementing geometry subdivision in your application can boil down to the following approaches:</p>
+<ol>
+<li>Using ETL process; and/or</li>
+<li>Using specially structured queries; and/or</li>
+<li>Using your application layer.</li>
+</ol>
+<p>All have their own complexity overheads and advantages which I&rsquo;ll talk through in more detail in the next few subsections. Note, you may need to do more than one depending on what you&rsquo;re doing with the data.</p>
+<p><em><strong>When to use / Trade‑offs</strong>: Subdivide when geometries are large/complex and queried spatially; it speeds intersects/tiling but adds ETL/storage complexity and requires careful query routing.</em></p>
+<hr>
+<p>In some ways, this is generally the easiest option to do if you want a simple implementation of this approach. The idea is that you implement additional database layers where you can transform any of the source spatial data into its subdivided parts before merging into your public layer.</p>
+<p>If visual representation of spatial data is not required in the frontend or, if you want to handle aggregating/union the geometries in the application layer you may not need to maintain the original geometries. In this scenario, your implementation of the would almost be as simple as the following:</p>
+
+<div class="mermaid">
+  
+flowchart LR
+subgraph db
+	subgraph load
+		load.foobar
+	end
+	subgraph staging
+		staging.foobar
+	end
+	subgraph public
+		public.foobar
+	end
+end
+spatial.gpkg -- ogr2ogr --> load.foobar -- st_subdivide --> staging.foobar -- geom --> public.foobar
+
+</div>
+<p>If you want to maintain the original geometries for visual purposes, for data lineage, accuracy, or any number of other reasons, your approach would look something like:</p>
+
+<div class="mermaid">
+  
+flowchart LR
+subgraph db
+	subgraph load
+		load.foobar
+	end
+	subgraph staging
+		staging.foobar
+	end
+	subgraph optimised
+		optimised.foobar_geometries
+	end
+	subgraph public
+		public.foobar
+	end
+end
+spatial.gpkg -- ogr2ogr --> load.foobar --> staging.foobar -- st_subdivide --> optimised.foobar_geometries 
+staging.foobar -- geom --> public.foobar
+
+</div>
+<p>This approach is generally more complex as there&rsquo;s more moving parts. You&rsquo;ll need to implement specific application logic or a specific approach in how you query your data to ensure you utilise the subdivided geometries for any expensive operations. Additionally, depending on the size of the dataset, things like storage may need to be taken into account when doing your mental calculus.</p>
+<p><strong>ETL Basic Example</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Step 1: Load raw data into staging
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">staging</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="k">AS</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">category</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">geom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">load</span><span class="p">.</span><span class="n">foobar</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Step 2: Create subdivided table directly
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="k">AS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">category</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ST_Subdivide</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">  </span><span class="c1">-- 256 vertices max per subdivision
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">FROM</span><span class="w"> </span><span class="n">staging</span><span class="p">.</span><span class="n">foobar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">ST_IsValid</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Step 3: Add spatial index for performance
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_foobar_geom</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">GIST</span><span class="w"> </span><span class="p">(</span><span class="n">geom</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p><strong>ETL Maintaining Original Geometries Example</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Step 1: Staging table (original geometries)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">staging</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="k">AS</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">category</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">area_km2</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">original_geom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">load</span><span class="p">.</span><span class="n">foobar</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Step 2: Create optimized subdivisions for spatial operations
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="w"> </span><span class="k">AS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ST_NumGeometries</span><span class="p">(</span><span class="n">subdivided_geom</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">subdivision_id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ST_GeometryN</span><span class="p">(</span><span class="n">subdivided_geom</span><span class="p">,</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ST_NumGeometries</span><span class="p">(</span><span class="n">subdivided_geom</span><span class="p">)))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">ST_Subdivide</span><span class="p">(</span><span class="n">original_geom</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">subdivided_geom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">staging</span><span class="p">.</span><span class="n">foobar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ST_IsValid</span><span class="p">(</span><span class="n">original_geom</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">subdivisions</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Step 3: Public table with original geometries for display
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="k">AS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">category</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">area_km2</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">original_geom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">  </span><span class="c1">-- Keep original for visual accuracy
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">FROM</span><span class="w"> </span><span class="n">staging</span><span class="p">.</span><span class="n">foobar</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Step 4: Indexes for both tables
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_foobar_public_geom</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">GIST</span><span class="w"> </span><span class="p">(</span><span class="n">geom</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_foobar_optimised_geom</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">GIST</span><span class="w"> </span><span class="p">(</span><span class="n">geom</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_foobar_optimised_id</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p><strong>Query Examples</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Use optimised table for expensive spatial operations
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="n">f</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">og</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="w"> </span><span class="n">og</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ST_Intersects</span><span class="p">(</span><span class="n">og</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(144.9631 -37.8136)&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">4326</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Generate MVT tiles using subdivided geometries for better performance
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ST_AsMVT</span><span class="p">(</span><span class="n">tile_data</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foobar_layer&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">mvt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">f</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">f</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">f</span><span class="p">.</span><span class="n">category</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ST_AsMVTGeom</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">og</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">ST_TileEnvelope</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="mi">3</span><span class="p">),</span><span class="w">  </span><span class="c1">-- z, x, y parameters
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">            </span><span class="mi">4096</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="mi">256</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="w"> </span><span class="n">og</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">foobar</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">og</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ST_Intersects</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">og</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">ST_TileEnvelope</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="mi">4326</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">tile_data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Refresh subdivided geometries after data updates
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">TRUNCATE</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">subdivision_id</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ST_NumGeometries</span><span class="p">(</span><span class="n">subdivided_geom</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">subdivision_id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ST_GeometryN</span><span class="p">(</span><span class="n">subdivided_geom</span><span class="p">,</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ST_NumGeometries</span><span class="p">(</span><span class="n">subdivided_geom</span><span class="p">)))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ST_Collect</span><span class="p">(</span><span class="n">ST_Subdivide</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">subdivided_geom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">foobar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ST_IsValid</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">updated_at</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">COALESCE</span><span class="p">(</span><span class="k">MAX</span><span class="p">(</span><span class="n">created_at</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;1970-01-01&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">optimised</span><span class="p">.</span><span class="n">foobar_geometries</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">subdivisions</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<p><strong>Note</strong>: If you&rsquo;re using an ORM like Django, the simplest approach in actually implementing the usage of these subdivided geometries (if stored separately) is to create or override the manager of your data model.</p>
+<p><strong>Gotchas:</strong></p>
+<ul>
+<li>You may need to adjust your subdivision approach and add additional additional parameters in determining subdivision candidates. For example, if you have an extremely large square covering the entire planet, any index will be useless.</li>
+<li>The optimal number of vertices to subdivide by will depend on the infrastructure you have available.</li>
+</ul>
+<h2 id="table-partitioning-for-aggregatedlarge-datasets" class="relative group">Table Partitioning for Aggregated/Large Datasets <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#table-partitioning-for-aggregatedlarge-datasets" aria-label="Anchor">#</a></span></h2><p>When designing web applications which have multi-tenancy or SaaS-esque, it&rsquo;s important to reduce the amount of &ldquo;configuration by code&rdquo; that&rsquo;s required. Spatial tables in particular are a bit of a pain in things like spatial projections, etc. In the spatial applications I&rsquo;ve built, I generally go for a &ldquo;common&rdquo; or &ldquo;normalised&rdquo; table approach where I destructure spatial tables into a set of tables. This means I can load entirely new datasets into an application without any code changes.</p>
+<p>However, this means that optimisation is extremely important as some tables have at times are in the billions of rows. Partitioning is crucial for applications dealing with large volumes of spatial records. However, the specific strategy in how you implement partitioning will be dependent on what your application is doing and the context of your datasets.</p>
+<p>For example, if you were doing the same approach as I normally do, you would structure your table something like:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Partition by data category for optimized query performance
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">spatial_data</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">SERIAL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">category_id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">geom</span><span class="w"> </span><span class="n">GEOMETRY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">properties</span><span class="w"> </span><span class="n">JSONB</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">category_id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">LIST</span><span class="w"> </span><span class="p">(</span><span class="n">category_id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>You&rsquo;ll also need a way to create, delete and manage partitions. Assuming usage of an ORM like Django, my approach is to use something like a <code>post_save</code> receiver which watches changes. If you&rsquo;re not using the ORM to load the data and using direct loads e.g. <code>ogr2ogr</code>, <code>psql</code> - you&rsquo;ll need to make sure these partitions are created through migrations (or similar concept).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Use database signals for automatic partition creation</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@receiver</span><span class="p">(</span><span class="n">post_save</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">SpatialData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">ensure_partition_exists</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">partition_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;spatial_data_</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">category_id</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create_partition_if_not_exists</span><span class="p">(</span><span class="n">partition_name</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">category_id</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>Gotchas</strong></p>
+<ul>
+<li>If performance is still poor, make sure you&rsquo;ve got your indexes set up correctly. Partition tables will have multi-column primary indexes generally.</li>
+<li>Depending on the scale of your data, you&rsquo;ll likely need to add additional partitioning rules such as country of dataset, or even state/locality, etc.</li>
+</ul>
+<p><em><strong>When to use / Trade‑offs</strong>: Use partitioning when tables are huge or retention/tenancy splits are natural; you’ll gain planner pruning and maintenance wins at the cost of more DDL and index overhead.</em></p>
+<h2 id="query-optimization-techniques" class="relative group">Query Optimization Techniques <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#query-optimization-techniques" aria-label="Anchor">#</a></span></h2><p><strong>Spatial Query Optimization:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Use bounding box queries before expensive spatial operations
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">spatial_table</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ST_MakeEnvelope</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="w"> </span><span class="n">ymin</span><span class="p">,</span><span class="w"> </span><span class="n">xmax</span><span class="p">,</span><span class="w"> </span><span class="n">ymax</span><span class="p">,</span><span class="w"> </span><span class="mi">4326</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">ST_Intersects</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">target_geometry</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Leverage spatial relationship hierarchy
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- ST_Intersects (fast) -&gt; ST_Contains (medium) -&gt; ST_Within (detailed)
+</span></span></span></code></pre></div><p><strong>Performance Monitoring:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Monitor spatial query performance
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">EXPLAIN</span><span class="w"> </span><span class="p">(</span><span class="k">ANALYZE</span><span class="p">,</span><span class="w"> </span><span class="n">BUFFERS</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">spatial_table</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">ST_DWithin</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span><span class="w"> </span><span class="n">point_geometry</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h2 id="vector-tiles-for-high-performance-mapping" class="relative group">Vector Tiles for High-Performance Mapping <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#vector-tiles-for-high-performance-mapping" aria-label="Anchor">#</a></span></h2><p>For a very long time, I was stuck using an old version of Leaflet for the frontend of one of the applications I was developing. This was entirely due to the fact that the application was forced to use a whole load of outdated internal repositories. However, a few years ago I had switched the majority of my projects to using MapLibre and vector tiles were a complete game changer for me&hellip; they are the <em>absolute</em> best.</p>
+<p>Instead of sending structured JSON (or GeoJSON) to your client, you send protobuf vector tiles directly to MapLibre. It essentially copies the same approach that raster tiles use, i.e. using x, y, zoom to limit both data retrieved and fidelity of data based on how your map is positioned and zoomed.</p>
+<h3 id="implementation-approaches-1" class="relative group">Implementation Approaches <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#implementation-approaches-1" aria-label="Anchor">#</a></span></h3><p>The below is a high level overview of how I&rsquo;ve generally structured my applications. Depending on the complexity of your needs, you may forgo serving vector tiles from your backend entirely if all you need is basically visualisation purposes. For example, <a href="https://martin.maplibre.org/" target="_blank" rel="noreferrer">Martin</a> is a pretty awesome library I&rsquo;ve used on some no-server projects.</p>
+<p>However, if you do have a server in the mix, your setup will likely end up looking like:</p>
+
+<div class="mermaid">
+  
+sequenceDiagram
+    participant Client as React+MapLibre
+    participant API as Django
+    participant Cache as Redis
+    participant DB as PostGIS
+
+    Client->>API: Request tile /z/x/y.mvt
+    API->>Cache: Check cache key
+
+    alt Cache Hit
+        Cache-->>API: Return cached MVT
+        API-->>Client: Binary MVT data
+    else Cache Miss
+        API->>DB: Query spatial data
+        DB->>DB: ST_AsMVT generation
+        DB-->>API: Binary MVT
+        API->>Cache: Store with infinite TTL
+        API-->>Client: Binary MVT data
+    end
+
+</div>
+<p>In this scenario, whilst the server/application layer will be serving the vector tiles, we want to almost exclusively use the database to do this operation as it&rsquo;s expensive.</p>
+<p><em><strong>When to use / Trade‑offs</strong>: Serve MVT for dynamic, interactive maps at scale; DB‑generated tiles are fast and cacheable but shift CPU to the database—monitor load and cache aggressively.</em></p>
+<h4 id="routing" class="relative group">Routing <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#routing" aria-label="Anchor">#</a></span></h4><p>I generally like to structure my endpoints in this type of pattern:</p>
+<pre tabindex="0"><code>GET /api/tiles/{layer}/{z}/{x}/{y}.mvt
+GET /api/tiles/{layer}/{z}/{x}/{y}.mvt?filter={encoded_filter}
+</code></pre><p>In the case of Django my implementation approach would be to create a selector that executes my MVT directly into an HTTP response, here&rsquo;s a generic boilerplate I created for myself when scaffolding new projects.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="nd">@router.get</span><span class="p">(</span><span class="s2">&#34;/layer/</span><span class="si">{zoom}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="nb">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">my_tile_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">zoom</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queryset</span> <span class="o">=</span> <span class="n">SpatialModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">spatial_queryset_to_tile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">queryset</span><span class="o">=</span><span class="n">queryset</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">zoom</span><span class="o">=</span><span class="n">zoom</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">geometry_field</span><span class="o">=</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">property_fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="n">layer_name</span><span class="o">=</span><span class="s1">&#39;my_layer&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span></code></pre></div><h4 id="helpers" class="relative group">Helpers <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#helpers" aria-label="Anchor">#</a></span></h4><p>My preference in serving MVT using an ORM like Django is to directly serve the output of the PostGIS function as a response.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span><span class="p">,</span> <span class="n">models</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TileCoordinate</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">zoom</span><span class="p">:</span> <span class="nb">int</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_tile_envelope</span><span class="p">(</span><span class="n">tile</span><span class="p">:</span> <span class="n">TileCoordinate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;ST_SetSRID(ST_TileEnvelope(</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">zoom</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">), 3857)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">queryset_to_mvt_response</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queryset</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">QuerySet</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tile</span><span class="p">:</span> <span class="n">TileCoordinate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">geometry_field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;geom&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">property_fields</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;default_layer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">source_srid</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4326</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpResponse</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Convert Django QuerySet to Mapbox Vector Tile HTTP response.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        queryset: Django QuerySet containing spatial data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        tile: Tile coordinate object
+</span></span></span><span class="line"><span class="cl"><span class="s2">        geometry_field: Name of geometry field in model
+</span></span></span><span class="line"><span class="cl"><span class="s2">        property_fields: List of fields to include as properties (auto-detected if None)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        layer_name: Name for the MVT layer
+</span></span></span><span class="line"><span class="cl"><span class="s2">        source_srid: Source SRID of geometry data
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        HttpResponse containing MVT binary data with appropriate headers
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Auto-detect fields if not provided</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">property_fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">property_fields</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">model</span> <span class="o">=</span> <span class="n">queryset</span><span class="o">.</span><span class="n">model</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">field</span><span class="o">.</span><span class="n">concrete</span>
+</span></span><span class="line"><span class="cl">                <span class="ow">and</span> <span class="ow">not</span> <span class="n">field</span><span class="o">.</span><span class="n">is_relation</span>
+</span></span><span class="line"><span class="cl">                <span class="ow">and</span> <span class="ow">not</span> <span class="n">field</span><span class="o">.</span><span class="n">one_to_one</span>
+</span></span><span class="line"><span class="cl">                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">many_to_one</span> <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">related_model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s2">&#34;column&#34;</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">!=</span> <span class="n">geometry_field</span>
+</span></span><span class="line"><span class="cl">            <span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">property_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s2">&#34;column&#34;</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Generate base SQL from QuerySet</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base_query</span><span class="p">,</span> <span class="n">query_params</span> <span class="o">=</span> <span class="n">queryset</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get_compiler</span><span class="p">(</span><span class="s2">&#34;default&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">as_sql</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Generate tile envelope</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tile_envelope</span> <span class="o">=</span> <span class="n">generate_tile_envelope</span><span class="p">(</span><span class="n">tile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Build MVT SQL query</span>
+</span></span><span class="line"><span class="cl">    <span class="n">property_columns</span> <span class="o">=</span> <span class="s2">&#34;, &#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;t.</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&#34;</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">property_fields</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">mvt_sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WITH tile_bounds AS (
+</span></span></span><span class="line"><span class="cl"><span class="s2">            SELECT 
+</span></span></span><span class="line"><span class="cl"><span class="s2">                </span><span class="si">{</span><span class="n">tile_envelope</span><span class="si">}</span><span class="s2"> AS envelope,
+</span></span></span><span class="line"><span class="cl"><span class="s2">                </span><span class="si">{</span><span class="n">tile_envelope</span><span class="si">}</span><span class="s2">::box2d AS bbox
+</span></span></span><span class="line"><span class="cl"><span class="s2">        ),
+</span></span></span><span class="line"><span class="cl"><span class="s2">        tile_data AS (
+</span></span></span><span class="line"><span class="cl"><span class="s2">            SELECT
+</span></span></span><span class="line"><span class="cl"><span class="s2">                ST_AsMVTGeom(
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    ST_Transform(t.</span><span class="si">{</span><span class="n">geometry_field</span><span class="si">}</span><span class="s2">, 3857), 
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    tile_bounds.bbox,
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    4096,  -- tile extent
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    256,   -- buffer pixels
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    true   -- clip geometry
+</span></span></span><span class="line"><span class="cl"><span class="s2">                ) AS geom,
+</span></span></span><span class="line"><span class="cl"><span class="s2">                </span><span class="si">{</span><span class="n">property_columns</span><span class="si">}</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">            FROM (</span><span class="si">{</span><span class="n">base_query</span><span class="si">}</span><span class="s2">) t
+</span></span></span><span class="line"><span class="cl"><span class="s2">            CROSS JOIN tile_bounds
+</span></span></span><span class="line"><span class="cl"><span class="s2">            WHERE ST_Intersects(
+</span></span></span><span class="line"><span class="cl"><span class="s2">                ST_Transform(t.</span><span class="si">{</span><span class="n">geometry_field</span><span class="si">}</span><span class="s2">, 3857), 
+</span></span></span><span class="line"><span class="cl"><span class="s2">                tile_bounds.envelope
+</span></span></span><span class="line"><span class="cl"><span class="s2">            )
+</span></span></span><span class="line"><span class="cl"><span class="s2">        )
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT ST_AsMVT(tile_data.*, &#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">&#39;, 4096) 
+</span></span></span><span class="line"><span class="cl"><span class="s2">        FROM tile_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WHERE geom IS NOT NULL;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Execute query and get MVT binary data</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">mvt_sql</span><span class="p">,</span> <span class="n">query_params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mvt_data</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="sa">b</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create HTTP response with appropriate headers</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">mvt_data</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">&#34;application/x-protobuf&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="p">[</span><span class="s2">&#34;Content-Disposition&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s1">&#39;attachment; filename=&#34;tile_</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">zoom</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">.mvt&#34;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="p">[</span><span class="s2">&#34;Content-Encoding&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;gzip&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="p">[</span><span class="s2">&#34;Cache-Control&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;public, max-age=3600&#34;</span>  <span class="c1"># Cache for 1 hour</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">response</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Convenience function for common use cases</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">spatial_queryset_to_tile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queryset</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">QuerySet</span><span class="p">,</span> <span class="n">zoom</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpResponse</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Convenience wrapper for generating MVT tiles from spatial QuerySets.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        queryset: Django QuerySet with spatial data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        zoom: Tile zoom level
+</span></span></span><span class="line"><span class="cl"><span class="s2">        x: Tile x coordinate
+</span></span></span><span class="line"><span class="cl"><span class="s2">        y: Tile y coordinate
+</span></span></span><span class="line"><span class="cl"><span class="s2">        **kwargs: Additional arguments passed to queryset_to_mvt_response
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        HttpResponse with MVT data
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tile</span> <span class="o">=</span> <span class="n">TileCoordinate</span><span class="p">(</span><span class="n">zoom</span><span class="o">=</span><span class="n">zoom</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">queryset_to_mvt_response</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="n">tile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>Gotchas</strong></p>
+<ul>
+<li>It&rsquo;s important when using an ORM like Django you do not just execute raw SQL without using the ORM&rsquo;s connection class. In this case, I know that Django sanitises any inputs meaning that vulnerabilities like SQL injection are not possible. While this is not entirely related to MVTs, the amount of time I&rsquo;ve been able to execute SQL injection of spatial apps to grab the data I&rsquo;m after is pretty shocking.</li>
+<li>Where possible, I always want to use the ORM to generate the base query. This means I can leverage all normal <code>QuerySet</code> and <code>Manager</code> functions prior to executing the query. This is useful where you have things like filters, or require calculations involving one or more tables.</li>
+</ul>
+<h2 id="point-clustering-for-large-datasets" class="relative group">Point Clustering for Large Datasets <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#point-clustering-for-large-datasets" aria-label="Anchor">#</a></span></h2><p>One of my current bug bears with MapLibre is the fact that MVT layers currently lack built-in clustering support. When dealing with massive point datasets (&gt;1M points) which require visualisation and clustering, we are sadly not able to use vector tiles.</p>
+<p>In these cases, we still need to fall back to JSON/GeoJSON to enable clustering functionality. To do this we essentially have to do everything we can to minimise the time it takes to serialise the data, and the time it takes for the payload to reach the client.</p>
+<hr>
+<p>There&rsquo;s a finite limit of how far we can optimise in this case before we hit diminishing (or negative) returns. My general approach in dealing with this type of scenario is as follows:</p>
+<ol>
+<li>Enable compression (e.g. gzip) middleware</li>
+<li>Minimise the data being sent to the frontend by:
+<ol>
+<li>Sending <em>only</em> the required data in an array of tuples; and/or</li>
+<li>Removing whitespace; and/or</li>
+<li>Reducing precision of coordinates; then</li>
+</ol>
+</li>
+<li>Utilise a cache if dataset is not dynamic/variable; then</li>
+<li>Move serialisation/structuring of data to frontend library like <code>@turf</code> to structure the tuples into a valid <code>FeatureCollection</code></li>
+</ol>
+<p>I&rsquo;ve been able to reduce payloads by nearly 90% doing the above changes cutting payload transfer time from 40s to under a few seconds.</p>
+<hr>
+<p><strong>Tangent</strong>: As an offtopic comment, while I was still stuck using Leaflet I had implemented server-side clustering by creating a ladder of zoom grids. However, the complexity this added was significant and was generally inferior to what&rsquo;s available out the box with MapLibre. For those reasons I&rsquo;m not going to give advice on that front here.</p>
+<hr>
+<p>Here&rsquo;s a boilerplate example I&rsquo;ve generalised from one of my personal projects.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@router.get</span><span class="p">(</span><span class="s1">&#39;/spatial-layer&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">spatial_layer_endpoint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queryset</span><span class="p">:</span> <span class="n">QuerySet</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">geometry_field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;geom&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">snap_precision</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.00001</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">coordinate_precision</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Generic spatial layer endpoint that returns optimized coordinate data.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        queryset: Base QuerySet to filter and process
+</span></span></span><span class="line"><span class="cl"><span class="s2">        geometry_field: Name of geometry field in the model
+</span></span></span><span class="line"><span class="cl"><span class="s2">        snap_precision: ST_SnapToGrid precision (affects accuracy vs performance)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        coordinate_precision: Number of decimal places for lat/lng rounding
+</span></span></span><span class="line"><span class="cl"><span class="s2">        
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        List of tuples: (id, longitude, latitude)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Apply spatial optimizations</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optimized_queryset</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">queryset</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">snap_geom</span><span class="o">=</span><span class="n">SnapToGrid</span><span class="p">(</span><span class="n">geometry_field</span><span class="p">,</span> <span class="n">snap_precision</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lat</span><span class="o">=</span><span class="n">Round</span><span class="p">(</span><span class="n">GeomLat</span><span class="p">(</span><span class="s2">&#34;snap_geom&#34;</span><span class="p">),</span> <span class="n">coordinate_precision</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lng</span><span class="o">=</span><span class="n">Round</span><span class="p">(</span><span class="n">GeomLng</span><span class="p">(</span><span class="s2">&#34;snap_geom&#34;</span><span class="p">),</span> <span class="n">coordinate_precision</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="s2">&#34;lng&#34;</span><span class="p">,</span> <span class="s2">&#34;lat&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Convert to list for JSON serialization</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Note: values_list is used instead of values() to minimize payload</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">optimized_queryset</span><span class="p">)</span>
+</span></span></code></pre></div><p><strong>Gotchas</strong></p>
+<ul>
+<li>Avoid using ORM serializers, they will significantly slow things down.</li>
+<li>Whilst you can optimise the payload to the browser into a small size (e.g. 4mb), you&rsquo;ll likely run into memory issues with the browser itself. This becomes quite common when you exceed a million points; it&rsquo;s very browser dependent on how it handles memory.</li>
+<li>If you&rsquo;re using persisted states in your frontend, you need to be careful how data is being stored in the client state (especially ith large amount of records).</li>
+</ul>
+<p><em><strong>When to use / Trade‑offs</strong>: Use tuple streams + client clustering when you truly need clustering today; payloads shrink, but the client pays in memory/CPU—watch browser limits.</em></p>
+<h2 id="implementing-response-caching" class="relative group">Implementing Response Caching <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#implementing-response-caching" aria-label="Anchor">#</a></span></h2><p>Spatial queries are slow and expensive, even with all the optimisations in the world some queries can be extremely slow especially if the query is a complex one.</p>
+<p>Caching is an easy boon to performance if you can justify the additional complexity overhead. In many of my use cases, spatial data is <em>generally</em> slow to update (if ever), and in instances where I need to purely visualise the data, caching is a useful tool as it means that a call that would&rsquo;ve otherwise hit the database is now being served through memory. In this particular scenario, I am only caching static-ish spatial data with triggers to invalidate the cache on any ETL change.</p>
+<p>My general approach is to create a basic route decorator which determines whether to hit the cache or database:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cache_with_infinite_ttl</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Cache static geospatial data indefinitely&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cache_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;static:</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">hash</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cache_key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_key</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>  <span class="c1"># No expiration</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">wrapper</span>
+</span></span></code></pre></div><p>Then simply wrap my endpoint with the cache decorator:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="nd">@cache_with_infinite_ttl</span>  <span class="c1"># Static geospatial data</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_static_vector_tile</span><span class="p">(</span><span class="n">zoom</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">generate_tile</span><span class="p">(</span><span class="n">zoom</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">)</span>
+</span></span></code></pre></div><p>My preference is to have a common prefix which I can use to easily do a bulk cache invalidation if required.</p>
+<pre tabindex="0"><code>Static data: &#34;mvt:{layer}:{zoom}:{x}:{y}&#34;
+Dynamic data: &#34;mvt:{layer}:{zoom}:{x}:{y}:{filter_hash}&#34;
+</code></pre><p><strong>Gotchas</strong></p>
+<ul>
+<li>With an additional cache like <code>redis</code> implemented, you will essentially have multiple layers of caching. It&rsquo;s important you understand how you will manage invalidation of response across your application.</li>
+</ul>
+
+<div class="mermaid">
+  
+graph TB
+    subgraph "Client Layer"
+        A[Browser Cache]
+        B[Service Worker Cache]
+    end
+
+_**When to use / Trade‑offs**: Cache static‑ish tiles and layer responses; invalidation strategy is the hard part—plan keys and triggers upfront._
+
+    subgraph "CDN Layer"
+        C[CloudFront/CDN]
+    end
+
+    subgraph "Application Layer"
+        D[Redis Cache]
+        E[Application Memory Cache]
+    end
+
+    subgraph "Database Layer"
+        F[PostGIS Buffer Cache]
+        G[OS File System Cache]
+    end
+
+    A --> C
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+
+</div>
+<h2 id="forcing-react-maplibre-order" class="relative group">Forcing React MapLibre Order <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#forcing-react-maplibre-order" aria-label="Anchor">#</a></span></h2><p>Another quirk of MapLibre which drives me somewhat insane is the race conditions that often occur with how it loads its layers; this is specifically an issue when using <code>react-map-gl</code>. Because of how React works, it can quickly get hacky and messy when you start using the map&rsquo;s ref directly to trigger reordering of layers.</p>
+<p>A hack that I&rsquo;ve came up with is a concept called an &lsquo;overlay anchor&rsquo;. Basically, you create empty layers (as many as you need) which act as anchors for the layers being loaded. This means you can safely use <code>beforeId</code> without worrying about race conditions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Source</span><span class="p">,</span> <span class="nx">Layer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;react-map-gl/maplibre&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">OverlayAnchor() {</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">Source</span>
+</span></span><span class="line"><span class="cl">      <span class="na">id</span><span class="o">=</span><span class="s">&#34;__overlay-anchor__&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">type</span><span class="o">=</span><span class="s">&#34;geojson&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">data</span><span class="o">=</span><span class="p">{{</span> <span class="kr">type</span><span class="o">:</span> <span class="s1">&#39;FeatureCollection&#39;</span><span class="p">,</span> <span class="nx">features</span><span class="o">:</span> <span class="p">[]</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Layer</span>
+</span></span><span class="line"><span class="cl">        <span class="na">id</span><span class="o">=</span><span class="s">&#34;__overlay-top__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">type</span><span class="o">=</span><span class="s">&#34;symbol&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">source</span><span class="o">=</span><span class="s">&#34;__overlay-anchor__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">layout</span><span class="o">=</span><span class="p">{{</span> <span class="nx">visibility</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Layer</span>
+</span></span><span class="line"><span class="cl">        <span class="na">id</span><span class="o">=</span><span class="s">&#34;__overlay-second__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">type</span><span class="o">=</span><span class="s">&#34;symbol&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">beforeId</span><span class="o">=</span><span class="s">&#34;__overlay-top__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">source</span><span class="o">=</span><span class="s">&#34;__overlay-anchor__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">layout</span><span class="o">=</span><span class="p">{{</span> <span class="nx">visibility</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Layer</span>
+</span></span><span class="line"><span class="cl">        <span class="na">id</span><span class="o">=</span><span class="s">&#34;__overlay-third__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">type</span><span class="o">=</span><span class="s">&#34;symbol&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">beforeId</span><span class="o">=</span><span class="s">&#34;__overlay-second__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">source</span><span class="o">=</span><span class="s">&#34;__overlay-anchor__&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">layout</span><span class="o">=</span><span class="p">{{</span> <span class="nx">visibility</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">Source</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="conclusion" class="relative group">Conclusion <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a></span></h2><p>Building high-performance spatial applications requires a holistic approach that combines database optimisation, efficient data formats, intelligent caching, and thoughtful architecture decisions. After eight years of making every mistake possible, I can confidently say that implementing these strategies will save you from the pain I&rsquo;ve endured.</p>
+<p>The key to success lies in understanding your specific use case, measuring performance continuously, and optimising iteratively. Don&rsquo;t try to implement everything at once - you&rsquo;ll drive yourself mad. Start with the foundations (proper indexing and partitioning), then layer on vector tiles, caching, and progressive loading techniques to create truly optimised spatial experiences.</p>
+<p>Remember that spatial application performance isn&rsquo;t just about raw speed, but also about providing smooth, responsive user experiences that scale gracefully as your data and user base grow. And if you&rsquo;ve made it this far through my rambling, you&rsquo;re probably the type of person who cares enough about performance to actually implement these suggestions.</p>
+<p>The spatial web development community needs more people sharing their hard-won knowledge. If this guide helps you avoid even half the headaches I&rsquo;ve encountered, then the time spent writing it was worthwhile. Now go forth and build something cool (and performant).</p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="635"
+        height="635"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Andryo Marzuki"
+        loading="lazy" decoding="async"
+        
+          src="/img/author.png"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Andryo Marzuki
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">I&rsquo;m Andryo — part-time climate risk lead, full-time overthinker. I spend my days turning obscure regulations and geospatial data into mildly functional platforms, and my nights wondering if I can automate myself out of a job. I’ve accidentally built a few award-nominated tools, which sounds more impressive than it felt at the time.  This blog is where I document my finest procrastinations, half-baked insights, and the ongoing struggle to align ambition with a dangerously short attention span.</div>
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+      
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://mrzk.io/posts/building-high-performance-spatial-apps/&amp;resubmit=true&amp;title=Performant%20Spatial%20Apps%20with%20PostGIS:%208%20Years%20of%20Head%e2%80%91Banging"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://mrzk.io/posts/building-high-performance-spatial-apps/&amp;title=Performant%20Spatial%20Apps%20with%20PostGIS:%208%20Years%20of%20Head%e2%80%91Banging"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://mrzk.io/posts/building-high-performance-spatial-apps/&amp;subject=Performant%20Spatial%20Apps%20with%20PostGIS:%208%20Years%20of%20Head%e2%80%91Banging"
+          title="Send via email"
+          aria-label="Send via email"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+      
+    
+  </section>
+
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/posts/did-covid19-make-trump-president/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Did COVID-19 Help Trump Win In The 2024 Elections? Probably.</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-04-23 00:00:00 &#43;0000 UTC">23 April 2025</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+      </main>
+      
+        <div
+          class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12"
+          id="to-top"
+          hidden="true"
+        >
+          <a
+            href="#the-top"
+            class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+          >
+            &uarr;
+          </a>
+        </div>
+      <footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            &copy;
+            2025
+            Andryo Marzuki
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+        <div
+          class="me-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        >
+          <button id="appearance-switcher-0" type="button" aria-label="appearance switcher">
+            <div
+              class="flex h-12 w-12 items-center justify-center dark:hidden"
+              title="Switch to dark appearance"
+            >
+              <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+            </div>
+            <div
+              class="hidden h-12 w-12 items-center justify-center dark:flex"
+              title="Switch to light appearance"
+            >
+              <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+            </div>
+          </button>
+        </div>
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://mrzk.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

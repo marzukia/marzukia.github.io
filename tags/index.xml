@@ -6,8 +6,78 @@
     <description>Recent content in Tags on Andryo Marzuki - Net Zero Productivity by 2050</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 23 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://mrzk.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Caching</title>
+      <link>https://mrzk.io/tags/caching/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/caching/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Django</title>
+      <link>https://mrzk.io/tags/django/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/django/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GIS</title>
+      <link>https://mrzk.io/tags/gis/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/gis/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MapLibre</title>
+      <link>https://mrzk.io/tags/maplibre/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/maplibre/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MVT</title>
+      <link>https://mrzk.io/tags/mvt/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/mvt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Performance</title>
+      <link>https://mrzk.io/tags/performance/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/performance/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PostGIS</title>
+      <link>https://mrzk.io/tags/postgis/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/postgis/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://mrzk.io/tags/python/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Spatial Indexing</title>
+      <link>https://mrzk.io/tags/spatial-indexing/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/spatial-indexing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vector Tiles</title>
+      <link>https://mrzk.io/tags/vector-tiles/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/vector-tiles/</guid>
+      <description></description>
+    </item>
     <item>
       <title>COVID-19</title>
       <link>https://mrzk.io/tags/covid-19/</link>
@@ -20,6 +90,27 @@
       <link>https://mrzk.io/tags/data-analysis/</link>
       <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
       <guid>https://mrzk.io/tags/data-analysis/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Elections</title>
+      <link>https://mrzk.io/tags/elections/</link>
+      <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/elections/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Politics</title>
+      <link>https://mrzk.io/tags/politics/</link>
+      <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/politics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>USA</title>
+      <link>https://mrzk.io/tags/usa/</link>
+      <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/usa/</guid>
       <description></description>
     </item>
     <item>
@@ -51,10 +142,52 @@
       <description></description>
     </item>
     <item>
+      <title>Public Health</title>
+      <link>https://mrzk.io/tags/public-health/</link>
+      <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/public-health/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vaccines</title>
+      <link>https://mrzk.io/tags/vaccines/</link>
+      <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/vaccines/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo</title>
+      <link>https://mrzk.io/tags/hugo/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>React</title>
       <link>https://mrzk.io/tags/react/</link>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
       <guid>https://mrzk.io/tags/react/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SEO</title>
+      <link>https://mrzk.io/tags/seo/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/seo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SSR</title>
+      <link>https://mrzk.io/tags/ssr/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/ssr/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Static Site</title>
+      <link>https://mrzk.io/tags/static-site/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/static-site/</guid>
       <description></description>
     </item>
     <item>
@@ -79,10 +212,38 @@
       <description></description>
     </item>
     <item>
-      <title>Python</title>
-      <link>https://mrzk.io/tags/python/</link>
+      <title>APIs</title>
+      <link>https://mrzk.io/tags/apis/</link>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>https://mrzk.io/tags/python/</guid>
+      <guid>https://mrzk.io/tags/apis/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Developer Tools</title>
+      <link>https://mrzk.io/tags/developer-tools/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/developer-tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reverse Engineering</title>
+      <link>https://mrzk.io/tags/reverse-engineering/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/reverse-engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Economy</title>
+      <link>https://mrzk.io/tags/economy/</link>
+      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/economy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>New Zealand</title>
+      <link>https://mrzk.io/tags/new-zealand/</link>
+      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/tags/new-zealand/</guid>
       <description></description>
     </item>
   </channel>

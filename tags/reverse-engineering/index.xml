@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reverse Engineering on Andryo Marzuki - Net Zero Productivity by 2050</title>
+    <link>https://mrzk.io/tags/reverse-engineering/</link>
+    <description>Recent content in Reverse Engineering on Andryo Marzuki - Net Zero Productivity by 2050</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mrzk.io/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mapping an Undocumented API Easily With Python</title>
+      <link>https://mrzk.io/posts/mapping-an-undocumented-api/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/mapping-an-undocumented-api/</guid>
+      <description>&lt;p&gt;I was working on an NBA related project the other week and I had decided I wanted to create my own API wrapper (for fun) as part of the project. The primary source of data I was looking to use was the &lt;a href=&#34;stats.nba.com&#34;&gt;stats.nba.com&lt;/a&gt; API, our biggest challenge in using this endpoint is the fact they do not want to use it.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

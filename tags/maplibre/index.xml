@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MapLibre on Andryo Marzuki - Net Zero Productivity by 2050</title>
+    <link>https://mrzk.io/tags/maplibre/</link>
+    <description>Recent content in MapLibre on Andryo Marzuki - Net Zero Productivity by 2050</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mrzk.io/tags/maplibre/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Performant Spatial Apps with PostGIS: 8 Years of Head‑Banging</title>
+      <link>https://mrzk.io/posts/building-high-performance-spatial-apps/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://mrzk.io/posts/building-high-performance-spatial-apps/</guid>
+      <description>&lt;p&gt;If you&amp;rsquo;ve read the title of the post and actually clicked this post I&amp;rsquo;m going to make an assumption that you are already someone who has technical knowledge in this domain, as such, this post will be quite technical and go into some of the most important things I&amp;rsquo;ve learnt over the last eight years.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
