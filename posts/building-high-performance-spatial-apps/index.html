@@ -1082,8 +1082,6 @@ graph TB
         B[Service Worker Cache]
     end
 
-_**When to use / Trade‑offs**: Cache static‑ish tiles and layer responses; invalidation strategy is the hard part—plan keys and triggers upfront._
-
     subgraph "CDN Layer"
         C[CloudFront/CDN]
     end
@@ -1106,6 +1104,7 @@ _**When to use / Trade‑offs**: Cache static‑ish tiles and layer responses; i
     F --> G
 
 </div>
+<p><em><strong>When to use / Trade‑offs</strong>: Cache static‑ish tiles and layer responses; invalidation strategy is the hard part—plan keys and triggers upfront.</em></p>
 <h2 id="forcing-react-maplibre-order" class="relative group">Forcing React MapLibre Order <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#forcing-react-maplibre-order" aria-label="Anchor">#</a></span></h2><p>Another quirk of MapLibre which drives me somewhat insane is the race conditions that often occur with how it loads its layers; this is specifically an issue when using <code>react-map-gl</code>. Because of how React works, it can quickly get hacky and messy when you start using the map&rsquo;s ref directly to trigger reordering of layers.</p>
 <p>A hack that I&rsquo;ve came up with is a concept called an &lsquo;overlay anchor&rsquo;. Basically, you create empty layers (as many as you need) which act as anchors for the layers being loaded. This means you can safely use <code>beforeId</code> without worrying about race conditions.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Source</span><span class="p">,</span> <span class="nx">Layer</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;react-map-gl/maplibre&#39;</span>
